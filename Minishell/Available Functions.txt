@@ -1,0 +1,414 @@
+Functions that are not included in this summary:
+	- printf
+	- malloc
+	- free
+	- write
+	- open
+	- read
+	- close
+	- exit
+
+readline (Similar to get_next_line) - https://man7.org/linux/man-pages/man3/readline.3.html
+	- Synopsis
+		- Include <stdio.h>, <readline/readline.h>, <readline/history.h>
+		- char	*readline(const char *prompt);
+	- Description
+		- Readline read a line from the terminal and return it, using the prompt as a prompt
+		- If the prompt is NULL or the empty string, no prompt is issued
+		- The line returned is allocated with malloc(3)
+		- The line returned has the final newline removed, so only the text of the line remains
+	- Return Value
+		- Returns the text of the line read
+		- A blank line returns the empty string
+		- If EOF is encountered while reading a line, and the line is empty, NULL is returned
+		- If an EOF is read with a non-empty line, it is treated as a newline
+
+rl_clear_history - https://tiswww.case.edu/php/chet/readline/readline.html
+	- Synopsis
+		- Include <stdio.h>, <readline/readline.h>, <readline/history.h>
+		- void	rl_clear_history(void);
+	- Description
+		- Clear the history by deleting all of the entries
+
+rl_on_new_line - https://tiswww.case.edu/php/chet/readline/readline.html
+	- Synopsis
+		- Include <stdio.h>, <readline/readline.h>, <readline/history.h>
+		- void	rl_on_new_line(void);
+	- Description
+		- Tell the update functions that we have moved onto a new (empty) line.
+		- Usually after outputting a newline.
+
+rl_replace_line - https://tiswww.case.edu/php/chet/readline/readline.html
+	- Synopsis
+		- Include <stdio.h>, <readline/readline.h>, <readline/history.h>
+		- void	rl_replace_line(const char *text, int clear_undo);
+	- Description
+		- Replace the contents of rl_line_buffer with text.
+		- The point and mark are preserved, if possible
+		- If clear_undo is non-zero, the undo list associated with the current line is cleared
+
+rl_redisplay
+	- Link: https://tiswww.case.edu/php/chet/readline/readline.html
+	- Synopsis
+		- Include <stdio.h>, <readline/readline.h>, <readline/history.h>
+		- void	rl_redisplay(void);
+	- Description
+		- Change what's displayed on the screen to reflect the current contents of rl_line_buffer
+
+add_history - https://tiswww.case.edu/php/chet/readline/readline.html
+	- Synopsis
+		- Include <stdio.h>, <readline/readline.h>, <readline/history.h>
+		- void	add_history(const char *string);
+	- Description
+		- Place the string at the end of the history list.
+		- The associated data field (if any) is set to NULL.
+
+wait, waitpid - https://man7.org/linux/man-pages/man2/wait.2.html
+	- Synopsis
+		- Include <sys/wait.h>
+		- pid_t wait(int *wstatus);
+		- pid_t waitpid(pid_t pid, int *wstatus, int options);
+	- Description
+		- Wait for state changes in a child of the calling process
+		- pid_t can be
+			- (< -1) wait for any child process whose process group ID is equal to the absolute value of pid
+			- (-1) wait for any child process
+			- (0) wait for any child process whose process group ID is equal to that of the calling process at the time of the call to waitpid()
+			- (> 0) wait for the child process whose process ID is equal to the value of pid
+		- wstatus can be set to NULL
+		- options can be set to 0, else can refer online for other capabilities
+	- Return Value
+		- wait()
+			- Success -> Returns the process ID of the terminated child
+			- Fail -> Returns -1, errno is set to indicate the error
+		-waitpid()
+			- Success -> Returns the process ID of the child whose state has changed
+			- if WNOHANG was specified and one or more children specified by pid exist, but have not yet changed state -> returns 0
+			- Fail -> Returns -1, errno is set to indicate the error
+
+wait3, wait4 - https://man7.org/linux/man-pages/man2/wait3.2.html
+	- Synopsis
+		- include <sys/wait.h>
+		- pid_t	wait3(int *wstatus, int options, struct rusage *rusage);
+		- pid_t	wait4(pid_t pid, int *wstatus, int options, struct rusage *rusage);
+	- Description
+		- Similar to waitpid.
+		- Return resource usage information about the child in the structure pointed to by rusage
+	- Return Value
+		- Success -> Returns the process ID of the child whose state has changed
+		- if WNOHANG was specified and one or more children specified by pid exist, but have not yet changed state -> returns 0
+		- Fail -> Returns -1
+
+signal - https://man7.org/linux/man-pages/man2/signal.2.html
+	- Synopsis
+		- include <signal.h>
+		- sighandler_t	signal(int signum, sighandler_t handler);
+	- Description
+		- WARNING: The behaviour of signal() varies across UNIX versions
+		- Sets the disposition of the signal signum to the handler
+			- SIG_IGN, SIG_DFL, or the address of a programmer-defined function (a "signal handler")
+		- If the signal signum is delivered to the process:
+			- Disposition set to SIG_IGN, the signal is ignored
+			- Disposition set to SIG_DFL, default action associated with the signal occurs
+			- Disposition set to a function
+				- Disposition is reset to SIG_DFL
+				- Or the signal is blocked, then the handler is called with argument signum
+				- If an invocation of the handler caused the signal to be blocked, then the signal is unblocked upon return from the handler
+		- The signals SIGKILL and SIGSTOP cannot be caught or ignored
+	- Return Value
+		- Success -> Returns the previous value of the signal handler on failure
+		- Fail -> Returns SIG_ERR, errno is set to indicate the error
+
+kill - https://man7.org/linux/man-pages/man2/kill.2.html
+	- Synopsis
+		- include <signal.h>
+		- int	kill(pid_t pid, int sig);
+	- Description
+		- Send a signal to a process
+	- Return Value
+		- Success (at least one signal was sent) -> Returns 0
+		- Fail -> Returns -1
+
+getcwd - https://man7.org/linux/man-pages/man3/getcwd.3.html
+	- Synopsis
+		- include <unistd.h>
+		- char	*getcwd(char *buf, size_t size);
+	- Description
+		- Copies an absolute pathname of the current working directory to the array pointed to by buf, which is of length size
+		- If length (Including terminating NULL byte) > size, NULL is returned and errno is set to ERANGE
+		- Allocates memory if buf is NULL using the size unless size is zero
+	- Return Value
+		- Success -> Return a pointer to a string containing the pathname of the current working directory (The same value as buf)
+		- Fail -> Return NULL, and errno is set to indicate the error, contents of the array pointed to by buf are undefined on error
+
+chdir - https://man7.org/linux/man-pages/man2/chdir.2.html
+	- Synopsis
+		- Include <unistd.h>
+		- int	chdir(const char *path);
+	- Description
+		- Changes the current working directory of the calling process to the directory specified in path
+	- Return Value
+		- Success -> Return 0
+		- Fail -> Return -1, errno is set to indicate the error
+
+stat, lstat, fstat - https://man7.org/linux/man-pages/man2/lstat.2.html
+	- Synopsis
+		- Include <sys/stat.h>
+		- int stat(const char *restrict pathname, struct stat *restrict statbuf);
+		- int fstat(int fd, struct stat *statbuf);
+	- Description
+		stat
+			- Retrieve information about the file pointed to by pathname
+		lstat
+			- Similar to stat
+			- If pathname is a symbolic link, then returns information about the link itself, not the file that the link refers to
+		fstat
+			- Similar to stat
+			- The file descriptor fd specifies the file about which information is to be retrieved
+	- Return Value
+		- Success -> Return 0
+		- Fail -> Return -1, errno is set to indicate the error
+
+unlink - https://man7.org/linux/man-pages/man2/unlink.2.html
+	- Synopsis
+		- Include <unistd.h>
+	- Description
+		- Deletes a name from the filesystem if that name was the last link to a file and no processes have the file open
+		- The space the file was using is made available for reuse
+		- If any processes still have the file open, the file will remain in existence until the last fd referring to it is closed
+		- If the name referred to a symbolic link, the link is removed
+		- If the name referred to a socket, FIFO, or device, the name for it is removed but processes which have the object open may continue to use it
+	- Return Value
+		- Success -> Return 0
+		- Fail -> Return -1, errno is set to indicate the error
+
+execve - https://man7.org/linux/man-pages/man2/execve.2.html
+	- Synopsis
+		- Include <unistd.h>
+		- int	execve(const char *pathname, char *const argv[], char *const envp[]);
+	- Description
+		- Executes the program referred to by pathname
+		- Causes the program that is currently being run by the calling process to be replaced with a new program
+			- Newly initialized stack, heap, and (initialized and uninitialized) data segments
+		- Pathname must be either a binary executable or a script starting with a line of the form: #!interpreter [optional-arg]
+		- Envp is an array of pointers to strings, conventionally of the form key=value
+			- Passed as the environment of the new program
+			- Must be terminated by a NULL pointer
+			- int	main(int argc, char *argv[], char *envp[]);
+		- Text, initialized data, uninitialized data (bss), and the stack of the calling process are overwritten according to the contents of the newly loaded program
+		- If the current program is being ptraced, SIGTRAP signal is sent to it after a successful execve()
+	- Return Value
+		- Success -> Does not return
+		- Fail -> Return -1, errno is set to indicate the error
+	Note: There are still a lot more that were not covered here that might be important
+
+dup, dup2 - https://man7.org/linux/man-pages/man2/dup.2.html
+	- Synopsis
+		- Include <unistd.h>
+		- int dup(int oldfd);
+		- int dup2(int oldfd, int newfd);
+	- Description
+		dup
+			- Allocates a new fd that refers to the same open fd as the oldfd
+			- New fd is guaranteed to be the lowest-numbered fd that was unused in the calling process
+			- If successful, old and new fd may be used interchangeably since they refer to the same open fd
+				- Shares file offset
+				- Does not share fd flags
+		dup2
+			- Similar to dup but uses new fd instead of lowest-numbered fd
+			- If newfd is opened, it is closed before being reused
+				- Close is performed silently (Any errors are not reported by dup2())
+			- Closing and reusing the new fd are performed atomically
+				- Trying to implement equivalent functionality would be subject to race conditions (data racing)
+			- If old fd is not a valid fd, the call fails and new fd is not closed
+			- If old fd is a valid fd, and new fd has the same value as oldfd, dup2() does nothing and returns newfd
+	- Return Value
+		- Success -> Returns the new fd
+		- Error -> Returns -1, errno is set to indicate the error
+
+pipe - https://man7.org/linux/man-pages/man2/pipe.2.html
+	- Synopsis
+		- Include <unistd.h>
+		- int	pipe(int pipefd[2]);
+	- Description
+		- Creates a unidirectional data channel that can be used for interprocess communication
+		- pipefd is used to return two fd referring to the ends of the pipe
+		- pipefd[0] referes to the read end of the pipe, pipefd[1] refers to the write end of the pipe
+		- Data written to the write end of the pipe is buffered by the kernel until it is read from the read end of the pipe
+	- Return Value
+		- Success -> Returns 0
+		- Fail -> Returns -1, errno is set to indicate the error, pipefd is left unchanged
+
+opendir - https://man7.org/linux/man-pages/man3/opendir.3.html
+	- Synopsis
+		- Include <dirent.h>
+		- DIR	*opendir(const char *name);
+	- Description
+		- Opens a dir stream corresponding to the dir name
+			- Returns a pointer to the dir stream
+			- Stream is positioned at the first entry in the dir
+	- Return Value
+		- Success -> Returns a pointer to the dir stream
+		- Fail -> NULL is returned, errno is set to indicate the error
+
+readdir - https://man7.org/linux/man-pages/man3/readdir.3.html
+	- Synopsis
+		- Include <dirent.h>
+		- struct dirent	*readdir(DIR *dirp);
+	- Description
+		- Returns a pointer to a dirent structure representing the next dir entry in the dir stream pointed to by dirp
+		- Returns NULL on reaching the end of the directory stream or if an error occurred
+	- Return Value
+		- Success -> Returns a pointer to a dirent structure.
+			- If the end of the directory stream is reached -> Returns NULL, errno is unchanged
+		- Fail -> Returns NULL, errno is set to indicate the error
+		- To distinguish the end of the stream from an error, set errno to 0 before calling readdir()
+	- Note: structure definition can be found in the manual
+
+closedir - https://man7.org/linux/man-pages/man3/closedir.3.html
+	- Synopsis
+		- Include <dirent.h>
+		- int	closedir(DIR *dirp);
+	- Description
+		- Closes the directory stream associated with dirp
+		- A successful call to closedir() also closes the underlying fd associated with dirp
+		- The directory stream descriptor dirp is not available after this call
+	- Return Value
+		- Success -> Returns 0
+		- Fail -> Returns -1, errno is set to indicate the error
+
+strerror - https://man7.org/linux/man-pages/man3/strerror.3.html
+	- Synopsis
+		- Include <string.h>
+		- char	*strerror(int errnum);
+	- Description
+		- Returns a pointer to a string that describes the error code passed in the argument errnum
+		- This string must not be modified by the application
+			- May be modified by a subsequent call to strerror()
+			- No other library function will modify this string (including perror)
+	- Return Value
+		- Returns the appropriate error description string, or an "Unknown error nnn" message if the error number is unknown
+
+perror - https://man7.org/linux/man-pages/man3/perror.3.html
+	- Synopsis
+		- Include <stdio.h>
+		- void	perror(const char *s);
+	- Description
+		- Produces a message on standard error describing the last error encountered during a call to a system or library function
+		- If s is not NULL and *s is not a null byte
+			- String s is printed followed by a colon and a blank
+			- Then an error message corresponding to the current value of errno and a newline
+
+isatty - https://man7.org/linux/man-pages/man3/isatty.3.html
+	- Synopsis
+		- Include <unistd.h>
+		- int	isatty(int fd);
+	- Description
+		- Tests whether fd is an open fd referring to a terminal
+	- Return Value
+		- Success -> Returns 1
+		- Fail -> Returns 0, errno is set to indicate the error
+
+ttyname - https://man7.org/linux/man-pages/man3/ttyname_r.3.html
+	- Synopsis
+		- Include <unistd.h>
+		- char	*ttyname(int fd);
+	- Description
+		- Returns a pointer to the null-terminated pathname of the terminal device that is open on the fd
+			- Returns NULL on error if fd is not connected to a terminal
+		- Return value may point to static data, possibly overwritten by the next call
+	- Return Value
+		- Success -> Returns a pointer to a pathname
+		- Fail -> Returns NULL, errno is set to indicate the error
+
+ttyslot - https://man7.org/linux/man-pages/man3/ttyslot.3.html
+	- Synopsis
+		- Include <unistd.h>
+		- int	ttyslot(void);
+	- Description
+		- Returns the index of the current user's entry in some file
+	- Return Value
+		- Success -> Returns the slot number
+		- Fail -> Returns 0 or -1
+
+icotl - https://man7.org/linux/man-pages/man2/ioctl.2.html
+	- Synopsis
+		- Include <sys/ioctl.h>
+		- int	ioctl(int fd, unsigned long request, ...);
+	- Description
+		- Manipulates the underlying device parameters of special files
+		- The argument fd must be an open fd
+	- Return Value
+		- Success -> Returns 0
+		- Fail -> Returns -1, errno is set to indicate the error
+
+getenv - https://man7.org/linux/man-pages/man3/secure_getenv.3.html
+	- Synopsis
+		- Include <stdlib.h>
+		- char	*getenv(const char *name);
+	- Description
+		- Searches the environment list to find the environment variable name and returns a pointer to the corresponding value string
+	- Return Value
+		- Success -> Returns a pointer to the value in the environment
+		- Fail -> Returns NULL
+
+tcsetattr - https://man7.org/linux/man-pages/man3/tcsetattr.3p.html
+	- Synopsis
+		- Include <termios.h>
+		- int	tcsetattr(int fildes, int optional_actions, const struct termios *termios_p)
+	- Description
+		- Set the parameters associated with the terminal referred to by the open fd filedes from the termios structure referenced by termios_p as follows
+			- If optional_actions is TCSANOW, the change shall occur immediately
+			- If TCSADRAIN, the change shall occur after all output written to fildes is transmitted
+				- This function should be used when changing parameters that affect output.
+			- If TCSAFLUSH, the change shall occur after all output written to fildes is transmitted
+				- All input so far received but not read shall be discarded before the change is made.
+	- Return Value
+		- Success -> Returns 0
+		- Fail -> Returns -1, errno is set to indicate the error
+
+tcgetattr - https://man7.org/linux/man-pages/man3/tcgetattr.3p.html
+	- Synopsis
+		- Include <termios.h>
+		- int	tcgetattr(int fildes, struct termios *termios_p);
+	- Description
+		- Get the parameters associated with ther terminal referred to by fildes
+			- Store them in the termios structure referenced by termios_p
+			- Fildes argument is an open fd associated with a terminal
+	- Return Value
+		- Success -> Returns 0
+		- Fail -> Returns -1
+
+tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs - https://linux.die.net/man/3/tgetent
+	- Synopsis
+		- Include <term.h>
+		- int	tgetent(char *bp, const char *name);
+		- int	tgetflat(char *id);
+		- int	tgetnum(char *id);
+		- char	*tgetstr(char *id, char **area);
+		- char	*tgoto(const char *cap, int col, int row);
+		- int	tputs(const char *str, int affcnt, int (*putc)(int));
+	- Description
+		tgetent
+			- Success -> Returns 1 if the entry for name, else returns 0
+			- Fail -> Returns -1, ignores the buffer pointer bp
+		tgetflag
+			- Gets the boolean entry for id
+			- Success -> Returns 1 entry for id is true, else returns 0
+		tgetnum
+			- Success -> Returns the numeric entry for id, else returns -1 if unavailable
+		tgetstr
+			- Success -> Returns the string entry for id, else returns 0 if unavailable
+			- Use tputs to output the returned string
+			- The return value will also be copied to the buffer pointed to by area
+				- The area value will be updated to point past the null ending this value
+		tgoto
+			- Instantiates the parameters into the given capability
+			- The output from this routine is to be passed to tputs
+		tputs
+			- Retrieve capabilities by either termcap or terminfo name
+
+Additional info about this .txt:
+	- Everything is written by Sean Chuah | schuah
+	- The word count is 2640 with 17901 characters
+		- Yes, including this additional info section
