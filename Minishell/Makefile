@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/09/07 16:46:45 by schuah           ###   ########.fr        #
+#    Updated: 2022/09/08 13:01:14 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,10 @@ ARRC		=	ar rcs
 CC			=	gcc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
+# CFLAGS		+=	-I/usr/local/opt/readline/include
+# CFLAGS		+=	-L/usr/local/opt/readline/lib
+# CFLAGS		+=	-lreadline -L .brew/opt/readline/lib -I .brew/opt/readline/include
+# CFLAGS		+=	-fsanitize=address -g3
 SRCS_FILES	=	ms_main_bonus
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRCS_FILES)))
 OBJS		= 	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRCS_FILES)))
