@@ -8,9 +8,12 @@ Functions that are not included in this summary:
 	- close
 	- exit
 
-Functions that cannot be found/used at the moment:
-	- rl_replace_line
-	- rl_clear_history
+If you cannot compile with readline, you probably need to install/update it:
+	- /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+	- echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+	- brew install readline (Or reinstall)
+	- When compiling, must compile with -lreadline (NOT TO COMPILE FOR OBJECT FILES)
+	- If you see: FILE not defined or something alike, you may need to locate the headerfile (eg. readline.h) and add in #include <stdio.h>
 
 readline (Similar to get_next_line) - https://man7.org/linux/man-pages/man3/readline.3.html
 	- Synopsis
@@ -29,7 +32,7 @@ readline (Similar to get_next_line) - https://man7.org/linux/man-pages/man3/read
 
 rl_clear_history - https://tiswww.case.edu/php/chet/readline/readline.html
 	- Synopsis
-		- NOT FOUND in includes
+		- Include <readline/readline.h>
 		- void	rl_clear_history(void);
 	- Description
 		- Clear the history by deleting all of the entries
@@ -44,7 +47,7 @@ rl_on_new_line - https://tiswww.case.edu/php/chet/readline/readline.html
 
 rl_replace_line - https://tiswww.case.edu/php/chet/readline/readline.html
 	- Synopsis
-		- NOT FOUND in includes
+		- Include <readline/readline.h>
 		- void	rl_replace_line(const char *text, int clear_undo);
 	- Description
 		- Replace the contents of rl_line_buffer with text.
@@ -414,5 +417,5 @@ tgetent, tgetflag, tgetnum, tgetstr, tgoto, tputs - https://linux.die.net/man/3/
 
 Additional info about this .txt:
 	- Everything is written by Sean Chuah | schuah
-	- The word count is 2635 with 17774 characters
+	- The word count is 2694 with 18199 characters
 		- Yes, including this additional info section

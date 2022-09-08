@@ -1,34 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ms_error_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/08 21:14:49 by schuah           ###   ########.fr       */
+/*   Created: 2022/09/08 21:05:01 by schuah            #+#    #+#             */
+/*   Updated: 2022/09/08 21:09:33 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include "../libft/srcs/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <sys/ioctl.h>
-# include <sys/wait.h>
-# include <sys/stat.h>
-# include <termios.h>
-# include <signal.h>
-# include <dirent.h>
-# include <string.h>
-# include <term.h>
-
-/* CD */
-int		cd(char *path);
-
-/* Error */
-void	perror_and_exit(char *errormsg);
-
-#endif
+/* Prints perror and exit with status 1 */
+void	perror_and_exit(char *errormsg)
+{
+	perror(errormsg);
+	exit(1);
+}

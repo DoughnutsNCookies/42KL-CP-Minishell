@@ -6,43 +6,19 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/08 17:13:53 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/08 21:11:42 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// char	**get_input(char *input)
-// {
-//     char **command = malloc(8 * sizeof(char *));
-//     char *separator = " ";
-//     char *parsed;
-//     int index = 0;
-
-//     parsed = strtok(input, separator);
-//     while (parsed != NULL)
-// 	{
-//         command[index] = parsed;
-//         index++;
-
-//         parsed = strtok(NULL, separator);
-//     }
-
-//     command[index] = NULL;
-//     return command;
-// }
-
-int	cd(char *path)
+/* If readline shows undefined when compiling, you need to install it 
+** For installation, can check how to at Available Functions */
+int	main(void)
 {
-	return (chdir(path));
-}
-
-/* If readline shows undefined when compiling, you need to install it */
-int	main(int ac, char **av, char **envp)
-{
+	pid_t	child_pid;
 	char	**command;
 	char	*input;
-	pid_t	child_pid;
 	int		stat_loc;
 
 	while (1)
@@ -57,25 +33,11 @@ int	main(int ac, char **av, char **envp)
 		}
 		child_pid = fork();
 		if (child_pid < 0)
-		{
-			perror("Fork failed");
-			exit(1);
-		}
-		if (child_pid == 0)
-		{
-			if (execvp(command[0], command) < 0)
-			{
-				perror(command[0]);
-				exit(1);
-			}
-			printf("This won't be printed if execve is successful\n");
-		}
+			perror_and_exit("Fork failed");
+		if (child_pid == 0 && execvp(command[0], command) < 0)
+			perror_and_exit(command[0]);
 		else
 			waitpid(child_pid, &stat_loc, WUNTRACED);
 	}
-	ft_printf("Hello World\n");
 	return (0);
-	(void)ac;
-	(void)av;
-	(void)envp;
 }
