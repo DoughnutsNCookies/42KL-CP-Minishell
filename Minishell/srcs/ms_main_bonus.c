@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/08 21:11:42 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/09 11:59:40 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,26 @@ int	main(void)
 	pid_t	child_pid;
 	char	**command;
 	char	*input;
-	int		stat_loc;
 
 	while (1)
 	{
 		input = readline("$> ");
+		if (input == 0)
+			break ;
 		command = ft_split(input, ' ');
-		if (ft_strncmp(command[0], "cd", 3) == 0)
+		if (check_cd_command(command[0], command[1]) == 0)
 		{
-			if (cd(command[1]) < 0)
-				perror(command[1]);
-			continue ;
+			child_pid = fork();
+			if (child_pid < 0)
+				perror_and_exit("Fork failed");
+			if (child_pid == 0 && execvp(command[0], command) < 0)
+				perror_and_exit(command[0]);
+			else
+				waitpid(child_pid, 0, WUNTRACED);
 		}
-		child_pid = fork();
-		if (child_pid < 0)
-			perror_and_exit("Fork failed");
-		if (child_pid == 0 && execvp(command[0], command) < 0)
-			perror_and_exit(command[0]);
-		else
-			waitpid(child_pid, &stat_loc, WUNTRACED);
+		free_ftsplit(command);
+		free(input);
 	}
+	system("leaks -q minishell");
 	return (0);
 }

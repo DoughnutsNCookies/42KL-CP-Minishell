@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/09/08 21:05:27 by schuah           ###   ########.fr        #
+#    Updated: 2022/09/09 11:33:23 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ CFLAGS		=	-Wall -Wextra -Werror
 # CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
 # READLINE	=	-L/usr/local/opt/readline/lib -lreadline
-SRCS_FILES	=	ms_error_bonus \
+SRCS_FILES	=	ms_helper_bonus \
+				ms_error_bonus \
 				ms_main_bonus \
 				ms_cd_bonus
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRCS_FILES)))

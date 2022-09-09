@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/08 21:14:49 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/09 11:46:55 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@
 # include <term.h>
 
 /* CD */
-int		cd(char *path);
+int		check_cd_command(char *command, char *path);
 
 /* Error */
 void	perror_and_exit(char *errormsg);
+
+/* Helper */
+void	free_ftsplit(char **split);
 
 #endif
