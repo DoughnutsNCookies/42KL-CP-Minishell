@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/09 12:14:37 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/09 13:53:03 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ int	main(void)
 
 	while (1)
 	{
+		signal(SIGINT, sigint_handler);
 		input = readline("$> ");
 		if (input == 0)
 			break ;
 		command = ft_split(input, ' ');
+		if (ft_getwc(input, ' ') < 1)
+			continue ;
 		if (check_cd_command(command[0], command[1]) == 0)
 		{
 			child_pid = fork();
@@ -44,6 +47,5 @@ int	main(void)
 		free_ftsplit(command);
 		free(input);
 	}
-	system("leaks -q minishell");
 	return (0);
 }

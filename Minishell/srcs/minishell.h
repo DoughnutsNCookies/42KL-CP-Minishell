@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/09 11:46:55 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/09 12:48:11 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@ int		check_cd_command(char *command, char *path);
 
 /* Error */
 void	perror_and_exit(char *errormsg);
+
+/* Signal */
+void	sigint_handler(int signo);
 
 /* Helper */
 void	free_ftsplit(char **split);

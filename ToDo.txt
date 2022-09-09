@@ -1,0 +1,22 @@
+- Working History												|
+- System programs												| In-progress (Need to convert execvp to execve)
+	- echo with option -n										|
+	- cd with a relative or absolute path						|
+	- pwd with no options										|
+	- export with no options									|
+	- unset with no options										|
+	- env with no options										|
+	- exit with no options										|
+- Quotation														|
+	- '															|
+	- "															|
+- Pipex															|
+- Signals														|
+	- ctrl-C (Print a new prompt on a newline)					| In-progress
+	- ctrl-D (exit the shell)									| In-progress
+	- ctrl-\ (do nothing)										| Done
+- Binary Tree													|
+	- &&														|
+	- ||														|
+	- ()														|
+- Wildcard * (should work for the current working directory		|
