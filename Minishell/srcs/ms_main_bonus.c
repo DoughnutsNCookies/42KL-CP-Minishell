@@ -6,14 +6,19 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/09 11:59:40 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/09 12:11:33 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* If readline shows undefined when compiling, you need to install it 
-** For installation, can check how to at Available Functions */
+/* If readline shows undefined when compiling, you need to install it
+** For installation, can check how to at Available Functions
+** Every while loop, readline will be called while showing "$> " prompt,
+** readline will return user input in char * form
+** ft_split the command by " ", and check whether there is a cd command
+** If check_cd_command returns 0, then fork out a child to run system program
+** Parent will wait for the child before freeing and looping again */
 int	main(void)
 {
 	pid_t	child_pid;

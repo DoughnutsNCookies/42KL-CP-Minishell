@@ -6,12 +6,13 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/09 11:37:26 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/09 12:03:35 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* Frees double array (ie. output from ft_split) */
 void	free_ftsplit(char **split)
 {
 	int	i;
