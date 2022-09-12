@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/09 13:53:03 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/12 14:52:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,10 @@ int	main(void)
 	}
 	return (0);
 }
+
+/*
+char	cmd[] = "/usr/bin/ls";
+char	*av[] = {"ls", "-l", NULL};
+char	*envp[] = {NULL};
+
+execve(cmd, av, envp); */
