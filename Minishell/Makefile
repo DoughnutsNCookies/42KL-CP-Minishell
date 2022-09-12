@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/09/12 14:45:31 by schuah           ###   ########.fr        #
+#    Updated: 2022/09/12 18:20:52 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,11 +16,12 @@ ARRC		=	ar rcs
 CC			=	gcc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
-# CFLAGS		+=	-I/usr/local/opt/readline/include
+CFLAGS		+=	-I/usr/local/opt/readline/include
 # CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
-# READLINE	=	-L/usr/local/opt/readline/lib -lreadline
-SRCS_FILES	=	ms_helper_bonus \
+READLINE	+=	-L/usr/local/opt/readline/lib
+SRCS_FILES	=	ms_parseinput_bonus \
+				ms_helper_bonus \
 				ms_signal_bonus \
 				ms_error_bonus \
 				ms_main_bonus \

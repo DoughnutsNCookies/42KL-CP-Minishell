@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/09 12:48:11 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/12 18:22:35 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,12 @@ void	perror_and_exit(char *errormsg);
 
 /* Signal */
 void	sigint_handler(int signo);
+void	init_signal(void);
 
 /* Helper */
 void	free_ftsplit(char **split);
+
+/* Parse Input */
+char	**parse_input(char *input);
 
 #endif

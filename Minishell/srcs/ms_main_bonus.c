@@ -6,17 +6,16 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/12 14:52:59 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/12 18:28:20 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* If readline shows undefined when compiling, you need to install it
-** For installation, can check how to at Available Functions
-** Every while loop, readline will be called while showing "$> " prompt,
-** readline will return user input in char * form, removing the '\n' behind
-** ft_split the command by ' ', and check whether there is a cd command
+/* Signal will be initialised: Ctrl-\ and Ctrl-C
+/* Every while loop, readline will be called while showing "$> " prompt,
+** and returns user input in char * form, removing the '\n' behind
+** Parses the user input from readline into commands
 ** If check_cd_command returns 0, then fork out a child to run system program
 ** Parent will wait for the child before freeing and looping again */
 int	main(void)
@@ -25,13 +24,11 @@ int	main(void)
 	char	**command;
 	char	*input;
 
+	init_signal();
 	while (1)
 	{
-		signal(SIGINT, sigint_handler);
 		input = readline("$> ");
-		if (input == 0)
-			break ;
-		command = ft_split(input, ' ');
+		command = parse_input(input);
 		if (ft_getwc(input, ' ') < 1)
 			continue ;
 		if (check_cd_command(command[0], command[1]) == 0)
