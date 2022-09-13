@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 18:16:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/12 18:28:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/13 18:59:39 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ char	**parse_input(char *input)
 	if (input == 0)
 	{
 		write(1, "exit\n", 5);
+		system("leaks -q minishell");
 		exit(0);
 	}
 	command = ft_split(input, ' ');
@@ -32,6 +33,7 @@ char	**parse_input(char *input)
 		if (ft_strncmp(command[i], "exit", 5) == 0)
 		{
 			write(1, "exit\n", 5);
+			system("leaks -q minishell");
 			exit(0);
 		}
 	}

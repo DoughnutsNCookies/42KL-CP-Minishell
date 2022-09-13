@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/12 22:25:20 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/13 19:05:32 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** Parses the user input from readline into commands
 ** If check_cd_command returns 0, then fork out a child to run system program
 ** Parent will wait for the child before freeing and looping again */
-int	main(void)
+int	main(int ac, char **av, char **evp)
 {
 	pid_t	child_pid;
 	char	**command;
@@ -36,7 +36,7 @@ int	main(void)
 			child_pid = fork();
 			if (child_pid < 0)
 				perror_and_exit("Fork failed");
-			if (child_pid == 0 && execvp(command[0], command) < 0)
+			if (child_pid == 0 && execve(command[0], command, evp) < 0)
 				perror_and_exit(command[0]);
 			else
 				waitpid(child_pid, 0, WUNTRACED);
@@ -45,6 +45,8 @@ int	main(void)
 		free(input);
 	}
 	return (0);
+	(void)ac;
+	(void)av;
 }
 
 /*
