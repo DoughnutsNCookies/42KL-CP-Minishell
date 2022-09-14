@@ -5,7 +5,7 @@
 	- pwd with no options										| In-progress
 	- export with no options									| In-progress
 	- unset with no options										| In-progress
-	- env with no options										| In-progress
+	- env with no options										| Works for now, need to call the function for it to print
 	- exit with no options										| Works for now. need more testing
 - Quotation														|
 	- ' (Single quotes)											|
