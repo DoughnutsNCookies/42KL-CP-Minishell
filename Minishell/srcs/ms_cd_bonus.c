@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:04:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/13 20:41:52 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/14 12:34:10 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,11 @@ int	check_cd_command(char *command, char *path)
 	else if (chdir(path) < 0)
 		perror(path);
 	return (1);
+}
+
+int	cd(char **args, t_main *main)
+{
+	(void)args;
+	(void)main;
+	return (0);
 }

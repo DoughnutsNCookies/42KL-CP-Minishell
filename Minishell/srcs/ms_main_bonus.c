@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/13 19:05:32 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/14 12:23:01 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,29 +18,21 @@
 ** Parses the user input from readline into commands
 ** If check_cd_command returns 0, then fork out a child to run system program
 ** Parent will wait for the child before freeing and looping again */
-int	main(int ac, char **av, char **evp)
+int	main(int ac, char **av, char **envp)
 {
-	pid_t	child_pid;
+	t_main	main;	
 	char	**command;
 	char	*input;
 
 	init_signal();
+	init_main(&main, envp);
 	while (1)
 	{
 		input = readline("$> ");
 		command = parse_input(input);
 		if (ft_getwc(input, ' ') < 1)
 			continue ;
-		if (check_cd_command(command[0], command[1]) == 0)
-		{
-			child_pid = fork();
-			if (child_pid < 0)
-				perror_and_exit("Fork failed");
-			if (child_pid == 0 && execve(command[0], command, evp) < 0)
-				perror_and_exit(command[0]);
-			else
-				waitpid(child_pid, 0, WUNTRACED);
-		}
+		check_cd_command(command[0], command[1]);
 		free_ftsplit(command);
 		free(input);
 	}
@@ -50,8 +42,17 @@ int	main(int ac, char **av, char **evp)
 }
 
 /*
+child_pid = fork();
+if (child_pid < 0)
+	perror_and_exit("Fork failed");
+if (child_pid == 0 && execve(command[0], command, envp) < 0)
+	perror_and_exit(command[0]);
+else
+	waitpid(child_pid, 0, WUNTRACED);
+
 char	cmd[] = "/bin/ls";
 char	*av[] = {"ls", "-l", NULL};
 char	*envp[] = {NULL};
 
-execve(cmd, av, envp); */
+execve(cmd, av, envp);
+*/

@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_helper_bonus.c                                  :+:      :+:    :+:   */
+/*   ms_env_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 11:51:02 by schuah           ###   ########.fr       */
+/*   Created: 2022/09/14 11:58:16 by schuah            #+#    #+#             */
+/*   Updated: 2022/09/14 12:34:13 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Frees double array (ie. output from ft_split) */
-void	free_ftsplit(char **split)
+int	env(char **args, t_main *main)
 {
-	int	i;
-
-	i = -1;
-	while (split[++i] != 0)
-		free(split[i]);
-	free(split);
+	(void)args;
+	(void)main;
+	return (0);
 }

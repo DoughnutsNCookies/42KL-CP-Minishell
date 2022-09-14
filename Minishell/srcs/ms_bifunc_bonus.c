@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_helper_bonus.c                                  :+:      :+:    :+:   */
+/*   ms_bifunc_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 11:51:02 by schuah           ###   ########.fr       */
+/*   Created: 2022/09/14 12:01:52 by schuah            #+#    #+#             */
+/*   Updated: 2022/09/14 12:55:16 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Frees double array (ie. output from ft_split) */
-void	free_ftsplit(char **split)
+void	init_main(t_main *main, char **envp)
 {
 	int	i;
 
-	i = -1;
-	while (split[++i] != 0)
-		free(split[i]);
-	free(split);
+	main->func_name = ft_split("echo cd pwd export unset env exit", ' ');
+	main->func[0] = echo;
+	main->func[1] = cd;
+	main->func[2] = pwd;
+	main->func[3] = export;
+	main->func[4] = unset;
+	main->func[5] = env;
+	main->func[6] = ms_exit;
+	i = 0;
+	while (envp[i] != 0)
+		i++;
+	main->envp = ft_calloc(i + 1, sizeof(char *));
+	main->envp[i] = 0;
+	while (--i >= 0)
+		main->envp[i] = ft_strdup(envp[i]);
 }

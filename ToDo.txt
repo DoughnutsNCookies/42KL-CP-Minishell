@@ -1,7 +1,7 @@
 - Working History												|
 - System programs												| In-progress. CANNOT USE EXECVE. Can check with "whereis" in terminal to check path (eg. whereis ls)
-	- echo with option -n										| Works for now, need more testing
-	- cd with a relative or absolute path						| In-progress
+	- echo with option -n										| In-progress
+	- cd with a relative or absolute path						| Works for now, need more testing
 	- pwd with no options										| In-progress
 	- export with no options									| In-progress
 	- unset with no options										| In-progress
