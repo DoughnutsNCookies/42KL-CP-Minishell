@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:04:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 12:34:10 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/14 14:28:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,15 @@
 ** If yes, then will change current directory and return 1
 ** If changing directory fails, throw error and exit with status 1
 ** The directory is changed in the parent instead of in the child */
-int	check_cd_command(char *command, char *path)
+int	check_cd_command(int count, char **input)
 {
+	char	*command;
+	char	*path;
+
+	if (count <= 1)
+		return (0);
+	command = input[0];
+	path = input[1];
 	if (ft_strncmp(command, "cd", 3) != 0)
 		return (0);
 	if (path == NULL)
