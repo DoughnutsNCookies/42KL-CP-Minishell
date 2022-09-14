@@ -6,13 +6,13 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:28:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 12:34:44 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/14 20:40:14 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pwd(char **args, t_main *main)
+int	pwd(t_main *main, char **args)
 {
 	(void)args;
 	(void)main;

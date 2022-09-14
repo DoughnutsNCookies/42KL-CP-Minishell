@@ -6,13 +6,13 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 12:34:20 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/14 20:39:55 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	export(char **args, t_main *main)
+int	export(t_main *main, char **args)
 {
 	(void)args;
 	(void)main;

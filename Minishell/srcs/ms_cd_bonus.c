@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:04:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 14:28:49 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/14 20:39:23 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	check_cd_command(int count, char **input)
 	return (1);
 }
 
-int	cd(char **args, t_main *main)
+int	cd(t_main *main, char **args)
 {
 	(void)args;
 	(void)main;

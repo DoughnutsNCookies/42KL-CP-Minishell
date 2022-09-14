@@ -6,13 +6,13 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:58:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 20:31:54 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/14 20:39:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env(char **args, t_main *main)
+int	env(t_main *main, char **args)
 {
 	int	i;
 

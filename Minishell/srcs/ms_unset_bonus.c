@@ -6,13 +6,13 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:31:05 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 12:34:46 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/14 20:40:32 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	unset(char **args, t_main *main)
+int	unset(t_main *main, char **args)
 {
 	(void)args;
 	(void)main;
