@@ -6,12 +6,14 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:01:52 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 20:50:17 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/15 18:01:50 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* Initializes all of the functions pointers with their respective names
+** Creates a copy of envp and saves it into the struct */
 void	init_main(t_main *main, char **envp)
 {
 	int	i;

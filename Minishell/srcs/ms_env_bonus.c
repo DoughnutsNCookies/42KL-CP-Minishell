@@ -6,12 +6,13 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:58:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 20:39:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/15 11:29:23 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/* Prints out everyline in environment list */
 int	env(t_main *main, char **args)
 {
 	int	i;

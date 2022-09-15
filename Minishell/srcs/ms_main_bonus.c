@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 20:51:36 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/15 18:09:40 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,13 @@ int	main(int ac, char **av, char **envp)
 	{
 		input = readline("$> ");
 		command = parse_input(&main, input);
-		check_cd_command(ft_getwc(input, ' '), command);
+		if (input[0] != '\0')
+			add_history(input);
+		main.func[MS_CD](&main, command);
 		free_ftsplit(command);
 		free(input);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 	(void)ac;
 	(void)av;
 }

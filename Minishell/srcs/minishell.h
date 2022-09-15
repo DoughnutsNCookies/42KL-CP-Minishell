@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 20:50:36 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/15 17:58:13 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ typedef struct s_main
 }	t_main;
 
 /* CD */
-int		check_cd_command(int count, char **command);
 int		cd(t_main *main, char **args);
 
 /* Error */

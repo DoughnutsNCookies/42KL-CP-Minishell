@@ -1,12 +1,12 @@
-- Working History												|
+- Working History												| Done
 - System programs												| In-progress. CANNOT USE EXECVE. Can check with "whereis" in terminal to check path (eg. whereis ls)
-	- echo with option -n										| In-progress
-	- cd with a relative or absolute path						| Works for now, need more testing
-	- pwd with no options										| In-progress
+	- echo with option -n										| Done, need to call the function for it to print, need more testing, need to expand $ variables before passing into this function)
+	- cd with a relative or absolute path						| Done, need to call the function for it to print
+	- pwd with no options										| Done, need to call the function for it to print
 	- export with no options									| In-progress
 	- unset with no options										| In-progress
-	- env with no options										| Works for now, need to call the function for it to print
-	- exit with no options										| Works for now. need more testing
+	- env with no options										| Done, need to call the function for it to print
+	- exit with no options										| Done, need to call the function for it to print
 - Quotation														|
 	- ' (Single quotes)											|
 		- Treat it as raw string								|
@@ -17,7 +17,7 @@
 	- >> Will append to the file (eg. echo "line2" n>> test)	|
 - Signals														|
 	- ctrl-C (Print a new prompt on a newline)					| Done
-	- ctrl-D (exit the shell)									| Done? Exit doesn't print next to $> like in bash
+	- ctrl-D (exit the shell)									| Done
 	- ctrl-\ (do nothing)										| Done
 - Binary Tree													|
 	- &&														|

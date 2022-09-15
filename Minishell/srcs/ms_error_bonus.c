@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:05:01 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/08 21:09:33 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/15 11:46:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,5 +16,5 @@
 void	perror_and_exit(char *errormsg)
 {
 	perror(errormsg);
-	exit(1);
+	exit(EXIT_FAILURE);
 }
