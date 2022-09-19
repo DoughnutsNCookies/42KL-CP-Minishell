@@ -3,7 +3,7 @@
 	- echo with option -n										| Done, need to call the function for it to print, need more testing, need to expand $ variables before passing into this function)
 	- cd with a relative or absolute path						| Done, need to call the function for it to print
 	- pwd with no options										| Done, need to call the function for it to print
-	- export with no options									| In-progress
+	- export with no options									| In-progress, need to handle "export c"
 	- unset with no options										| In-progress
 	- env with no options										| Done, need to call the function for it to print
 	- exit with no options										| Done, need to call the function for it to print

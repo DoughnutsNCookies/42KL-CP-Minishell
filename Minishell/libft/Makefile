@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/03 13:10:50 by schuah            #+#    #+#              #
-#    Updated: 2022/09/19 14:39:28 by schuah           ###   ########.fr        #
+#    Updated: 2022/09/19 17:06:34 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC_FILES		=	ft_isalpha \
 					ft_atoi \
 					ft_calloc\
 					ft_strdup \
+					ft_strndup \
 					ft_substr \
 					ft_strjoin \
 					ft_strtrim \

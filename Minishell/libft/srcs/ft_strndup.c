@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_exit_bonus.c                                    :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 12:33:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/15 11:46:26 by schuah           ###   ########.fr       */
+/*   Created: 2022/09/19 17:05:56 by schuah            #+#    #+#             */
+/*   Updated: 2022/09/19 17:07:06 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-/* Writes out exit message and exits minishell */
-int	ms_exit(t_main *main, char **args)
+char	*ft_strndup(const char *str, size_t n)
 {
-	write(1, "exit\n", 5);
-	system("leaks -q minishell");
-	exit(EXIT_SUCCESS);
-	return (0);
-	(void)main;
-	(void)args;
+	size_t	i;
+	char	*output;
+
+	output = malloc(sizeof(char) * n + 1);
+	if (output == NULL)
+		return (NULL);
+	i = -1;
+	while (++i < n)
+		output[i] = str[i];
+	output[i] = '\0';
+	return (output);
 }

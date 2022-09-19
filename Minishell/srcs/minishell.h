@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/19 13:50:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/19 21:19:16 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,20 @@ typedef struct s_main
 	t_func	func[MS_MAX_BIFUNC];
 }	t_main;
 
+/* Global struct */
+typedef struct s_global
+{
+	int	error_no;
+}	t_global;
+
+t_global	g_global;
+
 /* CD */
 int		cd(t_main *main, char **args);
 
 /* Error */
 void	perror_and_exit(char *errormsg);
+int		export_error(char *str);
 
 /* Signal */
 void	sigint_handler(int signo);
@@ -74,6 +83,12 @@ int		pwd(t_main *main, char **args);
 
 /* Export */
 int		export(t_main *main, char **args);
+
+/* Export Helper */
+int		check_valid_identifier(char *str);
+void	print_envp(char **envp);
+char	**sort_envp(char **envp);
+char	**envp_split(char *str);
 
 /* Unset */
 int		unset(t_main *main, char **args);

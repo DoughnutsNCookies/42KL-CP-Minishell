@@ -1,20 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_error_bonus.c                                   :+:      :+:    :+:   */
+/*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/08 21:05:01 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/15 11:46:49 by schuah           ###   ########.fr       */
+/*   Created: 2022/09/14 12:33:28 by schuah            #+#    #+#             */
+/*   Updated: 2022/09/19 18:53:17 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Prints perror and exit with status 1 */
-void	perror_and_exit(char *errormsg)
+/* Writes out exit message and exits with status 0 */
+int	ms_exit(t_main *main, char **args)
 {
-	perror(errormsg);
-	exit(EXIT_FAILURE);
+	write(1, "exit\n", 5);
+	system("leaks -q minishell");
+	exit(EXIT_SUCCESS);
+	return (0);
+	(void)main;
+	(void)args;
 }
