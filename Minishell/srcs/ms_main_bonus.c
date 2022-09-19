@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/15 18:09:40 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/19 14:13:13 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	main(int ac, char **av, char **envp)
 		if (input[0] != '\0')
 			add_history(input);
 		main.func[MS_CD](&main, command);
-		free_ftsplit(command);
+		main.func[MS_EXPORT](&main, command);
+		free_doublearray(command);
 		free(input);
 	}
 	return (EXIT_SUCCESS);

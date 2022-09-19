@@ -6,14 +6,14 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/14 15:07:50 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/19 14:12:33 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* Frees double array (ie. output from ft_split) */
-void	free_ftsplit(char **split)
+void	free_doublearray(char **split)
 {
 	int	i;
 
@@ -21,4 +21,20 @@ void	free_ftsplit(char **split)
 	while (split[++i] != NULL)
 		free(split[i]);
 	free(split);
+}
+
+/* Creates a duplicate of a double array */
+char	**dup_doublearray(char **src)
+{
+	char	**output;
+	int		i;
+
+	i = 0;
+	while (src[i] != 0)
+		i++;
+	output = ft_calloc(i + 1, sizeof(char *));
+	output[i] = 0;
+	while (--i >= 0)
+		output[i] = ft_strdup(src[i]);
+	return (output);
 }

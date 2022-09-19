@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/20 17:47:13 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/19 14:41:59 by schuah           ###   ########.fr       */
+/*   Created: 2022/09/19 14:38:43 by schuah            #+#    #+#             */
+/*   Updated: 2022/09/19 14:38:46 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-void	ft_swap(int *a, int *b)
+int	ft_strcmp(char *s1, char *s2)
 {
-	int	temp;
+	int	index;
 
-	temp = *a;
-	*a = *b;
-	*b = temp;
+	index = 0;
+	while (s1[index] == s2[index] && s1[index] != '\0' && s2[index] != '\0')
+		index++;
+	return (s1[index] - s2[index]);
 }

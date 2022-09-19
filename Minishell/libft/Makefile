@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/03 13:10:50 by schuah            #+#    #+#              #
-#    Updated: 2022/09/03 13:10:50 by schuah           ###   ########.fr        #
+#    Updated: 2022/09/19 14:39:28 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_FILES		=	ft_isalpha \
 					ft_strchr \
 					ft_strrchr \
 					ft_strncmp \
+					ft_strcmp \
 					ft_memchr \
 					ft_memcmp \
 					ft_strnstr \
