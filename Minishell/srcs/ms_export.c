@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/19 22:17:52 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/20 18:42:22 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,25 @@ static void	update_envp(t_main *main, char *key, char *value)
 	char	**new_envp;
 
 	i = -1;
-	while (main->envp[++i] != NULL)
+	while (main->envp[++i] != 0)
 	{
+		// ft_printf("\n|%s|\n", main->envp[i]);
+		// if (ft_strncmp(main->envp[i], key, ft_strlen(key)) == 0
+		// 	&& main->envp[i][ft_strlen(main->envp[i]) - 1] != '=')
+		// 	return ;
+		if (ft_strncmp(main->envp[i], key, ft_strlen(key) + 1) == 0)
+		{
+			ft_printf("trigger");
+			free(main->envp[i]);
+			temp = ft_strjoin(key, "=");
+			main->envp[i] = ft_strjoin(temp, value);
+			free(temp);
+			break ;
+		}
 		if (ft_strncmp(main->envp[i], key, ft_strlen(key)) == 0
 			&& main->envp[i][ft_strlen(key)] == '=')
 		{
+			ft_printf("trigger");
 			free(main->envp[i]);
 			temp = ft_strjoin(key, "=");
 			main->envp[i] = ft_strjoin(temp, value);
@@ -32,14 +46,27 @@ static void	update_envp(t_main *main, char *key, char *value)
 		}
 	}
 	new_envp = ft_calloc(i + 2, sizeof(char *));
-	temp = ft_strjoin(key, "=");
-	if (value == NULL)
-		new_envp[i] = temp;
-	else
+	if (value != NULL)
 	{
-		new_envp[i] = ft_strjoin(temp, value);
-		free(temp);
+		if (value[0] == '\0')
+		{
+			new_envp[i] = ft_strdup(key);
+			ft_printf("1NEW: %s\n", new_envp[i]);
+		}
+		else
+		{
+			temp = ft_strjoin(key, "=");
+			new_envp[i] = ft_strjoin(temp, value);
+			free(temp);
+			ft_printf("2NEW: %s\n", new_envp[i]);
+		}
 	}
+	else if (value == NULL)
+	{
+		new_envp[i] = ft_strjoin(key, "=");
+		ft_printf("3NEW: %s\n", new_envp[i]);
+	}
+	new_envp[i + 1] = 0;
 	while (--i >= 0)
 		new_envp[i] = ft_strdup(main->envp[i]);
 	free_doublearray(main->envp);
@@ -56,13 +83,12 @@ static void	find_and_add(t_main *main, char **arg)
 	while (arg[++i] != 0)
 	{
 		split = envp_split(arg[i]);
-		if (split == NULL)
+		if (check_valid_identifier(split[0]) == 0)
 		{
-			update_envp(main, arg[i], NULL);
-		}
-		else if (check_valid_identifier(split[0]) == 0)
-		{
+			printf("Key: |%s|\n", split[0]);
+			printf("Value: |%s|\n", split[1]);
 			update_envp(main, split[0], split[1]);
+			print_envp(main->envp);
 			free_doublearray(split);
 		}
 	}

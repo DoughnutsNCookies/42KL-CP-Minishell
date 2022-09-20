@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:49:48 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/19 22:20:58 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/20 18:00:32 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,25 @@ void	print_envp(char **envp)
 	while (envp[++i] != 0)
 	{
 		split = envp_split(envp[i]);
-		if (split[1][0] == '\0')
-			ft_printf("declare -x %s\n", envp[0]);
+		// ft_printf("\n|%s| |%s|\n", split[0], split[1]);
+		if (split[1] == NULL)
+			ft_printf("declare -x %s=\"\"\n", split[0]);
+		else if (split[1][0] == '\0')
+			ft_printf("ddeclare -x %s\n", split[0]);
 		else
-		{
 			ft_printf("declare -x %s=\"%s\"\n", split[0], split[1]);
-			free_doublearray(split);
-		}
+		free_doublearray(split);
 	}
-	free_doublearray(envp);
 }
+
+		// if (envp[i][ft_strlen(envp[i]) - 1] == '=')
+		// 	ft_printf("declare -x %s=\"\"\n", split[0]);
+		// if (split[1] == NULL)
+		// 	ft_printf("declare -x %s=\"\"\n", split[0]);
+		// else if (split[1][0] == '\0')
+		// 	ft_printf("ddeclare -x %s\n", split[0]);
+		// else
+		// 	ft_printf("dddeclare -x %s=\"%s\"\n", split[0], split[1]);
 
 /* Duplicates and returns a copy of envp and sorts it in alphabatical order */
 char	**sort_envp(char **envp)
@@ -83,17 +92,21 @@ char	**envp_split(char *str)
 	char	**output;
 	int		i;
 
-	output = malloc(sizeof(char *) * 3);
-	if (output == NULL)
-		return (NULL);
 	i = 0;
 	while (str[i] != '=' && str[i] != '\0')
 		i++;
 	if (str[i] == '\0')
 	{
-		free(output);
-		return (NULL);
+		output = malloc(sizeof(char *) * 2);
+		if (output == NULL)
+			return (NULL);
+		output[0] = ft_strdup(str);
+		output[1] = 0;
+		return (output);
 	}
+	output = malloc(sizeof(char *) * 3);
+	if (output == NULL)
+		return (NULL);
 	i++;
 	output[0] = ft_strndup(str, i - 1);
 	output[1] = ft_strndup(str + i, ft_strlen(str) - i);
