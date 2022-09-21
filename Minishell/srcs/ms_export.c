@@ -6,18 +6,19 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/21 20:38:46 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/21 21:15:10 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* Adds a new key and value to the existing envp
-** Calloc a new array with existing size + 2 (1 for new key and value, 1 for 0)
+** Calloc a new array with existing size + 2
+** (1 for new key + value, 1 for 0, guard)
 ** If value is '\0' (NOT TO BE CONFUSED WITH 0), new envp is "key="
 ** If value is 0, new envp is "key"
 ** Else, new envp is "key=value
-** Copy the rest of the existing envp and frees the old one */
+** Copy the rest and frees the old one, sets the new one as the current one */
 static void	add_new_envp(t_main *main, char *key, char *value, int i)
 {
 	char	**new_envp;
