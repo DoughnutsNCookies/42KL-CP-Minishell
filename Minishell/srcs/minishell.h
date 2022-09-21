@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/19 21:19:16 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/21 12:52:06 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		pwd(t_main *main, char **args);
 int		export(t_main *main, char **args);
 
 /* Export Helper */
-int		check_valid_identifier(char *str);
+int		check_valid_identifier(char *arg, char *str);
 void	print_envp(char **envp);
 char	**sort_envp(char **envp);
 char	**envp_split(char *str);

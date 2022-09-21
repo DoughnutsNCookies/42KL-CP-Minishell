@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_main_bonus.c                                    :+:      :+:    :+:   */
+/*   ms_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/19 17:37:11 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/21 13:05:03 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	main(int ac, char **av, char **envp)
 		if (input[0] != '\0')
 			add_history(input);
 		main.func[MS_CD](&main, command);
-		main.func[MS_EXPORT](&main, command);
 		free_doublearray(command);
 		free(input);
 	}

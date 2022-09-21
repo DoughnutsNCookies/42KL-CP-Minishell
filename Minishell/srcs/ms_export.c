@@ -6,74 +6,92 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/20 18:42:22 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/21 13:01:25 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	update_envp(t_main *main, char *key, char *value)
+/* Adds a new key and value to the existing envp
+** Calloc a new array with existing size + 2 (1 for new key and value, 1 for 0)
+** If value is '\0' (NOT TO BE CONFUSED WITH 0), new envp is "key="
+** If value is 0, new envp is "key"
+** Else, new envp is "key=value
+** Copy the rest of the existing envp and frees the old one */
+static void	add_new_envp(t_main *main, char *key, char *value, int i)
 {
-	int		i;
-	char	*temp;
 	char	**new_envp;
+	char	*temp;
 
-	i = -1;
-	while (main->envp[++i] != 0)
-	{
-		// ft_printf("\n|%s|\n", main->envp[i]);
-		// if (ft_strncmp(main->envp[i], key, ft_strlen(key)) == 0
-		// 	&& main->envp[i][ft_strlen(main->envp[i]) - 1] != '=')
-		// 	return ;
-		if (ft_strncmp(main->envp[i], key, ft_strlen(key) + 1) == 0)
-		{
-			ft_printf("trigger");
-			free(main->envp[i]);
-			temp = ft_strjoin(key, "=");
-			main->envp[i] = ft_strjoin(temp, value);
-			free(temp);
-			break ;
-		}
-		if (ft_strncmp(main->envp[i], key, ft_strlen(key)) == 0
-			&& main->envp[i][ft_strlen(key)] == '=')
-		{
-			ft_printf("trigger");
-			free(main->envp[i]);
-			temp = ft_strjoin(key, "=");
-			main->envp[i] = ft_strjoin(temp, value);
-			free(temp);
-			break ;
-		}
-	}
 	new_envp = ft_calloc(i + 2, sizeof(char *));
-	if (value != NULL)
-	{
-		if (value[0] == '\0')
-		{
-			new_envp[i] = ft_strdup(key);
-			ft_printf("1NEW: %s\n", new_envp[i]);
-		}
-		else
-		{
-			temp = ft_strjoin(key, "=");
-			new_envp[i] = ft_strjoin(temp, value);
-			free(temp);
-			ft_printf("2NEW: %s\n", new_envp[i]);
-		}
-	}
-	else if (value == NULL)
-	{
+	if (value != 0 && value[0] == '\0')
 		new_envp[i] = ft_strjoin(key, "=");
-		ft_printf("3NEW: %s\n", new_envp[i]);
+	else if (value == 0)
+		new_envp[i] = ft_strdup(key);
+	else
+	{
+		temp = ft_strjoin(key, "=");
+		new_envp[i] = ft_strjoin(temp, value);
+		free(temp);
 	}
-	new_envp[i + 1] = 0;
 	while (--i >= 0)
 		new_envp[i] = ft_strdup(main->envp[i]);
 	free_doublearray(main->envp);
 	main->envp = new_envp;
 }
 
-/* Need to update exit status number */
+/* Replaces the existing envp with the new value
+** If there is no value and option is set to 1,
+** replace existing envp with new key + no value
+** Else, replace existing envp with key + '=' + value */
+static void	do_replace(char **envp, char *key, char *value, int option)
+{
+	char	*temp;
+
+	free(*envp);
+	temp = ft_strjoin(key, "=");
+	if (value == 0 && option == 1)
+		*envp = ft_strdup(key);
+	else
+		*envp = ft_strjoin(temp, value);
+	free(temp);
+}
+
+/* Loops through existing envp to find whether the key exists
+** If found, update the key and return
+** First if statement is for when existing envp is a="something" (opt 1)
+** Second if statement is for when existing envp is key only (opt 0)
+** If there is already an existing key and arg is key only, return
+** If no existing key is found, add new key and value to the envp */
+static void	update_envp(t_main *main, char *arg, char *key, char *value)
+{
+	int		i;
+
+	i = -1;
+	while (main->envp[++i] != 0)
+	{
+		if (ft_strncmp(main->envp[i], key, ft_strlen(key)) == 0
+			&& main->envp[i][ft_strlen(key)] == '=')
+		{
+			if (ft_strlen(arg) == ft_strlen(key))
+				return ;
+			do_replace(&main->envp[i], key, value, 1);
+			return ;
+		}
+		else if (ft_strncmp(main->envp[i], key, ft_strlen(key) + 1) == 0)
+		{
+			if (ft_strlen(arg) == ft_strlen(key))
+				return ;
+			do_replace(&main->envp[i], key, value, 0);
+			return ;
+		}
+	}
+	add_new_envp(main, key, value, i);
+}
+
+/* Loops through every args 
+** Check whether the arg is valid
+** Split the arg into Key and Value, then feed into update_envp function */
 static void	find_and_add(t_main *main, char **arg)
 {
 	int		i;
@@ -83,19 +101,16 @@ static void	find_and_add(t_main *main, char **arg)
 	while (arg[++i] != 0)
 	{
 		split = envp_split(arg[i]);
-		if (check_valid_identifier(split[0]) == 0)
+		if (check_valid_identifier(arg[i], split[0]) == 0)
 		{
-			printf("Key: |%s|\n", split[0]);
-			printf("Value: |%s|\n", split[1]);
-			update_envp(main, split[0], split[1]);
-			print_envp(main->envp);
+			update_envp(main, arg[i], split[0], split[1]);
 			free_doublearray(split);
 		}
 	}
-	return ;
 }
 
-/* Checks whether default export is called or not */
+/* If export is called with no other args, print envp
+** Else, add new args into envp */
 int	export(t_main *main, char **args)
 {
 	char	**dup;
