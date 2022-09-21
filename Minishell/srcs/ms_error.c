@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:05:01 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/19 18:53:15 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/21 17:51:16 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ void	perror_and_exit(char *errormsg)
 }
 
 /* Prints custom error message for invalid identifier for export */
-int	export_error(char *str)
+int	export_unset_error(char *arg, char *type)
 {
-	write(2, str, ft_strlen(str));
-	write(2, ": not a valid identifier\n", 25);
+	write(2, type, ft_strlen(type));
+	write(2, ": `", 3);
+	write(2, arg, ft_strlen(arg));
+	write(2, "': not a valid identifier\n", 26);
 	g_global.error_no = 1;
 	return (1);
 }

@@ -4,7 +4,7 @@
 	- cd with a relative or absolute path						| Done, need to call the function for it to print
 	- pwd with no options										| Done, need to call the function for it to print
 	- export with no options									| Done, need to call the function for it to print, need severely more testing, need to expand $ variables before passing into this function)
-	- unset with no options										| In-progress
+	- unset with no options										| Done, need to call the function for it to print, need more testing, need to expand $ variables before passing into this function)
 	- env with no options										| Done, need to call the function for it to print
 	- exit with no options										| Done, need to call the function for it to print
 - Quotation (Expander: Need to expand $ before executing)		|

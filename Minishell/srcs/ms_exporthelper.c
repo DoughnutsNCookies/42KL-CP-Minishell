@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:49:48 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/21 12:58:23 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/21 17:50:28 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@
 ** If second letter and beyond is not alphanumeric or '_',
 ** print error message and return 1
 ** Else return 0 (No error) */
-int	check_valid_identifier(char *arg, char *str)
+int	check_valid_identifier(char *arg, char *str, char *type)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isalpha(str[i]) == 0 && str[i] != '_')
-		return (export_error(arg));
+		return (export_unset_error(arg, type));
 	while (str[++i] != '\0')
-		if (!ft_isalnum(str[i]) && str[i] != '_' && str[i] != ' ')
-			return (export_error(arg));
+		if (ft_isalnum(str[i]) == 0 && str[i] != '_' && str[i] != ' ')
+			return (export_unset_error(arg, type));
 	return (0);
 }
 

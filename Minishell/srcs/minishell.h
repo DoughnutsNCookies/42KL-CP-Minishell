@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/21 12:52:06 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/21 17:51:17 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		cd(t_main *main, char **args);
 
 /* Error */
 void	perror_and_exit(char *errormsg);
-int		export_error(char *str);
+int		export_unset_error(char *arg, char *type);
 
 /* Signal */
 void	sigint_handler(int signo);
@@ -85,7 +85,7 @@ int		pwd(t_main *main, char **args);
 int		export(t_main *main, char **args);
 
 /* Export Helper */
-int		check_valid_identifier(char *arg, char *str);
+int		check_valid_identifier(char *arg, char *str, char *type);
 void	print_envp(char **envp);
 char	**sort_envp(char **envp);
 char	**envp_split(char *str);

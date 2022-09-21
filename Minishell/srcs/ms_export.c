@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/21 13:01:25 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/21 20:38:46 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	do_replace(char **envp, char *key, char *value, int option)
 ** Second if statement is for when existing envp is key only (opt 0)
 ** If there is already an existing key and arg is key only, return
 ** If no existing key is found, add new key and value to the envp */
-static void	update_envp(t_main *main, char *arg, char *key, char *value)
+static void	update_envp(t_main *main, char *args, char *key, char *value)
 {
 	int		i;
 
@@ -73,14 +73,14 @@ static void	update_envp(t_main *main, char *arg, char *key, char *value)
 		if (ft_strncmp(main->envp[i], key, ft_strlen(key)) == 0
 			&& main->envp[i][ft_strlen(key)] == '=')
 		{
-			if (ft_strlen(arg) == ft_strlen(key))
+			if (ft_strlen(args) == ft_strlen(key))
 				return ;
 			do_replace(&main->envp[i], key, value, 1);
 			return ;
 		}
 		else if (ft_strncmp(main->envp[i], key, ft_strlen(key) + 1) == 0)
 		{
-			if (ft_strlen(arg) == ft_strlen(key))
+			if (ft_strlen(args) == ft_strlen(key))
 				return ;
 			do_replace(&main->envp[i], key, value, 0);
 			return ;
@@ -92,18 +92,18 @@ static void	update_envp(t_main *main, char *arg, char *key, char *value)
 /* Loops through every args 
 ** Check whether the arg is valid
 ** Split the arg into Key and Value, then feed into update_envp function */
-static void	find_and_add(t_main *main, char **arg)
+static void	find_and_add(t_main *main, char **args)
 {
 	int		i;
 	char	**split;
 
 	i = 0;
-	while (arg[++i] != 0)
+	while (args[++i] != 0)
 	{
-		split = envp_split(arg[i]);
-		if (check_valid_identifier(arg[i], split[0]) == 0)
+		split = envp_split(args[i]);
+		if (check_valid_identifier(args[i], split[0], "export") == 0)
 		{
-			update_envp(main, arg[i], split[0], split[1]);
+			update_envp(main, args[i], split[0], split[1]);
 			free_doublearray(split);
 		}
 	}
