@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/21 17:51:17 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/22 14:46:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ char	**parse_input(t_main *main, char *input);
 
 /* Bifunc */
 void	init_main(t_main *main, char **envp);
+void	executor(t_main *main, char **command);
 
 /* Echo */
 int		echo(t_main *main, char **args);

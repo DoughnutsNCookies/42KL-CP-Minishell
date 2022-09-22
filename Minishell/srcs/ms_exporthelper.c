@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:49:48 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/21 17:50:28 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/22 15:10:35 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,9 @@ char	**sort_envp(char **envp)
 	while (envp[max] != 0)
 		max++;
 	i = -1;
-	while (++i < max - 1)
+	while (++i < max)
 	{
-		j = i + 1;
+		j = i;
 		while (++j < max)
 		{
 			if (ft_strcmp(output[i], output[j]) > 0)

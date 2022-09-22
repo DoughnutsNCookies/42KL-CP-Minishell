@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/21 21:15:10 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/22 15:26:02 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,6 +120,7 @@ int	export(t_main *main, char **args)
 	{
 		dup = sort_envp(main->envp);
 		print_envp(dup);
+		free_doublearray(dup);
 	}
 	else
 		find_and_add(main, args);

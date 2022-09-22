@@ -1,17 +1,17 @@
 - Working History												| Done
-- System programs												| In-progress. CANNOT USE EXECVE. Can check with "whereis" in terminal to check path (eg. whereis ls)
-	- echo with option -n										| Done, need to call the function for it to print, need more testing, need to expand $ variables before passing into this function)
-	- cd with a relative or absolute path						| Done, need to call the function for it to print
-	- pwd with no options										| Done, need to call the function for it to print
-	- export with no options									| Done, need to call the function for it to print, need severely more testing, need to expand $ variables before passing into this function)
-	- unset with no options										| Done, need to call the function for it to print, need more testing, need to expand $ variables before passing into this function)
-	- env with no options										| Done, need to call the function for it to print
-	- exit with no options										| Done, need to call the function for it to print
-- Quotation (Expander: Need to expand $ before executing)		|
-	- ' (Single quotes)											|
-		- Treat it as raw string								|
-	- " (Double quotes)											|
-		- Treat it as raw string except for the $ sign			|
+- System programs												| Done
+	- echo with option -n										| Done, need to call the function for it to print (Errno not done yet)
+	- cd with a relative or absolute path						| Done, need to call the function for it to print (Errno not done yet)
+	- pwd with no options										| Done, need to call the function for it to print (Errno not done yet)
+	- export with no options									| Done, need to call the function for it to print, need severely more testing, need to expand $ variables before passing into this function (Errno not done yet)
+	- unset with no options										| Done, need to call the function for it to print, need more testing, need to expand $ variables before passing into this function (Errno not done yet)
+	- env with no options										| Done, need to call the function for it to print (Errno not done yet)
+	- exit with no options										| Done, need to call the function (Errno not done yet)
+- Quotation (Expander: Need to expand $ before executing)		| In-progress
+	- ' (Single quotes)											| In-progress
+		- Treat it as raw string								| In-progress
+	- " (Double quotes)											| In-progress
+		- Treat it as raw string except for the $ sign			| In-progress
 - Pipex															|
 	- > Will overwrite the file (eg. echo "hi" n> test) 		|
 	- >> Will append to the file (eg. echo "line2" n>> test)	|
