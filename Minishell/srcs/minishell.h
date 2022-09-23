@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/22 14:46:49 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/23 10:16:36 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,13 +68,16 @@ void	init_signal(void);
 /* Helper */
 void	free_doublearray(char **split);
 char	**dup_doublearray(char **src);
+char	*get_envp_value(char **envp, char *key);
 
 /* Parse Input */
 char	**parse_input(t_main *main, char *input);
 
-/* Bifunc */
-void	init_main(t_main *main, char **envp);
+/* Executor */
 void	executor(t_main *main, char **command);
+
+/* Expander */
+char	**expander(t_main *main, char **args);
 
 /* Echo */
 int		echo(t_main *main, char **args);

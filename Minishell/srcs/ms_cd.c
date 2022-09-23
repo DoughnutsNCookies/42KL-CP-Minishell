@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:04:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/19 18:53:09 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/23 10:27:47 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,18 @@
 /* Checks whether there is a cd command
 ** If no, return 0
 ** If yes, then will change current directory and return 1
-** If changing directory fails, throw error and exit with status 1
-** Line 26 -> 29 can be removed (not needed if function is used correctly) */
+** If changing directory fails, throw error and exit with status 1 */
 int	cd(t_main *main, char **args)
 {
 	char	*path;
 
-	if (args[0] == 0)
-		return (0);
-	if (ft_strncmp(args[0], "cd", 3) != 0)
-		return (0);
 	if (args[1] == 0)
 	{
-		path = ft_strjoin("/Users/", getenv("USER"));
+		path = get_envp_value(main->envp, "HOME");
 		if (chdir(path) < 0)
 		{
 			free(path);
-			perror(path);
+			write(2, "cd: HOME not set\n", 17);
 		}
 		free(path);
 	}

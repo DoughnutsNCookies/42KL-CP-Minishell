@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:31:05 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/21 21:14:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/23 10:24:21 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ static void	find_and_delete(t_main *main, char *key)
 		split = envp_split(main->envp[i]);
 		if (ft_strcmp(split[0], key) != 0)
 			new_envp[j++] = ft_strdup(main->envp[i]);
+		free_doublearray(split);
 	}
 	free_doublearray(main->envp);
 	main->envp = new_envp;
