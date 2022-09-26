@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/23 10:16:36 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/26 15:11:37 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void	executor(t_main *main, char **command);
 
 /* Expander */
 char	**expander(t_main *main, char **args);
+
+/* Expander Helper */
+char	*append_char(char *input, char c);
 
 /* Echo */
 int		echo(t_main *main, char **args);
