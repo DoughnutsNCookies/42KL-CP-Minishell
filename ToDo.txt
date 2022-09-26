@@ -8,13 +8,15 @@
 	- env with no options										| Done, need to call the function for it to print
 	- exit with no options										| Done, need to call the function
 - Quotation (Expander: Need to expand $ before executing)		| In-progress
-	- ' (Single quotes)											| In-progress
-		- Treat it as raw string								| In-progress
-	- " (Double quotes)											| In-progress
-		- Treat it as raw string except for the $ sign			| In-progress
+	- ' (Single quotes)											| Done
+		- Treat it as raw string								| Done
+	- " (Double quotes)											| Done
+		- Treat it as raw string except for the $ sign			| Done
+	- $ (Dollar sign)											| In-progress
 	- $? 														| In-progress
 		- Exit status of last executed foreground pipeline		| In-progress
 		- Correct exit status for all system programs			| In-progress
+	- Wildcard * (should work for the current working directory	|
 - Pipex															|
 	- > Will overwrite the file (eg. echo "hi" n> test) 		|
 	- >> Will append to the file (eg. echo "line2" n>> test)	|
@@ -26,4 +28,3 @@
 	- &&														|
 	- ||														|
 	- ()														|
-- Wildcard * (should work for the current working directory		|

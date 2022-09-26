@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/26 15:47:39 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/26 19:55:09 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ int	expand_dollar(t_main *main, char *arg, char **output)
 void	convert_quote(t_main *main, char *arg, t_list *current)
 {
 	char	*output;
+	char	**split;
+	t_list	*end;
+	t_list	*head;
 	int		i;
+	int		j;
 
 	i = 0;
 	output = NULL;
@@ -59,14 +63,39 @@ void	convert_quote(t_main *main, char *arg, t_list *current)
 					output = append_char(output, *(arg + i));
 			}
 		}
+		else if (*(arg + i) == '$')
+		{
+			i += expand_dollar(main, arg + i, &output);
+			split = ft_split(output, ' ');
+			head = current;
+			end = current->next;
+			free(current->content);
+			j = 0;
+			ft_printf("split: |%s|\n", split[j]);
+			char	*temp = ft_strdup(split[j]);
+			current->content = &temp;
+			ft_printf("ll: |%s|\n", *(char **)current->content);
+			while (split[++j] != 0)
+			{
+				current->next = ft_lstnew(&split[j]);
+				current = current->next;
+			}
+			current->next = end;
+			while (head != NULL)
+			{
+				ft_printf("in loop: |%s|\n", *(char **)head->content);
+				head = head->next;
+			}
+			free_doublearray(split);
+			ft_printf("%c", (arg + i));
+			exit(1);
+		}
 		else
 			output = append_char(output, *(arg + i));
 		i++;
 	}
 	free(arg);
 	*(char **)current->content = output;
-	return ;
-	(void)main;
 }
 
 char	**expander(t_main *main, char **args)
