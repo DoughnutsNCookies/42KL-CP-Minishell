@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/22 16:38:23 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/27 13:54:38 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	executor(t_main *main, char **command)
 	i = -1;
 	while (++i < MS_MAX_BIFUNC)
 	{
+		if (command[0] == 0)
+			return ;
 		if (ft_strcmp(command[0], main->func_name[i]) == 0)
 		{
 			g_global.error_no = main->func[i](main, command);

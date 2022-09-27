@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/09/26 12:43:50 by schuah           ###   ########.fr        #
+#    Updated: 2022/09/27 21:01:47 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC			=	gcc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I/usr/local/opt/readline/include
-CFLAGS		+=	-fsanitize=address -g3
+# CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
 SRCS_FILES	=	ms_expanderhelper \

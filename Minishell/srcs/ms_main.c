@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/26 22:08:36 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/27 18:30:56 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	main(int ac, char **av, char **envp)
 		command = parse_input(&main, input);
 		if (input[0] != '\0')
 			add_history(input);
-		// command = expander(&main, command);
+		command = expander(&main, command);
 		executor(&main, command);
 		free_doublearray(command);
 		free(input);

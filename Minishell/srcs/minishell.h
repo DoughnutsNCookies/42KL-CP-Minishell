@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/26 15:11:37 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/27 20:20:30 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ char	**expander(t_main *main, char **args);
 
 /* Expander Helper */
 char	*append_char(char *input, char c);
+void	print_ll(t_list *head);
+char	**ft_list_to_charss(t_list *lst);
 
 /* Echo */
 int		echo(t_main *main, char **args);

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/23 10:22:27 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/27 20:22:01 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ char	**dup_doublearray(char **src)
 	return (output);
 }
 
-/* Gets the value from envp based on key */
+/* Gets the value from envp based on key
+** Returns NULL if key is not found */
 char	*get_envp_value(char **envp, char *key)
 {
 	char	**split;
@@ -47,6 +48,9 @@ char	*get_envp_value(char **envp, char *key)
 	int		i;
 
 	i = -1;
+	if (key != NULL)
+		if (key[0] == '?' && key[1] == '\0')
+			return (ft_itoa(g_global.error_no));
 	while (envp[++i] != 0)
 	{
 		split = envp_split(envp[i]);
