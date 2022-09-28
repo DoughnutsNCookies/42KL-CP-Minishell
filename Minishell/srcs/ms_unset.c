@@ -6,17 +6,22 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:31:05 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/23 10:24:21 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 11:48:42 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Calloc a new array with existing size + 1 (1 for 0, guard)
-** Loops through existing envp and finds for matching key
-** If current string does not match with the key, it is dup into the new envp 
-** If current strind matches with the key, it is ignored
-** Frees the old envp and sets the new one as the current one */
+/**
+ * @brief Calloc a new array with existing size + 1 (1 for 0, guard). Loops
+ * through existing envp and finds for matching key. If current string does
+ * not match with the key, it is dup into the new envp. If current string
+ * matches with the key, it is ignored. Frees the old envp and sets the new
+ * one as the current one
+ * 
+ * @param main The main struct containing envp
+ * @param key The key of the value that will be deleted
+ */
 static void	find_and_delete(t_main *main, char *key)
 {
 	char	**new_envp;
@@ -41,8 +46,14 @@ static void	find_and_delete(t_main *main, char *key)
 	main->envp = new_envp;
 }
 
-/* Checks whether the arg is valid
-** If so then find and delete the envp based on the key */
+/**
+ * @brief Checks whether the arg is valid. If so then find and delete the
+ * envp based on the key
+ * 
+ * @param main The main struct containing envp
+ * @param args The arguments
+ * @return int 0 on success
+ */
 int	unset(t_main *main, char **args)
 {
 	int		i;

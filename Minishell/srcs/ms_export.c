@@ -6,19 +6,23 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/22 15:26:02 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 12:19:23 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Adds a new key and value to the existing envp
-** Calloc a new array with existing size + 2
-** (1 for new key + value, 1 for 0, guard)
-** If value is '\0' (NOT TO BE CONFUSED WITH 0), new envp is "key="
-** If value is 0, new envp is "key"
-** Else, new envp is "key=value
-** Copy the rest and frees the old one, sets the new one as the current one */
+/**
+ * @brief Adds a new key and value to the existing envp. Calloc a new array with
+ * existing size + 2. If value is '\0' (NOT TO BE CONFUSED WITH 0), new envp
+ * is KEY="". If value is 0, new envp is KEY. Else, new envp is KEY=VALUE. Copy
+ * the rest and frees the old one, sets the new one as the current one
+ * 
+ * @param main The main struct containing envp
+ * @param key The key of the new variable
+ * @param value The value of the new variable
+ * @param i The position of the last variable in the existing envp + 1
+ */
 static void	add_new_envp(t_main *main, char *key, char *value, int i)
 {
 	char	**new_envp;
@@ -41,10 +45,16 @@ static void	add_new_envp(t_main *main, char *key, char *value, int i)
 	main->envp = new_envp;
 }
 
-/* Replaces the existing envp with the new value
-** If there is no value and option is set to 1,
-** replace existing envp with new key + no value
-** Else, replace existing envp with key + '=' + value */
+/**
+ * @brief Replaces the existing envp with the new value. If there is no value and
+ * option is set to 1, replace existing envp with new key + no value. Else,
+ * replace existing envp with key + '=' + value
+ * 
+ * @param envp The environment variable list
+ * @param key The key of the existing variable
+ * @param value The new value of the existing variable
+ * @param option Whether the strdup or strjoin is needed to be used
+ */
 static void	do_replace(char **envp, char *key, char *value, int option)
 {
 	char	*temp;
@@ -58,12 +68,18 @@ static void	do_replace(char **envp, char *key, char *value, int option)
 	free(temp);
 }
 
-/* Loops through existing envp to find whether the key exists
-** If found, update the key and return
-** First if statement is for when existing envp is a="something" (opt 1)
-** Second if statement is for when existing envp is key only (opt 0)
-** If there is already an existing key and arg is key only, return
-** If no existing key is found, add new key and value to the envp */
+/**
+ * @brief Loops through existing envp to find whether the key exists. If found,
+ * update the key and return. First if statement is for when existing envp is
+ * KEY=VALUE (opt 1). Second if statement is for when existing envp is key only
+ * (opt 0). If there is already an existing key and arg is key only, return. If
+ * no existing key is found, add new key and value to the envp
+ * 
+ * @param main The main struct containing envp
+ * @param args The arguments
+ * @param key The key of the "new" variable
+ * @param value The value of the "new" variable
+ */
 static void	update_envp(t_main *main, char *args, char *key, char *value)
 {
 	int		i;
@@ -90,9 +106,13 @@ static void	update_envp(t_main *main, char *args, char *key, char *value)
 	add_new_envp(main, key, value, i);
 }
 
-/* Loops through every args 
-** Check whether the arg is valid
-** Split the arg into Key and Value, then feed into update_envp function */
+/**
+ * @brief Loops through every args. Check whether the arg is valid. Split the
+ * arg into Key and Value, then feed into update_envp function
+ * 
+ * @param main The main struct containing envp
+ * @param args The arguments
+ */
 static void	find_and_add(t_main *main, char **args)
 {
 	int		i;
@@ -110,8 +130,14 @@ static void	find_and_add(t_main *main, char **args)
 	}
 }
 
-/* If export is called with no other args, print envp
-** Else, add new args into envp */
+/**
+ * @brief If export is called with no other args, print envp. Else, add new
+ * args into envp
+ * 
+ * @param main The main struct containing envp
+ * @param args The arguments
+ * @return int 0 on success
+ */
 int	export(t_main *main, char **args)
 {
 	char	**dup;

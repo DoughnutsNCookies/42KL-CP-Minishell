@@ -6,17 +6,22 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:49:48 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/22 15:10:35 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 12:18:48 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Checks if the arg is a valid candidate
-** If first letter is not alpha or '_', print error message and return 1
-** If second letter and beyond is not alphanumeric or '_',
-** print error message and return 1
-** Else return 0 (No error) */
+/**
+ * @brief Checks if the arg is a valid candidate. If first letter is not alpha
+ * or '_', print error message. If second letter and beyond is not alphanumeric
+ * or '_', print error message
+ * 
+ * @param arg The argument
+ * @param str The string that will be exported
+ * @param type The type of builtin function that is called from (unset or export)
+ * @return int 0 on success, else 1 if there is an error
+ */
 int	check_valid_identifier(char *arg, char *str, char *type)
 {
 	int	i;
@@ -30,9 +35,13 @@ int	check_valid_identifier(char *arg, char *str, char *type)
 	return (0);
 }
 
-/* Prints the sorted envp with the "declare -x" suffix
-** and the value of the variable covered with "" (eg. "value")
-** If no value, just print "declare -x" with the key only */
+/**
+ * @brief Prints the sorted envp with the "declare -x" suffix and the value of
+ * the variable covered with "" (eg. "value"). If key has no value, just print
+ * "declare -x" with the key only
+ * 
+ * @param envp The enviroment variable list
+ */
 void	print_envp(char **envp)
 {
 	char	**split;
@@ -50,7 +59,13 @@ void	print_envp(char **envp)
 	}
 }
 
-/* Duplicates and returns a copy of envp and sorts it in alphabatical order */
+/**
+ * @brief Duplicates and returns a copy of envp and sorts it in alphabatical
+ * order
+ * 
+ * @param envp The enviroment variable list
+ * @return char** envp that is malloc'ed and sorted
+ */
 char	**sort_envp(char **envp)
 {
 	int		i;
@@ -80,9 +95,13 @@ char	**sort_envp(char **envp)
 	return (output);
 }
 
-/* Splits the str into key and value at first '=' contact
-** If str don't have '=', output is str only
-** Else, output[0] is Key and output[1] is Value */
+/**
+ * @brief Splits the str into key and value at first '=' contact.
+ * 
+ * @param str The string containing the key and value (eg. key=value)
+ * @return char** str if str don't have =, else output[0] is key, output[1] is
+ * value, output[2] is NULL terminator
+ */
 char	**envp_split(char *str)
 {
 	char	**output;

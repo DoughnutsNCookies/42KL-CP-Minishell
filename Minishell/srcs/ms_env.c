@@ -6,13 +6,19 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:58:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/22 15:16:50 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 12:19:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Prints out everyline in environment list */
+/**
+ * @brief Prints out everyline in environment list
+ * 
+ * @param main The main struct containing envp
+ * @param args The arguments (Can be NULL)
+ * @return int 0 on success
+ */
 int	env(t_main *main, char **args)
 {
 	int		i;

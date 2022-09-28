@@ -6,14 +6,21 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/27 13:54:38 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 12:01:36 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Loops through the available builtins function and find a match based on args
-** If found, executes the function, else write error and set errno to 127 */
+/**
+ * @brief Loops through the available builtins function and find a match based
+ * on args. If found, it will executes the functio. Else write error and set
+ * errno to 127
+ * 
+ * @param main The main struct containing the builtin functions and
+ * their respective names
+ * @param command The command that will be executed
+ */
 void	executor(t_main *main, char **command)
 {
 	int	i;

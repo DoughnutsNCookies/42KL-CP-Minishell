@@ -6,14 +6,19 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/27 18:30:56 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 12:18:56 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Initializes all of the functions pointers with their respective names
-** Creates a copy of envp and saves it into the struct */
+/**
+ * @brief Initializes all of the functions pointers with their respective names
+ * and creates a copy of envp and saves it into the struct
+ * 
+ * @param main The main struct that will be initialized 
+ * @param envp The envp from int main()
+ */
 static void	init_main(t_main *main, char **envp)
 {
 	main->func_name = ft_split("echo cd pwd export unset env exit", ' ');
@@ -27,12 +32,17 @@ static void	init_main(t_main *main, char **envp)
 	main->envp = dup_doublearray(envp);
 }
 
-/* Signal will be initialised: Ctrl-\ and Ctrl-C
-** Every while loop, readline will be called while showing "$> " prompt,
-** and returns user input in char * form, removing the '\n' behind
-** Parses the user input from readline into commands
-** If check_cd_command returns 0, then fork out a child to run system program
-** Parent will wait for the child before freeing and looping again */
+/**
+ * @brief Signal will be initialised: Ctrl-\ and Ctrl-C. Every while loop,
+ * readline will be called while showing "$> " prompt, and returns user input
+ * in char * form, removing the '\n' behind. Then it parses the user input
+ * from readline into commands.
+ * 
+ * @param ac The argument count (Can be NULL)
+ * @param av The argument variables (Can be NULL)
+ * @param envp The enviroment variable list
+ * @return int 0 on success
+ */
 int	main(int ac, char **av, char **envp)
 {
 	t_main	main;	

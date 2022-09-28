@@ -6,16 +6,21 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:04:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/23 10:27:47 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 12:00:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Checks whether there is a cd command
-** If no, return 0
-** If yes, then will change current directory and return 1
-** If changing directory fails, throw error and exit with status 1 */
+/**
+ * @brief Checks whether there is a cd command. If no, return 0 . If yes, then
+ * will change current directory and return 1. If changing directory fails,
+ * throw error and exit with status 1
+ * 
+ * @param main The main struct containing envp
+ * @param args The arguments
+ * @return int 0 on success
+ */
 int	cd(t_main *main, char **args)
 {
 	char	*path;
@@ -32,6 +37,5 @@ int	cd(t_main *main, char **args)
 	}
 	else if (chdir(args[1]) < 0)
 		perror(args[1]);
-	return (1);
-	(void)main;
+	return (0);
 }

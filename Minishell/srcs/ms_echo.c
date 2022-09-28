@@ -6,16 +6,20 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:25:03 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/27 14:58:39 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 12:00:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* Iterate through the args and finds the first '-' character
-** Check whether it is a valid flag and only 'n' flag exists in the user input
-** Loops through again for cases where the input is (echo -nn -nn Hi)
-** Returns the total flag count */
+/**
+ * @brief Iterates through the args and finds the first '-' character. Check
+ * whether it is a valid flag and only 'n' flag exists in the user input. Loops
+ * through again for cases where the input is (echo -nn -nn Hi)
+ * 
+ * @param args The arguments
+ * @return int flag count
+ */
 static int	get_flag(char **args)
 {
 	int	i;
@@ -38,16 +42,22 @@ static int	get_flag(char **args)
 	return (flag_count);
 }
 
-/* Gets the "-n" flag count from args
-** Using i starting from flag count, iterate through the rest of args and
-** print out all the variable. If flag_count is 0, prints out a "\n" */
+/**
+ * @brief Gets the "-n" flag count from args. Using i starting from flag count,
+ * iterate through the rest of args and print out all the variable. If flag_count
+ * is 0 (no -n flag), prints out a "\n"
+ * 
+ * @param main The main struct (Can be NULL)
+ * @param args The arguments
+ * @return int 0 on success
+ */
 int	echo(t_main *main, char **args)
 {
 	int	i;
 	int	flag_count;
 
 	if (args[1] == 0)
-		return (printf("\n"));
+		return (printf("\n") - 1);
 	flag_count = get_flag(args);
 	i = flag_count;
 	while (args[++i] != 0)
