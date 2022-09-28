@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/27 21:25:18 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 11:24:27 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 				output = append_char(output, *(arg + i));
 		else if (*(arg + i) == '\"')
 		{
+			output = append_char(output, '\0');
 			while (*(arg + ++i) != '\"' && *(arg + i) != '\0')
 			{
 				if (*(arg + i) == '$')
@@ -93,8 +94,8 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 				while (split[++j] != 0)
 				{
 					current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-					ft_memcpy(current->next->content, split + j, sizeof(char *));
 					current = current->next;
+					ft_memcpy(current->content, split + j, sizeof(char *));
 				}
 				current->next = end;
 				while (head != NULL)
@@ -111,7 +112,10 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 		i++;
 	}
 	if (output == NULL)
-		*(char **)current->content = ft_strdup("");
+	{
+		free(current->content);
+		ft_memcpy(current->content, ft_calloc(1, sizeof(char *)), sizeof(char *));
+	}
 	else if (dollar == 0)
 		*(char **)current->content = output;
 	return (current->next);
