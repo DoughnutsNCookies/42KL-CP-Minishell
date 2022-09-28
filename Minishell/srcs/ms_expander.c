@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expander.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 12:51:10 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/29 00:12:47 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 	char	**split;
 	t_list	*end;
 	t_list	*head;
-	t_list	*headhead;
+	// t_list	*headhead;
 	int		i;
 	int		j;
 	int		dollar;
 
-	headhead = current;
+	// headhead = current;
 	i = 0;
 	output = NULL;
 	while (*(arg + i) != '\0')
