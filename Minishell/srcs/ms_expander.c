@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 11:24:27 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/28 12:51:10 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,8 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 	if (output == NULL)
 	{
 		free(current->content);
-		ft_memcpy(current->content, ft_calloc(1, sizeof(char *)), sizeof(char *));
+		ft_memcpy(current->content, ft_calloc(1, sizeof(char *)),
+			sizeof(char *));
 	}
 	else if (dollar == 0)
 		*(char **)current->content = output;
