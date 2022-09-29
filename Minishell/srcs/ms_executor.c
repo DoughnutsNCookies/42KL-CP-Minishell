@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 12:01:36 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/29 11:30:23 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	executor(t_main *main, char **command)
 			return ;
 		}
 	}
-	write(2, command[0], ft_strlen(command[0]));
-	write(2, ": command not found\n", 20);
+	ft_dprintf(STDERR_FILENO, "%s: command not found\n", command[0]);
 	g_global.error_no = 127;
 }

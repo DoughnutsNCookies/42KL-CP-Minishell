@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:33:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 11:46:13 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/29 11:35:08 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  */
 int	ms_exit(t_main *main, char **args)
 {
-	write(1, "exit\n", 5);
+	ft_printf("exit\n");
 	system("leaks -q minishell");
 	exit(EXIT_SUCCESS);
 	return (0);

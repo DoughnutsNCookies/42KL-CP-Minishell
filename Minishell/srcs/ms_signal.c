@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:47:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 11:59:29 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/29 11:33:54 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ void	sigint_handler(int signo)
 {
 	if (signo != SIGINT)
 		return ;
-	write(STDOUT_FILENO, "\n", 1);
+	ft_printf("\n");
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
+	g_global.error_no = 1;
 }
 
 /**

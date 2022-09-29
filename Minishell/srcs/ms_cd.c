@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:04:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 12:00:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/29 11:36:02 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	cd(t_main *main, char **args)
 		if (chdir(path) < 0)
 		{
 			free(path);
-			write(2, "cd: HOME not set\n", 17);
+			ft_dprintf(STDERR_FILENO, "cd: HOME not set\n");
 		}
 		free(path);
 	}

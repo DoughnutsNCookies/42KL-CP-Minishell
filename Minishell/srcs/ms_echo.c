@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:25:03 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 12:00:59 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/29 11:35:53 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	echo(t_main *main, char **args)
 	int	flag_count;
 
 	if (args[1] == 0)
-		return (printf("\n") - 1);
+		return (ft_printf("\n") - 1);
 	flag_count = get_flag(args);
 	i = flag_count;
 	while (args[++i] != 0)
@@ -67,7 +67,7 @@ int	echo(t_main *main, char **args)
 			ft_printf(" ");
 	}
 	if (flag_count == 0)
-		printf("\n");
+		ft_printf("\n");
 	return (0);
 	(void)main;
 }
