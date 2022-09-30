@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 12:18:56 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/30 11:57:41 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,19 +45,28 @@ static void	init_main(t_main *main, char **envp)
  */
 int	main(int ac, char **av, char **envp)
 {
-	t_main	main;	
+	t_main	main;
+	t_list	*args;
 	char	**command;
 	char	*input;
+	int		i;
 
 	init_signal();
 	init_main(&main, envp);
 	while (1)
 	{
+		i = 0;
 		input = readline("$> ");
 		command = parse_input(&main, input);
 		if (input[0] != '\0')
 			add_history(input);
-		command = expander(&main, command);
+		while (command[i] != 0)
+			i++;
+		args = ft_array_to_list(command, i, sizeof(char *));
+		expander(&main, &args);
+		free_doublearray(command);
+		command = ft_list_to_array(args, sizeof(char *));
+		ft_lstclear(&args, &free);
 		executor(&main, command);
 		free_doublearray(command);
 		free(input);

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 18:16:58 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 11:59:50 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/30 11:56:50 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,7 @@ char	**parse_input(t_main *main, char *input)
 	command = ft_split(input, ' ');
 	i = -1;
 	while (command[++i] != 0)
-	{
 		if (ft_strncmp(command[i], "exit", 5) == 0)
 			main->func[MS_EXIT](main, NULL);
-	}
 	return (command);
 }

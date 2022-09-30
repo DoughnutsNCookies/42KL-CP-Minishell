@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 12:19:23 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/29 13:20:51 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,8 @@ static void	find_and_add(t_main *main, char **args)
 			update_envp(main, args[i], split[0], split[1]);
 			free_doublearray(split);
 		}
+		else
+			free_doublearray(split);
 	}
 }
 

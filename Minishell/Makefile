@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+         #
+#    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/09/29 00:26:19 by maliew           ###   ########.fr        #
+#    Updated: 2022/09/30 11:49:47 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ READLINE	+=	-L/usr/local/opt/readline/lib
 SRCS_FILES	=	ms_expanderhelper \
 				ms_exporthelper \
 				ms_parseinput \
+				ms_expandstar \
 				ms_executor \
 				ms_expander \
 				ms_helper \

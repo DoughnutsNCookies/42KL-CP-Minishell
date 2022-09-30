@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expander.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 00:12:47 by maliew           ###   ########.fr       */
+/*   Updated: 2022/09/30 11:58:50 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,21 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 	char	**split;
 	t_list	*end;
 	t_list	*head;
-	// t_list	*headhead;
 	int		i;
 	int		j;
 	int		dollar;
 
-	// headhead = current;
 	i = 0;
 	output = NULL;
 	while (*(arg + i) != '\0')
 	{
 		dollar = 0;
-		if (*(arg + i) == '\'')
+		if (*(arg + i) == '*')
+		{
+			head = current;
+			star_wildcard(arg, current);
+		}
+		else if (*(arg + i) == '\'')
 			while (*(arg + ++i) != '\'' && *(arg + i) != '\0')
 				output = append_char(output, *(arg + i));
 		else if (*(arg + i) == '\"')
@@ -87,19 +90,20 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 				while (dollar_expanded[++j] != '\0')
 					output = append_char(output, dollar_expanded[j]);
 				split = ft_split(output, ' ');
-				head = current;
 				end = current->next;
-				j = 0;
-				ft_memcpy(current->content, split + j, sizeof(char *));
+				j = -1;
+				/////
 				while (split[++j] != 0)
 				{
+					// star_wildcard(split[j], current);
+					// print_ll(head);
+					// exit(1);
+					ft_memcpy(current->content, split + j, sizeof(char *));
 					current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
 					current = current->next;
-					ft_memcpy(current->content, split + j, sizeof(char *));
 				}
+				/////
 				current->next = end;
-				while (head != NULL)
-					head = head->next;
 				dollar = 1;
 				free(output);
 				output = *(char **)current->content;
@@ -122,28 +126,17 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 	return (current->next);
 }
 
-char	**expander(t_main *main, char **args)
+void	expander(t_main *main, t_list **args)
 {
 	t_list	*arg_lst;
-	t_list	*head;
-	char	**temp;
-	int		i;
 
-	i = 0;
-	while (args[i] != 0)
-		i++;
-	if (i == 0)
+	arg_lst = *args;
+	if (arg_lst == NULL)
 	{
-		free_doublearray(args);
-		return (ft_split("", ' '));
+		*args = ft_lstnew(ft_calloc(1, sizeof(char *)));
+		return ;
 	}
-	arg_lst = ft_array_to_list(args, i, sizeof(char *));
-	head = arg_lst;
 	while (arg_lst != NULL)
 		arg_lst = convert_quote(main, *(char **)arg_lst->content, arg_lst);
-	ft_lstadd_back(&head, ft_lstnew(ft_calloc(1, sizeof(char *))));
-	temp = ft_list_to_array(head, sizeof(char *));
-	ft_lstclear(&head, &free);
-	free_doublearray(args);
-	return (temp);
+	ft_lstadd_back(args, ft_lstnew(ft_calloc(1, sizeof(char *))));
 }

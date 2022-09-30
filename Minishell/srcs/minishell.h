@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 00:16:45 by maliew           ###   ########.fr       */
+/*   Updated: 2022/09/30 11:24:29 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,15 @@ char	**parse_input(t_main *main, char *input);
 void	executor(t_main *main, char **command);
 
 /* Expander */
-char	**expander(t_main *main, char **args);
+void	expander(t_main *main, t_list **args);
 
 /* Expander Helper */
 char	*append_char(char *input, char c);
 void	print_ll(t_list *head);
 char	**ft_list_to_charss(t_list *lst);
+
+/* Expand Star */
+void	star_wildcard(char *arg, t_list *current);
 
 /* Echo */
 int		echo(t_main *main, char **args);
