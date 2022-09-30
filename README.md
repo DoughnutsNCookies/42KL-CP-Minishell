@@ -1,2 +1,2 @@
 # 42KL-CP-Minishell
-My Minishell project
+My Minishell project. Teammates with @MTLKS
