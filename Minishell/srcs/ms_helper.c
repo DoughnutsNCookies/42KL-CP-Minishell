@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 11:57:54 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/30 21:59:58 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,69 @@ char	*get_envp_value(char **envp, char *key)
 		free_doublearray(split);
 	}
 	return (NULL);
+}
+
+/**
+ * @brief Duplicates and returns a copy of envp and sorts it in alphabatical
+ * order
+ * 
+ * @param envp The enviroment variable list
+ * @return char** envp that is malloc'ed and sorted
+ */
+char	**sort_doublearray(char **array)
+{
+	int		i;
+	int		j;
+	int		max;
+	char	**output;
+	char	*temp;
+
+	output = dup_doublearray(array);
+	max = 0;
+	while (array[max] != 0)
+		max++;
+	i = -1;
+	while (++i < max)
+	{
+		j = i;
+		while (++j < max)
+		{
+			if (ft_strcmp(output[i], output[j]) > 0)
+			{
+				temp = output[i];
+				output[i] = output[j];
+				output[j] = temp;
+			}
+		}
+	}
+	return (output);
+}
+
+void	ft_lstsort(t_list **lst)
+{
+	t_list	*current;
+	t_list	*nextnode;
+	int		sorted;
+	void	*temp;
+
+	sorted = 0;
+	while (sorted == 0)
+	{
+		sorted = 1;
+		current = *lst;
+		nextnode = current;
+		while (nextnode->next != NULL)
+		{
+			if (ft_strcmp(*(char **)nextnode->content,
+					*(char **)nextnode->next->content) > 0)
+			{
+				temp = nextnode->content;
+				nextnode->content = nextnode->next->content;
+				nextnode->next->content = temp;
+				sorted = 0;
+			}
+			nextnode = nextnode->next;
+		}
+		current = current->next;
+	}
 }

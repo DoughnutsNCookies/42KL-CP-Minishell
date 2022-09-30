@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 13:20:51 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/30 19:38:53 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ int	export(t_main *main, char **args)
 
 	if (args[1] == 0 || args[1][0] == '#')
 	{
-		dup = sort_envp(main->envp);
+		dup = sort_doublearray(main->envp);
 		print_envp(dup);
 		free_doublearray(dup);
 	}

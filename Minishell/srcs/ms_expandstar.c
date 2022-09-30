@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:58:57 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 15:18:16 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/30 20:33:01 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ t_list	*get_files_from_dir(char *arg)
 			free(temp);
 		entity = readdir(dir);
 	}
+	ft_lstsort(&head);
 	closedir(dir);
 	return (head);
 }

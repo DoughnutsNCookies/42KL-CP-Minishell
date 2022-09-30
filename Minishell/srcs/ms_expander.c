@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expander.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 18:20:26 by maliew           ###   ########.fr       */
+/*   Updated: 2022/09/30 21:59:16 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 			ft_lstlast(files)->next = current->next;
 			current->content = files->content;
 			current->next = files->next;
-			// ft_printf("\nINSIDE LOOP: ");
-			// print_ll(current);
-			// ft_printf("cur: |%s|\n", *(char **)(end->content));
 			return (end);
 		}
 		else if (*(arg + i) == '\'')
@@ -99,17 +96,37 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 				split = ft_split(output, ' ');
 				end = current->next;
 				j = -1;
-				/////
 				while (split[++j] != 0)
 				{
-					// star_wildcard(split[j], current);
-					// print_ll(head);
-					// exit(1);
-					ft_memcpy(current->content, split + j, sizeof(char *));
-					current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-					current = current->next;
+					if (ft_strchr(split[j], '*') != NULL)
+					{
+						files = get_files_from_dir(split[j]);
+						while (files != NULL)
+						{
+							ft_memcpy(current->content, files->content, sizeof(char *));
+							if (files->next != NULL)
+							{
+								current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
+								current = current->next;
+							}
+							files = files->next;
+						}
+						if (split[j + 1] != 0)
+						{
+							current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
+							current = current->next;
+						}
+					}
+					else
+					{
+						ft_memcpy(current->content, split + j, sizeof(char *));
+						if (split[j + 1] != 0)
+						{
+							current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
+							current = current->next;
+						}
+					}
 				}
-				/////
 				current->next = end;
 				dollar = 1;
 				free(output);
@@ -145,10 +162,7 @@ void	expander(t_main *main, t_list **args)
 		return ;
 	}
 	while (arg_lst != NULL)
-	{
 		arg_lst = convert_quote(main, *(char **)arg_lst->content, arg_lst);
-		// arg_lst = arg_lst->next;
-	}
 	ft_lstadd_back(args, ft_lstnew(ft_calloc(1, sizeof(char *))));
 }
 

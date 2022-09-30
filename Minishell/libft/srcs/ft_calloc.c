@@ -6,12 +6,11 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/04 18:26:48 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:23:08 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/30 21:58:19 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 void	*ft_calloc(size_t nitems, size_t size)
 {
