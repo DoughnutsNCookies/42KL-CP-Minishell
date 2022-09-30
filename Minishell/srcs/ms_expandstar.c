@@ -72,10 +72,8 @@ t_list	*get_files_from_dir(char *arg)
 	if (dir == NULL)
 	{
 		ft_dprintf(2, "Cannot open file\n");
-		return (0);
+		return (NULL);
 	}
-	current = ft_lstnew(ft_calloc(1, sizeof(char *)));
-	head = current;
 	entity = readdir(dir);
 	while (entity != NULL)
 	{
@@ -87,7 +85,9 @@ t_list	*get_files_from_dir(char *arg)
 		free(temp);
 	}
 	if (entity == NULL)
-		return (head);
+		return (NULL);
+	current = ft_lstnew(ft_calloc(1, sizeof(char *)));
+	head = current;
 	ft_memcpy(current->content, &temp, sizeof(char *));
 	entity = readdir(dir);
 	while (entity != NULL)
