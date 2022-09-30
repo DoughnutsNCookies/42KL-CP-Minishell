@@ -66,7 +66,6 @@ int	main(int ac, char **av, char **envp)
 		expander(&main, &args);
 		free_doublearray(command);
 		command = ft_list_to_array(args, sizeof(char *));
-		ft_lstclear(&args, &free);
 		executor(&main, command);
 		free_doublearray(command);
 		free(input);
