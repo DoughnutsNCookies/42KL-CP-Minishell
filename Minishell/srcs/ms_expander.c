@@ -108,7 +108,7 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 				j = -1;
 				while (split[++j] != 0)
 				{
-					if (check_star(split[j])
+					if (check_star(split[j]))
 					{
 						files = get_files_from_dir(split[j]);
 						if (files == NULL)
