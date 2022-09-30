@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 11:24:29 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/30 15:20:20 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,9 @@ void	print_ll(t_list *head);
 char	**ft_list_to_charss(t_list *lst);
 
 /* Expand Star */
-void	star_wildcard(char *arg, t_list *current);
+int		check_star(char *arg);
+t_list	*get_files_from_dir(char *arg);
+t_list	*star_wildcard(char *arg, t_list *input);
 
 /* Echo */
 int		echo(t_main *main, char **args);

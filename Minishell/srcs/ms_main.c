@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 11:57:41 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/30 17:52:41 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(int ac, char **av, char **envp)
 	char	*input;
 	int		i;
 
-	init_signal();
+	// init_signal();
 	init_main(&main, envp);
 	while (1)
 	{
@@ -63,12 +63,14 @@ int	main(int ac, char **av, char **envp)
 		while (command[i] != 0)
 			i++;
 		args = ft_array_to_list(command, i, sizeof(char *));
+		// print_ll(args);
 		expander(&main, &args);
+		print_ll(args);
+		exit(1);
 		free_doublearray(command);
 		command = ft_list_to_array(args, sizeof(char *));
-		ft_lstclear(&args, &free);
 		executor(&main, command);
-		free_doublearray(command);
+		// free_doublearray(command);
 		free(input);
 	}
 	return (EXIT_SUCCESS);
