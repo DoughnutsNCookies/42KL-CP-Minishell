@@ -49,12 +49,22 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 		dollar = 0;
 		if (*(arg + i) == '*')
 		{
-			files = get_files_from_dir(arg);
-			end = current->next;
-			ft_lstlast(files)->next = current->next;
-			current->content = files->content;
-			current->next = files->next;
-			return (end);
+			if (check_star(arg))
+			{
+				files = get_files_from_dir(arg);
+				if (files == NULL)
+					output = append_char(output, *(arg + i));
+				else
+				{
+					end = current->next;
+					ft_lstlast(files)->next = current->next;
+					current->content = files->content;
+					current->next = files->next;
+					return (end);
+				}
+			}
+			else
+				output = append_char(output, *(arg + i));
 		}
 		else if (*(arg + i) == '\'')
 			while (*(arg + ++i) != '\'' && *(arg + i) != '\0')
@@ -101,6 +111,8 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 					if (check_star(split[j])
 					{
 						files = get_files_from_dir(split[j]);
+						if (files == NULL)
+							ft_memcpy(current->content, split + j, sizeof(char *));
 						while (files != NULL)
 						{
 							ft_memcpy(current->content, files->content, sizeof(char *));
@@ -111,20 +123,13 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 							}
 							files = files->next;
 						}
-						if (split[j + 1] != 0)
-						{
-							current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-							current = current->next;
-						}
 					}
 					else
-					{
 						ft_memcpy(current->content, split + j, sizeof(char *));
-						if (split[j + 1] != 0)
-						{
-							current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-							current = current->next;
-						}
+					if (split[j + 1] != 0)
+					{
+						current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
+						current = current->next;
 					}
 				}
 				current->next = end;
