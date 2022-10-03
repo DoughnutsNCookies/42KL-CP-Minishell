@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 22:01:49 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/03 13:01:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int ac, char **av, char **envp)
 		command = ft_list_to_array(args, sizeof(char *));
 		executor(&main, command);
 		free_doublearray(command);
+		ft_lstclear(&args, &free);
 		free(input);
 	}
 	return (EXIT_SUCCESS);
