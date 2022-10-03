@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_error.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:05:01 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:30:14 by schuah           ###   ########.fr       */
+/*   Updated: 2022/09/30 02:24:03 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,17 @@ int	export_unset_error(char *arg, char *type)
 	ft_dprintf(STDERR_FILENO, "%s: `%s': not a valid identifier\n", type, arg);
 	g_global.error_no = 1;
 	return (1);
+}
+
+/**
+ * @brief 	Prints syntax error using the current token in the parser.
+ * 			Also sets the member syntax_error in the parser struct to 1.
+ * 
+ * @param p Parser struct
+ */
+void	ms_parser_syntax_error(t_parser *p)
+{
+	ft_dprintf(2, "minishell: syntax error near unexpected token `%s'\n",
+		p->curr_token->value);
+	p->syntax_error = 1;
 }

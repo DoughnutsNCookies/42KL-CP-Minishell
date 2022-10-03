@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:30:23 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/03 04:07:22 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	executor(t_main *main, char **command)
 			return ;
 		}
 	}
+	execve(command[0], command, main->envp);
 	ft_dprintf(STDERR_FILENO, "%s: command not found\n", command[0]);
 	g_global.error_no = 127;
 }

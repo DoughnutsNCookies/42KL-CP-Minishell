@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expander.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 21:59:16 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/01 17:25:13 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,8 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 	if (output == NULL)
 	{
 		free(current->content);
-		ft_memcpy(current->content, ft_calloc(1, sizeof(char *)),
-			sizeof(char *));
+		current->content = ft_calloc(1, sizeof(char *));
+		*(char **)current->content = NULL;
 	}
 	else if (dollar == 0)
 		*(char **)current->content = output;
@@ -162,13 +162,9 @@ void	expander(t_main *main, t_list **args)
 
 	arg_lst = *args;
 	if (arg_lst == NULL)
-	{
-		*args = ft_lstnew(ft_calloc(1, sizeof(char *)));
 		return ;
-	}
 	while (arg_lst != NULL)
 		arg_lst = convert_quote(main, *(char **)arg_lst->content, arg_lst);
-	ft_lstadd_back(args, ft_lstnew(ft_calloc(1, sizeof(char *))));
 }
 
 // t_list	*ft_lstcopy(t_list *list);
@@ -227,12 +223,7 @@ void	expander(t_main *main, t_list **args)
 // 				*temp = files;
 // 				k = -1;
 // 				while (current != NULL && current->next != NULL)
-// 				{
-// 					if (ft_strcmp(*(char **)current->next->content, "*") == 0)
-// 					{
-// 						k++;
-// 						ft_lstdelone(current->next, &free);
-// 						// current->next = NULL;
+// 				{// Tem
 // 						break ;
 // 					}
 // 					current = current->next;
