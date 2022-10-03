@@ -6,12 +6,20 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/03 15:22:17 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/03 16:47:10 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Expands the $ symbol by finding its value. Gets the key from the arg
+ * and use the key to loop through every envp to find a matching key
+ * 
+ * @param main The main struct containing envp
+ * @param arg The argument containing the key
+ * @return char* value if a matching key is found, else returns NULL 
+ */
 char	*expand_dollar(t_main *main, char *arg)
 {
 	char	*key;
@@ -31,7 +39,7 @@ char	*expand_dollar(t_main *main, char *arg)
 	return (value);
 }
 
-t_list	*convert_quote(t_main *main, char *arg, t_list *current)
+t_list	*expand(t_main *main, char *arg, t_list *current)
 {
 	char	*output;
 	char	*dollar_expanded;
@@ -166,9 +174,16 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 	else if (dollar == 0)
 		*(char **)current->content = output;
 	return (current->next);
-	(void)main;
 }
 
+/**
+ * @brief The main expander function, loops through every argument provided and
+ * expand it. The expanders expands the following: '', "", $KEY, $?, * into their
+ * respective raw values
+ * 
+ * @param main The main struct containing the environment list
+ * @param args The arguments from user input
+ */
 void	expander(t_main *main, t_list **args)
 {
 	t_list	*arg_lst;
@@ -180,9 +195,6 @@ void	expander(t_main *main, t_list **args)
 		return ;
 	}
 	while (arg_lst != NULL)
-	{
-		arg_lst = convert_quote(main, *(char **)arg_lst->content, arg_lst);
-		// system("leaks -q minishell");
-	}
+		arg_lst = expand(main, *(char **)arg_lst->content, arg_lst);
 	ft_lstadd_back(args, ft_lstnew(ft_calloc(1, sizeof(char *))));
 }

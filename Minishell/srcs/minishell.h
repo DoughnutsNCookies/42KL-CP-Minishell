@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 20:18:40 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/03 16:48:17 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define MS_EXIT 6
 # define MS_MAX_BIFUNC 7
 
+/* Used to rename builtin functions into function pointers */
 struct		s_main;
 typedef int	(*t_func)(struct s_main *main, char **args);
 
@@ -50,8 +51,9 @@ typedef struct s_main
 typedef struct s_global
 {
 	int	error_no;
-}	t_global;
+}						t_global;
 
+/* Global struct in defined here */
 t_global	g_global;
 
 /* CD */
@@ -83,13 +85,14 @@ void	expander(t_main *main, t_list **args);
 
 /* Expander Helper */
 char	*append_char(char *input, char c);
-void	print_ll(t_list *head);
-char	**ft_list_to_charss(t_list *lst);
 
 /* Expand Star */
 int		check_star(char *arg);
+int		is_valid(char *tocheck, char *arg);
+
+/* Expand Files */
+DIR		*get_dir(char *path);
 t_list	*get_files_from_dir(char *arg);
-t_list	*star_wildcard(char *arg, t_list *input);
 
 /* Echo */
 int		echo(t_main *main, char **args);
@@ -113,5 +116,8 @@ int		env(t_main *main, char **args);
 
 /* Exit */
 int		ms_exit(t_main *main, char **args);
+
+/* Temp */
+void	print_ll(t_list *head);
 
 #endif

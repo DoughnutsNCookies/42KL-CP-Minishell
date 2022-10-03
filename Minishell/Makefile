@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/03 15:22:22 by schuah           ###   ########.fr        #
+#    Updated: 2022/10/03 16:38:58 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,10 +19,11 @@ CFLAGS		+=	-I/usr/local/opt/readline/include
 # CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
-SRCS_FILES	=	ms_expanderhelper \
-				ms_exporthelper \
-				ms_parseinput \
-				ms_expandstar \
+SRCS_FILES	=	ms_expander_helper \
+				ms_export_helper \
+				ms_expand_files \
+				ms_parse_input \
+				ms_expand_star \
 				ms_executor \
 				ms_expander \
 				ms_helper \
@@ -35,7 +36,8 @@ SRCS_FILES	=	ms_expanderhelper \
 				ms_exit \
 				ms_env \
 				ms_pwd \
-				ms_cd
+				ms_cd \
+				temp_debugger
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRCS_FILES)))
 OBJS		= 	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRCS_FILES)))
 SRCS_DIR	=	srcs/

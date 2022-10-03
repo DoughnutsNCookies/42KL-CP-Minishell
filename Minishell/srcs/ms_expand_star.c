@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expandstar.c                                    :+:      :+:    :+:   */
+/*   ms_expand_star.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:58:57 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/03 15:23:35 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/03 16:26:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,91 +57,18 @@ int	is_valid(char *tocheck, char *arg)
 	return (1);
 }
 
-t_list	*get_files_from_dir(char *arg)
-{
-	DIR				*dir;
-	struct dirent	*entity;
-	t_list			*head;
-	t_list			*current;
-	char			*temp;
-	char			*path;
-
-	path = getcwd(NULL, 0);
-	dir = opendir(path);
-	free(path);
-	if (dir == NULL)
-	{
-		ft_dprintf(2, "Cannot open file\n");
-		return (NULL);
-	}
-	entity = readdir(dir);
-	while (entity != NULL)
-	{
-		temp = ft_strdup(entity->d_name);
-		if (is_valid(temp, arg) == 0)
-			entity = readdir(dir);
-		else
-			break ;
-		free(temp);
-	}
-	if (entity == NULL)
-	{
-		closedir(dir);
-		return (NULL);
-	}
-	current = ft_lstnew(ft_calloc(1, sizeof(char *)));
-	head = current;
-	ft_memcpy(current->content, &temp, sizeof(char *));
-	entity = readdir(dir);
-	while (entity != NULL)
-	{
-		temp = ft_strdup(entity->d_name);
-		if (is_valid(temp, arg) == 1)
-		{
-			current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-			current = current->next;
-			ft_memcpy(current->content, &temp, sizeof(char *));
-		}
-		else
-			free(temp);
-		entity = readdir(dir);
-	}
-	ft_lstsort(&head);
-	closedir(dir);
-	return (head);
-}
-
 int	check_star(char *arg)
 {
-	char	*path;
 	DIR		*dir;
 
 	if (ft_strchr(arg, '*') == NULL)
 		return (0);
-	path = getcwd(NULL, 0);
-	dir = opendir(path);
-	free(path);
+	dir = get_dir(getcwd(NULL, 0));
 	if (dir == NULL)
 	{
-		ft_dprintf(2, "Cannot open file\n");
+		ft_dprintf(2, "Cannot open directory\n");
 		return (0);
 	}
 	closedir(dir);
 	return (1);
-}
-
-t_list	*star_wildcard(char *arg, t_list *current)
-{
-	t_list	*files;
-	t_list	*end;
-
-	files = get_files_from_dir(arg);
-	print_ll(files);
-	end = current->next;
-	current = files;
-	while (current->next != NULL)
-		current = current->next;
-	current->next = end;
-	print_ll(current);
-	return (current);
 }
