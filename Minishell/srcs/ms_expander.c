@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/03 13:33:52 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/03 15:22:17 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 	char	**split;
 	t_list	*files;
 	t_list	*end;
+	t_list	*head;
 	int		i;
 	int		j;
 	int		dollar;
@@ -53,7 +54,10 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 			{
 				files = get_files_from_dir(arg);
 				if (files == NULL)
+				{
+					ft_lstclear(&files, &free);
 					output = append_char(output, *(arg + i));
+				}
 				else
 				{
 					end = current->next;
@@ -61,7 +65,8 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 					free(current->content);
 					current->content = files->content;
 					current->next = files->next;
-					system("leaks -q minishell");
+					free(output);
+					free(files);
 					return (end);
 				}
 			}
@@ -100,7 +105,7 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 			while (arg[i + 1] != '\0' && arg[i + 1] != '\''
 				&& arg[i + 1] != '\"' && arg[i + 1] != '$')
 				i++;
-			if (dollar_expanded[0] != '\0')
+			if (dollar_expanded != NULL)
 			{
 				j = -1;
 				while (dollar_expanded[++j] != '\0')
@@ -113,17 +118,23 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 					if (check_star(split[j]))
 					{
 						files = get_files_from_dir(split[j]);
+						head = files;
 						if (files == NULL)
 							ft_memcpy(current->content, split + j, sizeof(char *));
-						while (files != NULL)
+						else
 						{
-							ft_memcpy(current->content, files->content, sizeof(char *));
-							if (files->next != NULL)
+							while (files != NULL)
 							{
-								current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-								current = current->next;
+								ft_memcpy(current->content, files->content, sizeof(char *));
+								if (files->next != NULL)
+								{
+									current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
+									current = current->next;
+								}
+								files = files->next;
 							}
-							files = files->next;
+							ft_lstclear(&head, &free);
+							free(split[j]);
 						}
 					}
 					else
