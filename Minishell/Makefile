@@ -19,7 +19,7 @@ CFLAGS		+=	-I/usr/local/opt/readline/include
 # CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
-SRCS_FILES	=	ms_expander_helper \
+SRCS_FILES	=	ms_expand_helper \
 				ms_export_helper \
 				ms_expand_files \
 				ms_parse_input \
