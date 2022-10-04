@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+/**
+ * @brief Appends a character to the back of a string
+ * 
+ * @param input The string input
+ * @param c The character to be appended to the back of a string
+ * @return char* The result string after appending
+ */
 char	*append_char(char *input, char c)
 {
 	char	*output;

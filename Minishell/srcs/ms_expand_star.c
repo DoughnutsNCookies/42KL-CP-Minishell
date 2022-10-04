@@ -6,16 +6,74 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:58:57 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/03 16:26:59 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/04 11:18:32 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Checks whether the file's name will reach null after *
+ * 
+ * @param tocheck The file's name that will be checked
+ * @param arg The argument that will be checked with
+ * @param i The current position of the file's name
+ * @param j The current position of the argument
+ * @return int 1 if the file's name is valid with the *, else 0
+ */
+int	check_star_is_valid(char *tocheck, char *arg, int *i, int *j)
+{
+	while (arg[*j] == '*' && arg[*j] != '\0')
+		(*j)++;
+	if (arg[*j] == '\0')
+		return (1);
+	while (tocheck[*i] != '\0' && tocheck[*i] != arg[*j])
+		(*i)++;
+	if (tocheck[*i] == '\0' && arg[*j] != '\0')
+		return (0);
+	while (tocheck[*i] == arg[*j])
+		(*i)++;
+	if (is_valid(tocheck + *i, arg))
+		return (1);
+	(*j)++;
+	if (arg[*j] == '\0' && tocheck[*i] != '\0')
+		return (0);
+	return (-1);
+}
+
+/**
+ * @brief Checks the file's name after any * (eg. the s after *s)
+ * 
+ * @param tocheck The file's name that will be checked
+ * @param arg The argument that will be checked with
+ * @param i The current position of the file's name
+ * @param j The current position of the argument
+ * @return int 1 if it is the same, else 0
+ */
+int	check_end_string(char *tocheck, char *arg, int *i, int *j)
+{
+	if (arg[*j] == tocheck[*i])
+	{
+		(*i)++;
+		(*j)++;
+	}
+	else
+		return (0);
+	return (arg[*j] != '\0' || tocheck[*i] == '\0');
+}
+
+/**
+ * @brief Checks whether the file's name is valid based on the argument given
+ * 
+ * @param tocheck The file's name that will be checked
+ * @param arg The argument that will be checked with
+ * @return int 1 if it is valid, else 0
+ */
 int	is_valid(char *tocheck, char *arg)
 {
 	int	i;
 	int	j;
+	int	output;
 
 	i = 0;
 	j = 0;
@@ -25,38 +83,26 @@ int	is_valid(char *tocheck, char *arg)
 	{
 		if (arg[j] == '*')
 		{
-			while (arg[j] == '*' && arg[j] != '\0')
-				j++;
-			if (arg[j] == '\0')
-				return (1);
-			while (tocheck[i] != '\0' && tocheck[i] != arg[j])
-				i++;
-			if (tocheck[i] == '\0' && arg[j] != '\0')
-				return (0);
-			while (tocheck[i] == arg[j])
-				i++;
-			j++;
-			if (arg[j] == '\0' && tocheck[i] != '\0')
-				return (0);
+			output = check_star_is_valid(arg, tocheck, &i, &j);
+			if (output >= 0)
+				return (output);
 			continue ;
 		}
-		if (arg[j] == tocheck[i])
-		{
-			i++;
-			j++;
-		}
-		else
-			return (0);
-		if (arg[j] == '\0' && tocheck[i] != '\0')
+		if (check_end_string(arg, tocheck, &i, &j) == 0)
 			return (0);
 	}
 	while (arg[j] == '*' && arg[j] != '\0')
 		j++;
-	if (tocheck[i] == '\0' && arg[j] != '\0')
-		return (0);
-	return (1);
+	return (tocheck[i] != '\0' || arg[j] == '\0');
 }
 
+/**
+ * @brief Checks whether there is a star in the directory, and whether the
+ * directory can be opened
+ * 
+ * @param arg 
+ * @return int 
+ */
 int	check_star(char *arg)
 {
 	DIR		*dir;
