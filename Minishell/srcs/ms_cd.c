@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:04:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:36:02 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/04 22:07:56 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * will change current directory and return 1. If changing directory fails,
  * throw error and exit with status 1
  * 
- * @param main The main struct containing envp
+ * @param main The main struct containing the environment list
  * @param args The arguments
  * @return int 0 on success
  */

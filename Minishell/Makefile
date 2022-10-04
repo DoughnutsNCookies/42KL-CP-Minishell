@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/04 10:48:50 by schuah           ###   ########.fr        #
+#    Updated: 2022/10/04 22:17:21 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,10 @@ CFLAGS		+=	-I/usr/local/opt/readline/include
 CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
-SRCS_FILES	=	ms_expand_helper \
-				ms_export_helper \
+SRCS_FILES	=	ms_expand_dollar \
+				ms_expand_utils \
+				ms_export_utils \
+				ms_expand_quote \
 				ms_expand_files \
 				ms_parse_input \
 				ms_expand_star \
@@ -67,5 +69,8 @@ fclean:			clean
 				rm -rf $(NAME)
 
 re:				fclean all
+
+valgrind:
+				valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind-out.txt ./minishell
 
 .PHONY:			all libft clean fclean re

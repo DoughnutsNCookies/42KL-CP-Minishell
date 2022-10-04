@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:55:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 12:26:00 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/04 15:28:40 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static t_list	*get_files_lst(struct dirent *entity, DIR *dir,
 	while (entity != NULL)
 	{
 		file_name = ft_strdup(entity->d_name);
-		if (is_valid(file_name, arg) == 1)
+		if (is_valid(file_name, arg))
 		{
 			current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
 			current = current->next;
