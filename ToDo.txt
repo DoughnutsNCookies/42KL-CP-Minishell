@@ -8,15 +8,15 @@
 	- env with no options										| Done
 	- exit with no options										| Done
 - Quotation (Expander: Need to expand $ before executing)		| In-Progress
-	- ' (Single quotes)											| Done, need more testing
-		- Treat it as raw string								| Done, need more testing
-	- " (Double quotes)											| Done, need more testing
-		- Treat it as raw string except for the $ sign			| Done, need more testing
-	- $ (Dollar sign)											| Done, need more testing
-	- $? 														| Done, need more testing
+	- ' (Single quotes)											| Done
+		- Treat it as raw string								| Done
+	- " (Double quotes)											| Done
+		- Treat it as raw string except for the $ sign			| Done
+	- $ (Dollar sign)											| Need to handle ec$B$B
+	- $? 														| Done
 		- Exit status of last executed foreground pipeline		| In-progress
 		- Correct exit status for all system programs			| In-progress
-	- Wildcard * (should work for the current working directory)| Norm
+	- Wildcard * (should work for the current working directory)| Done, Need more testing
 - Pipex															|
 	- > Will overwrite the file (eg. echo "hi" > test) 			|
 	- >> Will append to the file (eg. echo "line2" >> test)		|
