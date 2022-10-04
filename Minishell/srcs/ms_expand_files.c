@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:55:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/03 16:36:09 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/04 12:26:00 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static t_list	*get_files_lst(struct dirent *entity, DIR *dir,
 		entity = readdir(dir);
 	}
 	closedir(dir);
+	ft_lstsort(&head);
 	return (head);
 }
 
