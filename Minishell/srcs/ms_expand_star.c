@@ -6,14 +6,21 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:58:57 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 12:47:10 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/05 11:28:30 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief Checks whether the file's name will reach null after *
+ * @brief Loops through all * in the arg. If arg has reached '\0', return 1.
+ * Checks whether the file's name is the same as the arg after *. If the file's
+ * name has reached '\0' but arg has not, return 0. Loops until the characters
+ * don't match. Recurs through is_valid function again with remaining arg, for
+ * scenarios like file's name is "srcs", and arg is "*s". Returns 1 if is_valid
+ * returns 1. Check if arg has reached '\0' and file's name has not reached
+ * '\0', means the arg do not match and return (0). Else return -1 to start this
+ * loop again 
  * 
  * @param tocheck The file's name that will be checked
  * @param arg The argument that will be checked with
@@ -47,7 +54,8 @@ int	check_star_is_valid(char **tocheck_in, char **arg_in, int *i, int *j)
 }
 
 /**
- * @brief Checks the file's name after any * (eg. the s after *s)
+ * @brief Checks the file's name after any * (eg. the s after *s) and checks
+ * whether the arg and the file's name is the same
  * 
  * @param tocheck The file's name that will be checked
  * @param arg The argument that will be checked with
@@ -68,7 +76,8 @@ int	check_end_string(char *tocheck, char *arg, int *i, int *j)
 }
 
 /**
- * @brief Checks whether the file's name is valid based on the argument given
+ * @brief Checks whether the file's name is valid based on the argument given.
+ * If the file is a hidden file (having . infront of the name), return 0.
  * 
  * @param tocheck The file's name that will be checked
  * @param arg The argument that will be checked with
@@ -104,11 +113,12 @@ int	is_valid(char *tocheck, char *arg)
 }
 
 /**
- * @brief Checks whether there is a star in the directory, and whether the
+ * @brief Checks whether there is a * in the argument, and whether the
  * directory can be opened
  * 
- * @param arg 
- * @return int 
+ * @param arg The argument that will be checked
+ * @return int 1 if there is a * in the argument and the directory can be
+ * opened, else 0
  */
 int	check_star(char *arg)
 {

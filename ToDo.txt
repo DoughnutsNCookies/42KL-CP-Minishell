@@ -7,7 +7,7 @@
 	- unset with no options										| Done
 	- env with no options										| Done
 	- exit with no options										| Done
-- Quotation (Expander: Need to expand $ before executing)		| In-Progress
+- Expander														| In-Progress, Need to check statics
 	- ' (Single quotes)											| Done
 		- Treat it as raw string								| Done
 	- " (Double quotes)											| Done

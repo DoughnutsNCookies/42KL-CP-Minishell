@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 22:09:39 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/05 19:13:00 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ t_list	*connect_cur_with_cur(t_list *current, t_list *files, char *output)
  * @param dollar Whether a dollar conversion had taken place
  * @return t_list* next node of the argument
  */
-t_list	*check_output_dollar(t_list *current, char **output, int dollar)
+t_list	*check_output_dollar(t_list *current, char *output, int dollar)
 {
-	if (*output == NULL)
+	if (output == NULL)
 	{
 		free(current->content);
 		current->content = ft_calloc(1, sizeof(char *));
 		*(char **)current->content = NULL;
 	}
 	else if (dollar == 0)
-		*(char **)current->content = *output;
+		*(char **)current->content = output;
 	return (current->next);
 }
 
@@ -92,52 +92,115 @@ int	expand_mandatory(t_main *main, t_list **cur_in, t_expand *exp)
 	return (dollar);
 }
 
-/**
- * @brief The main expanding function, looks for special characters like: '',
- * "", $ and *. If any of these are found they are expanded to their values.
- * Expansion is done by creating linked lists and replacing its head to the
- * current node, taking its place
- * 
- * @param main The main struct containing the environment list
- * @param exp The expansion struct containing the argument, i position and
- * output string
- * @param current The current node of the argument linked list
- * @return t_list* Next argument node that will be expanded
- */
+void	recurs_expand_dollar(t_main *main, t_expand *exp)
+{
+	char	*dollar_expanded;
+	int		i;
+
+	if (*(exp->arg + exp->i + 1) != '$')
+		return ;
+	exp->i++;
+	i = -1;
+	dollar_expanded = dlr_val(main, exp->arg + exp->i);
+	if (dollar_expanded != NULL)
+		while (dollar_expanded[++i] != '\0' && dollar_expanded[0] != '\0')
+			exp->output = append_char(exp->output, dollar_expanded[i]);
+	while (exp->arg[exp->i + 1] != '\0' && exp->arg[exp->i + 1] != '\''
+		&& exp->arg[exp->i + 1] != '\"' && exp->arg[exp->i + 1] != '$')
+			exp->i++;
+	free(dollar_expanded);
+	recurs_expand_dollar(main, exp);
+}
+
 t_list	*expand(t_main *main, t_expand *exp, t_list *current)
 {
-	t_list	*files;
+	int		quote;
 	int		dollar;
 
+	quote = 0;
 	exp->i = 0;
 	exp->output = NULL;
 	while (*(exp->arg + exp->i) != '\0')
 	{
 		dollar = 0;
-		if (*(exp->arg + exp->i) == '*' && check_star(exp->arg))
+		if (*(exp->arg + exp->i) == '\'')
 		{
-			files = get_files_from_dir(exp->arg);
-			if (files == NULL)
-			{
-				ft_lstclear(&files, &free);
-				exp->output = append_char(exp->output, *(exp->arg + exp->i));
-			}
+			if (ft_strchr(exp->arg, '*') != NULL)
+				exp->output = append_char(exp->output, '\'');
+			if (quote == 0)
+				quote = 1;
 			else
-				return (connect_cur_with_cur(current, files, exp->output));
+				quote = 0;
 		}
-		dollar = expand_mandatory(main, &current, exp);
+		else if (*(exp->arg + exp->i) == '$' && quote == 0)
+		{
+			dollar = expand_dlr(&current, exp, dlr_val(main, exp->arg + exp->i));
+			while (exp->arg[exp->i + 1] != '\0' && exp->arg[exp->i + 1] != '\''
+				&& exp->arg[exp->i + 1] != '\"' && exp->arg[exp->i + 1] != '$'
+				&& exp->arg[exp->i + 1] != '*')
+					exp->i++;
+		}
+		else if (*(exp->arg + exp->i) == '\"' && quote == 0)
+		{
+			if (*(exp->arg + exp->i + 1) == '$')
+				recurs_expand_dollar(main, exp);
+			if (*(exp->arg + exp->i + 1) == '*')
+			{
+				exp->output = append_char(exp->output, '\'');
+				while (*(exp->arg + ++exp->i) != '\0' && *(exp->arg + exp->i) != '\"')
+					exp->output = append_char(exp->output, *(exp->arg + exp->i));
+				exp->output = append_char(exp->output, '\'');
+				break ;
+			}
+		}
+		else
+			exp->output = append_char(exp->output, *(exp->arg + exp->i));
+		exp->i++;
 	}
-	return (check_output_dollar(current, &exp->output, dollar));
+	return (check_output_dollar(current, exp->output, dollar));
 }
 
-/**
- * @brief The main expander function, loops through every argument provided and
- * expand it. The expanders expands the following: '', "", $KEY, $?, * into their
- * respective raw values
- * 
- * @param main The main struct containing the environment list
- * @param args The arguments from user input
- */
+t_list	*expand2(t_expand *exp, t_list *current)
+{
+	t_list	*files;
+	int		dollar;
+	int		quote;
+
+	quote = 0;
+	exp->i = 0;
+	exp->output = ft_calloc(1, sizeof(char *));
+	dollar = 0;
+	if (exp->arg != NULL)
+	{
+		while (*(exp->arg + exp->i) != '\0' && exp->arg != NULL)
+		{
+			dollar = 0;
+			if (*(exp->arg + exp->i) == '\'')
+			{
+				if (quote == 0)
+					quote = 1;
+				else
+					quote = 0;
+			}
+			if (*(exp->arg + exp->i) == '*' && check_star(exp->arg) && quote == 0)
+			{
+				files = get_files_from_dir(exp->arg);
+				if (files == NULL)
+				{
+					ft_lstclear(&files, &free);
+					exp->output = append_char(exp->output, *(exp->arg + exp->i));
+				}
+				else
+					return (connect_cur_with_cur(current, files, exp->output));
+			}
+			else if (*(exp->arg + exp->i) != '\'')
+				exp->output = append_char(exp->output, *(exp->arg + exp->i));
+			exp->i++;
+		}
+	}
+	return (check_output_dollar(current, exp->output, dollar));
+}
+
 void	expander(t_main *main, t_list **args)
 {
 	t_list		*arg_lst;
@@ -153,6 +216,13 @@ void	expander(t_main *main, t_list **args)
 	{
 		exp.arg = *(char **)arg_lst->content;
 		arg_lst = expand(main, &exp, arg_lst);
+	}
+	arg_lst = *args;
+	while (arg_lst != NULL)
+	{
+		exp.arg = *(char **)arg_lst->content;
+		arg_lst = expand2(&exp, arg_lst);
+		free(exp.arg);
 	}
 	ft_lstadd_back(args, ft_lstnew(ft_calloc(1, sizeof(char *))));
 }

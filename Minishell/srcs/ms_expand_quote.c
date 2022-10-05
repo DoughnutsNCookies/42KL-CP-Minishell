@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 15:57:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 22:08:08 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/05 11:19:07 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	expand_squote(t_expand *exp)
 
 /**
  * @brief Expands double quotes, treats all strings inbetween "" as raw strings
- * except for $. Any $ in the double quotes will be expanded to their respective
+ * except for $, which will be expanded to its respective
  * values
  * 
  * @param main The main struct containing the environment list

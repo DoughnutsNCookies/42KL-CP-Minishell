@@ -19,7 +19,7 @@
  * @param cur_in The current node of the argument linked list
  * @param split The singular argument that was split by its respective $ value
  */
-static void	replace_cur_with_files(t_list **cur_in, char *split)
+void	replace_cur_with_files(t_list **cur_in, char *split)
 {
 	t_list	*files;
 	t_list	*head;
@@ -48,15 +48,7 @@ static void	replace_cur_with_files(t_list **cur_in, char *split)
 	*cur_in = current;
 }
 
-/**
- * @brief Splits the value from $ to their respective values, and adds them into
- * the current node of the argument linked list
- * 
- * @param cur_in The current node of the argument linked list
- * @param output The output that will house the current node's content
- * @return t_list* 
- */
-static t_list	*split_value_to_args(t_list **cur_in, char **output)
+static t_list	*split_value_to_args(t_list **cur_in, t_expand *exp)
 {
 	t_list	*end;
 	t_list	*current;
@@ -64,16 +56,12 @@ static t_list	*split_value_to_args(t_list **cur_in, char **output)
 	int		j;
 
 	current = *cur_in;
-	split = ft_split(*output, ' ');
+	split = ft_split(exp->output, ' ');
 	end = current->next;
 	j = -1;
 	while (split[++j] != 0)
 	{
-		ft_printf("j: %d|%s|\n", j, split[j]);
-		if (check_star(split[j]))
-			replace_cur_with_files(&current, split[j]);
-		else
-			ft_memcpy(current->content, split + j, sizeof(char *));
+		ft_memcpy(current->content, split + j, sizeof(char *));
 		if (split[j + 1] != 0)
 		{
 			current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
@@ -109,7 +97,7 @@ int	expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded)
 			j = -1;
 			while (dollar_expanded[++j] != '\0')
 				exp->output = append_char(exp->output, dollar_expanded[j]);
-			end = split_value_to_args(&current, &exp->output);
+			end = split_value_to_args(&current, exp);
 			current->next = end;
 			free(exp->output);
 			exp->output = *(char **)current->content;

@@ -6,14 +6,15 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 16:03:10 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 22:08:10 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/05 16:54:23 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief Appends a character to the back of a string
+ * @brief Appends a character to the back of a string and returns the malloc'ed 
+ * resulting string, freeing the original one.
  * 
  * @param input The string input
  * @param c The character to be appended to the back of a string
@@ -60,7 +61,7 @@ char	*dlr_val(t_main *main, char *arg)
 
 	i = 1;
 	while (arg[i] != '\0' && arg[i] != '\''
-		&& arg[i] != '\"' && arg[i] != '$')
+		&& arg[i] != '\"' && arg[i] != '$' && arg[i] != '*')
 		i++;
 	key = ft_calloc(i, sizeof(char));
 	key[--i] = '\0';
