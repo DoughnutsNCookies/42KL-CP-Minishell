@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:37:21 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/03 10:12:44 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/06 02:06:09 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,28 +69,8 @@ void	ms_executor_io_list(t_executor *exec, t_io_list *io)
 	}
 }
 
-void	ms_executor_child(t_main *main, t_executor *exec, t_pipe_list *pipe)
-{
-	char	**argv;
-
-	if (exec->infile != 0)
-		dup2(exec->infile, 0);
-	else if (exec->pipe_count != 0)
-		dup2(exec->pipe_fd[exec->pipe_count % 2 == 0][0], 0);
-	if (exec->outfile != 1)
-		dup2(exec->outfile, 1);
-	else if (pipe->next)
-		dup2(exec->pipe_fd[exec->pipe_count % 2 == 1][1], 1);
-	ft_lstadd_back(&pipe->argv, ft_lstnew(ft_calloc(1, sizeof(char *))));
-	argv = ft_list_to_array(pipe->argv, sizeof(char *));
-	executor(main, argv);
-	exit(0);
-}
-
 void	ms_executor_pipe_list(t_main *main, t_executor *exec, t_pipe_list *pipe)
 {
-	int	pid;
-
 	exec->pipe_count = 0;
 	while (pipe)
 	{
@@ -100,13 +80,7 @@ void	ms_executor_pipe_list(t_main *main, t_executor *exec, t_pipe_list *pipe)
 		if (exec->runtime_error)
 			g_global.error_no = exec->runtime_error;
 		else
-		{
-			pid = fork();
-			if (pid == 0)
-				ms_executor_child(main, exec, pipe);
-			else
-				waitpid(pid, &g_global.error_no, WUNTRACED);
-		}
+			ms_executor(main, exec, pipe);
 		pipe = pipe->next;
 		exec->pipe_count++;
 	}

@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/03 10:02:05 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/06 01:17:47 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,7 @@ int	main(int ac, char **av, char **envp)
 		exec = ms_executor_init();
 		ms_heredoc_cmd_list_enqueue(exec, cmd_list);
 		ms_executor_cmd_list(&main, exec, cmd_list);
-		// args = ft_array_to_list(command, i, sizeof(char *));
-		// expander(&main, &args);
-		// free_doublearray(command);
-		// command = ft_list_to_array(args, sizeof(char *));
-		// executor(&main, command);
-		// free_doublearray(command);
-		// print_cmd_list(cmd_list);
+		ms_cmd_list_free(&cmd_list);
 		free(input);
 	}
 	return (EXIT_SUCCESS);

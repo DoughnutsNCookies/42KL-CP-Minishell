@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/03 10:15:19 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/06 01:47:52 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_executor
 	int		pipe_count;
 	int		infile;
 	int		outfile;
+	int		tmpstdin;
+	int		tmpstdout;
 	int		runtime_error;
 }	t_executor;
 
@@ -283,6 +285,9 @@ t_executor	*ms_executor_init(void);
 
 /* Executor tree */
 void		ms_executor_cmd_list(t_main *main, t_executor *e, t_cmd_list *cmd);
+
+/* Executor utils */
+void		ms_executor(t_main *main, t_executor *exec, t_pipe_list *pipe);
 
 /* Heredoc */
 void		ms_heredoc_enqueue(t_list **heredoc, char *delimiter);

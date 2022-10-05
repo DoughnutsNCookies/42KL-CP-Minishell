@@ -6,7 +6,7 @@
 #    By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/03 10:16:32 by maliew           ###   ########.fr        #
+#    Updated: 2022/10/06 01:22:54 by maliew           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,6 +48,7 @@ SRCS_FILES	=	ms_expanderhelper \
 				ms_expander_tree \
 				ms_executor_struct \
 				ms_executor_tree \
+				ms_executor_utils \
 				ms_heredoc \
 				ms_heredoc_tree_enqueue \
 				ms_heredoc_tree_dequeue \
