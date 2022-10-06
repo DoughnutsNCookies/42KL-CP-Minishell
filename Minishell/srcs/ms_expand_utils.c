@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 16:03:10 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/05 16:54:23 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/06 11:27:32 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,4 @@ char	*append_char(char *input, char c)
 	output[i + 1] = '\0';
 	free(input);
 	return (output);
-}
-
-/**
- * @brief Expands the $ symbol by finding its value. Gets the key from the arg
- * and use the key to loop through every envp to find a matching key
- * 
- * @param main The main struct containing the environment list
- * @param arg The argument containing the key
- * @return char* value if a matching key is found, else returns NULL 
- */
-char	*dlr_val(t_main *main, char *arg)
-{
-	char	*key;
-	char	*value;
-	int		i;
-
-	i = 1;
-	while (arg[i] != '\0' && arg[i] != '\''
-		&& arg[i] != '\"' && arg[i] != '$' && arg[i] != '*')
-		i++;
-	key = ft_calloc(i, sizeof(char));
-	key[--i] = '\0';
-	while (--i >= 0)
-		key[i] = arg[i + 1];
-	value = get_envp_value(main->envp, key);
-	free(key);
-	return (value);
 }

@@ -12,7 +12,7 @@
 		- Treat it as raw string								| Done
 	- " (Double quotes)											| Done
 		- Treat it as raw string except for the $ sign			| Done
-	- $ (Dollar sign)											| Need to handle ec$B$B
+	- $ (Dollar sign)											| Done
 	- $? 														| Done
 		- Exit status of last executed foreground pipeline		| In-progress
 		- Correct exit status for all system programs			| In-progress
@@ -30,6 +30,6 @@
 	- ctrl-\ (do nothing)										| Done
 - Binary Tree													|
 	- &&														|
-	- ||														|
+	- ||														| 
 	- ()														|
 - Lexer															| Done, need to integrate from ms_temp into the code

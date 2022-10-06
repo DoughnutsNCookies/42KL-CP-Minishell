@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:55:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 15:28:40 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/05 20:48:15 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ DIR	*get_dir(char *path)
  * @param dir The directory object
  * @param arg The argument to check if a file's name is valid
  * @param file_name The file name of the first valid file if there's one
- * @return The head of the filename's linked list.
+ * @return t_list * The head of the filename's linked list.
  */
 static t_list	*get_files_lst(struct dirent *entity, DIR *dir,
 	char *arg, char *file_name)
@@ -72,7 +72,8 @@ static t_list	*get_files_lst(struct dirent *entity, DIR *dir,
  * returns the file name's linked list
  * 
  * @param arg The argument to check if a file's name is valid
- * @return The head of the filename's linked list, NULL if there's no valid files
+ * @return t_list * The head of the filename's linked list, NULL if there's no
+ * valid files
  */
 t_list	*get_files_from_dir(char *arg)
 {

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:58:57 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/05 11:28:30 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/06 13:14:24 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	check_star_is_valid(char **tocheck_in, char **arg_in, int *i, int *j)
 		return (0);
 	while (tocheck[*i] == arg[*j])
 		(*i)++;
-	if (is_valid(tocheck + *i, arg))
+	if (is_valid(tocheck + *i, arg + *j - 1))
 		return (1);
 	(*j)++;
 	if (arg[*j] == '\0' && tocheck[*i] != '\0')
