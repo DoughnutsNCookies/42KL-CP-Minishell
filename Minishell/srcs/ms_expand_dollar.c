@@ -12,72 +12,6 @@
 
 #include "minishell.h"
 
-static t_list	*split_value(t_list **cur_in, t_expand *exp, char *d_value)
-{
-	t_list	*end;
-	t_list	*current;
-	char	**split;
-	char	*temp;
-	int		j;
-
-	current = *cur_in;
-	end = current->next;
-	split = ft_split(d_value, ' ');
-	j = 0;
-	if (split[j] != 0)
-	{
-		if (exp->output != NULL)
-			temp = ft_strjoin(exp->output, split[j]);
-		else
-			temp = ft_strdup(split[j]);
-		ft_memcpy(current->content, &temp, sizeof(char *));
-		if (split[j + 1] != 0)
-		{
-			current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-			current = current->next;
-		}
-		free(split[j]);
-	}
-	while (split[++j] != 0)
-	{
-		ft_memcpy(current->content, split + j, sizeof(char *));
-		if (split[j + 1] != 0)
-		{
-			current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-			current = current->next;
-		}
-	}
-	free(split);
-	*cur_in = current;
-	return (end);
-}
-
-int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
-{
-	t_list	*end;
-	t_list	*current;
-
-	current = *cur_in;
-	if (d_value == NULL && exp->arg[exp->i] == '$' && exp->arg[exp->i + 1] == '\0')
-		exp->output = append_char(exp->output, '$');
-	else if (d_value != NULL)
-	{
-		if (d_value[0] != '\0')
-		{
-			end = split_value(&current, exp, d_value);
-			current->next = end;
-			free(exp->output);
-			exp->output = *(char **)current->content;
-			*cur_in = current;
-			free(d_value);
-			return (1);
-		}
-	}
-	*cur_in = current;
-	free(d_value);
-	return (0);
-}
-
 /**
  * @brief Expands the $ symbol by finding its value. Gets the key from the arg
  * and use the key to loop through every environment variable to find a
@@ -106,6 +40,121 @@ char	*dlr_val(t_main *main, char *arg)
 	return (value);
 }
 
+/**
+ * @brief Merges the current output with the first split of the $ value, this is
+ * to prevent splitting the existing output and making it into individual
+ * arguments instead of a whole.
+ * 
+ * @param cur_in The current node of the argument linked list
+ * @param exp The expansion struct containing the argument, i position and
+ * output string
+ * @param split The splitted $ value
+ */
+static void	merge_first_split(t_list **cur_in, t_expand *exp, char **split)
+{
+	char	*temp;
+	t_list	*current;
+
+	current = *cur_in;
+	if (split[0] != 0)
+	{
+		if (exp->output != NULL)
+			temp = ft_strjoin(exp->output, split[0]);
+		else
+			temp = ft_strdup(split[0]);
+		ft_memcpy(current->content, &temp, sizeof(char *));
+		if (split[1] != 0)
+		{
+			current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
+			current = current->next;
+		}
+		free(split[0]);
+	}
+	*cur_in = current;
+}
+
+/**
+ * @brief Splits the $ value and assign them each a new node, linked to the
+ * current node of the argument list
+ * 
+ * @param cur_in The current node of the argument linked list
+ * @param exp The expansion struct containing the argument, i position and
+ * output string
+ * @param d_value The value of $ expanded
+ * @return t_list* The next node of the argument linked list
+ */
+static t_list	*split_value(t_list **cur_in, t_expand *exp, char *d_value)
+{
+	t_list	*end;
+	t_list	*current;
+	char	**split;
+	int		j;
+
+	current = *cur_in;
+	end = current->next;
+	split = ft_split(d_value, ' ');
+	j = 0;
+	merge_first_split(&current, exp, split);
+	while (split[++j] != 0)
+	{
+		ft_memcpy(current->content, split + j, sizeof(char *));
+		if (split[j + 1] != 0)
+		{
+			current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
+			current = current->next;
+		}
+	}
+	free(split);
+	*cur_in = current;
+	return (end);
+}
+
+/**
+ * @brief Expands $ to its value. If it is a single $, append '$' to the current
+ * output instead. Else get the value of $ and split them into individual linked
+ * list if there are spaces (eg. B="echo hi") and link them to the current node
+ * of the linked list argument
+ * 
+ * @param cur_in The current node of the argument linked list
+ * @param exp The expansion struct containing the argument, i position and
+ * output string
+ * @param d_value The value of $ expanded
+ * @return int 1 if a conversion of $ had taken place, else 0
+ */
+int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
+{
+	t_list	*end;
+	t_list	*current;
+
+	current = *cur_in;
+	if (d_value == NULL && exp->arg[exp->i] == '$'
+		&& exp->arg[exp->i + 1] == '\0')
+		exp->output = append_char(exp->output, '$');
+	else if (d_value != NULL)
+	{
+		if (d_value[0] != '\0')
+		{
+			end = split_value(&current, exp, d_value);
+			current->next = end;
+			free(exp->output);
+			exp->output = *(char **)current->content;
+			*cur_in = current;
+			free(d_value);
+			return (1);
+		}
+	}
+	*cur_in = current;
+	free(d_value);
+	return (0);
+}
+
+/**
+ * @brief Expands $ to its value and adds them to the back of the current output
+ * 
+ * @param main The main struct containing the environment list
+ * @param exp The expansion struct containing the argument, i position and
+ * output string
+ */
 void	recurs_expand_dollar(t_main *main, t_expand *exp)
 {
 	char	*dollar_expanded;

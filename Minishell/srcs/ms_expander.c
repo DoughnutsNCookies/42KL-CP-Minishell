@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/06 21:10:01 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/07 12:08:29 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_list	*connect_cur_with_cur(t_list *current, t_list *files, char *output)
  * @param current The current node of the argument
  * @param output The content that will house the current node's content
  * @param dollar Whether a dollar conversion had taken place
- * @return t_list* The next node of the argument to be expanded
+ * @return t_list* The next node of the argument linked list to be expanded
  */
 t_list	*check_output_dollar(t_list *current, char *output, int dollar)
 {
@@ -80,9 +80,6 @@ t_list	*expand_first_phase(t_main *main, t_expand *exp, t_list *current)
 		else if (exp->arg[exp->i] == '$' && quote == 0)
 		{
 			dollar = expand_dlr(&current, exp, dlr_val(main, &exp->arg[exp->i]));
-			// if (exp->i > 0)
-				// if (dollar == 0 && exp->arg[exp->i - 1] == '*')
-					// exp->output = append_char(exp->output, '$');
 			while (exp->arg[exp->i + 1] != '\0' && exp->arg[exp->i + 1] != '\''
 				&& exp->arg[exp->i + 1] != '\"' && exp->arg[exp->i + 1] != '$'
 				&& exp->arg[exp->i + 1] != '*')
@@ -186,18 +183,6 @@ t_list	*expand_second_phase(t_expand *exp, t_list *current)
 	return (check_output_dollar(current, exp->output, dollar));
 }
 
-/**
- * @brief The main expander function, loops through every argument provided and
- * expand it. The expanders expands the following: '', "", $KEY, $?, * into their
- * respective raw values. This expander will expand the argument list twice, the
- * first expansion is to expand $ and "", everything that will not be expanded
- * anymore will be covered with '' instead. The second expansion will expand ''
- * (not touching anything inside) and * to its files in the current wokring dir
- * (NOT ACCURATAE ANYMORE NEED TO UPDATE)
- * 
- * @param main The main struct containing the environment list
- * @param args The arguments from user input
- */
 void	expander(t_main *main, t_list **args)
 {
 	t_list		*arg_lst;
