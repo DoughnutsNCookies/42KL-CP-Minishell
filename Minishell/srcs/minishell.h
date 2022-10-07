@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/06 11:28:01 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/07 17:16:56 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_global
 	int	error_no;
 }	t_global;
 
+/* Expander struct */
 typedef struct s_expand
 {
 	char	*output;
@@ -60,25 +61,25 @@ typedef struct s_expand
 	int		i;
 }	t_expand;
 
-/* Global struct in defined here */
+/* Global struct is defined here */
 t_global	g_global;
 
 /* CD */
 int		cd(t_main *main, char **args);
 
 /* Error */
-void	perror_and_exit(char *errormsg);
 int		export_unset_error(char *arg, char *type);
+void	perror_and_exit(char *errormsg);
 
 /* Signal */
 void	sigint_handler(int signo);
 void	init_signal(void);
 
 /* Helper */
-void	free_doublearray(char **split);
-char	**dup_doublearray(char **src);
 char	*get_envp_value(char **envp, char *key);
 char	**sort_doublearray(char **envp);
+void	free_doublearray(char **split);
+char	**dup_doublearray(char **src);
 void	ft_lstsort(t_list **lst);
 
 /* Parse Input */
@@ -88,10 +89,16 @@ char	**parse_input(t_main *main, char *input);
 void	executor(t_main *main, char **command);
 
 /* Expander */
+t_list	*connect_cur_with_cur(t_list *current, t_list *files, char *output);
+t_list	*check_output_dollar(t_list *current, char *output, int dollar);
 void	expander(t_main *main, t_list **args);
-
-/* Expander Helper */
 char	*append_char(char *input, char c);
+
+/* Expand First */
+t_list	*expand_first_phase(t_main *main, t_expand *exp, t_list *current);
+
+/* Expand Second */
+t_list	*expand_second_phase(t_expand *exp, t_list *current);
 
 /* Expand Star */
 int		check_star(char *arg);
@@ -101,12 +108,10 @@ int		is_valid(char *tocheck, char *arg);
 DIR		*get_dir(char *path);
 t_list	*get_files_from_dir(char *arg);
 
-/* Expand Quote */
-
 /* Expand Dollar */
-char	*dlr_val(t_main *main, char *arg);
 int		expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
-void	recurs_expand_dollar(t_main *main, t_expand *exp);
+void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
+char	*dlr_val(t_main *main, char *arg);
 
 /* Echo */
 int		echo(t_main *main, char **args);

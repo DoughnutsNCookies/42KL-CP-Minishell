@@ -6,17 +6,50 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/07 12:08:29 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/07 17:22:36 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief Connects the current node of the argument with the list of files and
- * returns the next node of the argument to be expanded
+ * @brief Appends a character to the back of a string and returns the memmory
+ * allocated resulting string, freeing the original one.
  * 
- * @param current The current node of the argument
+ * @param input The string input
+ * @param c The character to be appended to the back of a string
+ * @return char* The result string after appending
+ */
+char	*append_char(char *input, char c)
+{
+	char	*output;
+	int		size;
+	int		i;
+
+	size = 0;
+	i = 0;
+	if (input != NULL)
+		size = ft_strlen(input);
+	output = ft_calloc(size + 2, sizeof(char));
+	if (input != NULL)
+	{
+		while (input[i] != '\0')
+		{
+			output[i] = input[i];
+			i++;
+		}
+	}
+	output[i] = c;
+	output[i + 1] = '\0';
+	free(input);
+	return (output);
+}
+
+/**
+ * @brief Connects the head node of the files linked list to the current node of
+ * the argument and returns the next node of the argument linked list to be expanded
+ * 
+ * @param current The current node of the argument linked list
  * @param files The list of files
  * @param output The content that suppposingly will house the current node
  * @return t_list* Next node of the argument to be expanded (Excluding the files)
@@ -39,9 +72,9 @@ t_list	*connect_cur_with_cur(t_list *current, t_list *files, char *output)
  * @brief Checks the final output and whether there was a conversion for $. If
  * final output is NULL, replaces the current node's content with '\0' instead.
  * Else if the final output is not NULL and there is no dollar conversion,
- * replace the current node's content with output.
+ * replace the current node's content with output
  * 
- * @param current The current node of the argument
+ * @param current The current node of the argument linked list
  * @param output The content that will house the current node's content
  * @param dollar Whether a dollar conversion had taken place
  * @return t_list* The next node of the argument linked list to be expanded
@@ -59,130 +92,16 @@ t_list	*check_output_dollar(t_list *current, char *output, int dollar)
 	return (current->next);
 }
 
-t_list	*expand_first_phase(t_main *main, t_expand *exp, t_list *current)
-{
-	int		quote;
-	int		dollar;
-
-	quote = 0;
-	exp->i = 0;
-	exp->output = NULL;
-	while (exp->arg[exp->i] != '\0')
-	{
-		dollar = 0;
-		if (exp->arg[exp->i] == '\'')
-		{
-			if (quote == 0)
-				quote = 1;
-			else
-				quote = 0;
-		}
-		else if (exp->arg[exp->i] == '$' && quote == 0)
-		{
-			dollar = expand_dlr(&current, exp, dlr_val(main, &exp->arg[exp->i]));
-			while (exp->arg[exp->i + 1] != '\0' && exp->arg[exp->i + 1] != '\''
-				&& exp->arg[exp->i + 1] != '\"' && exp->arg[exp->i + 1] != '$'
-				&& exp->arg[exp->i + 1] != '*')
-					exp->i++;
-		}
-		else if (exp->arg[exp->i] == '\"' && quote == 0)
-		{
-			exp->i++;
-			while (exp->arg[exp->i] != '\"')
-			{
-				if (exp->arg[exp->i] == '\'')
-				{
-					exp->output = append_char(exp->output, '\\');
-					exp->output = append_char(exp->output, '\"');
-				}
-				else if (exp->arg[exp->i] == '$')
-				{
-					if (exp->arg[exp->i + 1] == '\"' || exp->arg[exp->i + 1] == '\'')
-						exp->output = append_char(exp->output, '$');
-					else
-					{
-						exp->i--;
-						recurs_expand_dollar(main, exp);
-					}
-				}
-				else if (exp->arg[exp->i] == '*')
-				{
-					exp->output = append_char(exp->output, '\'');
-					exp->i--;
-					while (exp->arg[++exp->i] != '\0' && exp->arg[exp->i] != '\"')
-						exp->output = append_char(exp->output, exp->arg[exp->i]);
-					exp->output = append_char(exp->output, '\'');
-					break ;
-				}
-				else
-					exp->output = append_char(exp->output, exp->arg[exp->i]);
-				exp->i++;
-			}
-		}
-		else if (exp->arg[exp->i] == '*' && quote == 1)
-		{
-			exp->output = append_char(exp->output, '\'');
-			exp->output = append_char(exp->output, exp->arg[exp->i]);
-			exp->output = append_char(exp->output, '\'');
-		}
-		else
-			exp->output = append_char(exp->output, exp->arg[exp->i]);
-		exp->i++;
-	}
-	return (check_output_dollar(current, exp->output, dollar));
-}
-
-t_list	*expand_second_phase(t_expand *exp, t_list *current)
-{
-	t_list	*files;
-	int		dollar;
-	int		quote;
-
-	quote = 0;
-	exp->i = 0;
-	exp->output = ft_calloc(1, sizeof(char *));
-	dollar = 0;
-	if (exp->arg != NULL)
-	{
-		while (exp->arg[exp->i] != '\0' && exp->arg != NULL)
-		{
-			dollar = 0;
-			if (exp->arg[exp->i] == '\'')
-			{
-				if (quote == 0)
-					quote = 1;
-				else
-					quote = 0;
-			}
-			if (exp->arg[exp->i] == '*' && check_star(exp->arg) && quote == 0)
-			{
-				files = get_files_from_dir(exp->arg);
-				if (files == NULL)
-				{
-					ft_lstclear(&files, &free);
-					while (exp->arg[exp->i + 1] != '\0' && exp->arg[exp->i + 1] != '\''
-						&& exp->arg[exp->i + 1] != '\"')
-					{
-						exp->output = append_char(exp->output, exp->arg[exp->i]);
-						exp->i++;
-					}
-				}
-				else
-					return (connect_cur_with_cur(current, files, exp->output));
-			}
-			if (exp->arg[exp->i] == '\\' && exp->arg[exp->i + 1] == '\"')
-			{
-				exp->output = append_char(exp->output, '\'');
-				exp->i++;
-			}
-			else if (exp->arg[exp->i] != '\'')
-				exp->output = append_char(exp->output, exp->arg[exp->i]);
-			exp->i++;
-		}
-	}
-	return (check_output_dollar(current, exp->output, dollar));
-}
-
+/**
+ * @brief This is the main expander function that will loop through every
+ * argument provided from the user input and expands it. The expander will
+ * expand '', "", $, and * to their respective raw values. This is done
+ * through expanding the arguments twice. The first expansion will make things
+ * easier for the second expansion to read and expand
+ * 
+ * @param main The main struct containing the environment list
+ * @param args The arguments
+ */
 void	expander(t_main *main, t_list **args)
 {
 	t_list		*arg_lst;

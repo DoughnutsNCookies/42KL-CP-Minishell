@@ -14,7 +14,7 @@
 
 /**
  * @brief Expands the $ symbol by finding its value. Gets the key from the arg
- * and use the key to loop through every environment variable to find a
+ * and use the key to loop through every environment variable from main to find a
  * matching key
  * 
  * @param main The main struct containing the environment list
@@ -41,9 +41,11 @@ char	*dlr_val(t_main *main, char *arg)
 }
 
 /**
- * @brief Merges the current output with the first split of the $ value, this is
- * to prevent splitting the existing output and making it into individual
- * arguments instead of a whole.
+ * @brief Merges the current output with split[0] of the $ value, this is to
+ * prevent splitting the existing output that have existing spacees and making
+ * it into individual arguments instead of a whole. For example if existing
+ * output is "echo hello $B" and $B is "hi bye world", this function will
+ * transform them to "echo hello hi", "bye", "world"
  * 
  * @param cur_in The current node of the argument linked list
  * @param exp The expansion struct containing the argument, i position and
@@ -149,17 +151,23 @@ int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
 }
 
 /**
- * @brief Expands $ to its value and adds them to the back of the current output
+ * @brief Expands $ to its value and strjoins them to the back of the current
+ * output recursively, to handle cases like "$A$B$C". The depth of the recursion
+ * is stored for debugging use and to also reduce exp->i by one at the start of
+ * this recursion
  * 
  * @param main The main struct containing the environment list
  * @param exp The expansion struct containing the argument, i position and
+ * @param depth The depth of the recursion
  * output string
  */
-void	recurs_expand_dollar(t_main *main, t_expand *exp)
+void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
 {
 	char	*dollar_expanded;
 	int		i;
 
+	if (depth == 0)
+		exp->i--;
 	if (exp->arg[exp->i + 1] != '$')
 		return ;
 	exp->i++;
@@ -172,5 +180,5 @@ void	recurs_expand_dollar(t_main *main, t_expand *exp)
 		&& exp->arg[exp->i + 1] != '\"' && exp->arg[exp->i + 1] != '$')
 			exp->i++;
 	free(dollar_expanded);
-	recurs_expand_dollar(main, exp);
+	recurs_expand_dollar(main, exp, depth + 1);
 }

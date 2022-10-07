@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/06 21:01:56 by schuah           ###   ########.fr        #
+#    Updated: 2022/10/07 17:16:22 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,9 +20,9 @@ CFLAGS		+=	-I/usr/local/opt/readline/include
 READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
 SRCS_FILES	=	ms_expand_dollar \
-				ms_expand_utils \
+				ms_expand_second \
+				ms_expand_first \
 				ms_export_utils \
-				ms_expand_quote \
 				ms_expand_files \
 				ms_parse_input \
 				ms_expand_star \
