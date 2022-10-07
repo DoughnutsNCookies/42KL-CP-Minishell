@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/07 17:22:36 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/07 17:52:21 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ char	*append_char(char *input, char c)
 
 /**
  * @brief Connects the head node of the files linked list to the current node of
- * the argument and returns the next node of the argument linked list to be expanded
+ * the argument and returns the next node of the argument linked list to be
+ * expanded
  * 
  * @param current The current node of the argument linked list
  * @param files The list of files
