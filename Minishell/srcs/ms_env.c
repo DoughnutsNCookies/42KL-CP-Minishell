@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:58:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:35:29 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/04 22:08:01 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Prints out everyline in environment list
  * 
- * @param main The main struct containing envp
+ * @param main The main struct containing the environment list
  * @param args The arguments (Can be NULL)
  * @return int 0 on success
  */

@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/06 01:47:52 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/09 08:32:23 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define MS_EXIT 6
 # define MS_MAX_BIFUNC 7
 
+/* Used to rename builtin functions into function pointers */
 struct		s_main;
 typedef int	(*t_func)(struct s_main *main, char **args);
 
@@ -53,7 +54,16 @@ typedef struct s_global
 	int	error_no;
 }	t_global;
 
-t_global	g_global;
+/* Expander struct */
+typedef struct s_expand
+{
+	char	*output;
+	char	*arg;
+	int		i;
+}	t_expand;
+
+/* Global struct is defined here */
+extern t_global	g_global;
 
 typedef struct s_executor
 {
@@ -186,11 +196,11 @@ void		sigint_handler(int signo);
 void		init_signal(void);
 
 /* Helper */
-void		free_doublearray(char **split);
-char		**dup_doublearray(char **src);
-char		*get_envp_value(char **envp, char *key);
-char		**sort_doublearray(char **envp);
-void		ft_lstsort(t_list **lst);
+char	*get_envp_value(char **envp, char *key);
+char	**sort_doublearray(char **envp);
+void	free_doublearray(char **split);
+char	**dup_doublearray(char **src);
+void	ft_lstsort(t_list **lst);
 
 /* Parse Input */
 char		**parse_input(t_main *main, char *input);
@@ -199,17 +209,29 @@ char		**parse_input(t_main *main, char *input);
 void		executor(t_main *main, char **command);
 
 /* Expander */
-void		expander(t_main *main, t_list **args);
+t_list	*connect_cur_with_cur(t_list *current, t_list *files, char *output);
+t_list	*check_output_dollar(t_list *current, char *output, int dollar);
+void	expander(t_main *main, t_list **args);
+char	*append_char(char *input, char c);
 
-/* Expander Helper */
-char		*append_char(char *input, char c);
-void		print_ll(t_list *head);
-char		**ft_list_to_charss(t_list *lst);
+/* Expand First */
+t_list	*expand_first_phase(t_main *main, t_expand *exp, t_list *current);
+
+/* Expand Second */
+t_list	*expand_second_phase(t_expand *exp, t_list *current);
 
 /* Expand Star */
-int			check_star(char *arg);
-t_list		*get_files_from_dir(char *arg);
-t_list		*star_wildcard(char *arg, t_list *input);
+int		check_star(char *arg);
+int		is_valid(char *tocheck, char *arg);
+
+/* Expand Files */
+DIR		*get_dir(char *path);
+t_list	*get_files_from_dir(char *arg);
+
+/* Expand Dollar */
+int		expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
+void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
+char	*dlr_val(t_main *main, char *arg);
 
 /* Echo */
 int			echo(t_main *main, char **args);
@@ -300,5 +322,8 @@ void		ms_heredoc_cmd_list_enqueue(t_executor *exec, t_cmd_list *cmd_list);
 void		ms_heredoc_pipe_list_dequeue(t_executor *exec,
 				t_pipe_list *pipe_list);
 void		ms_heredoc_cmd_list_dequeue(t_executor *exec, t_cmd_list *cmd_list);
+
+/* Temp */
+void	print_ll(t_list *head);
 
 #endif

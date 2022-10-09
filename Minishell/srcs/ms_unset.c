@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:31:05 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/28 11:48:42 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/04 22:08:40 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * matches with the key, it is ignored. Frees the old envp and sets the new
  * one as the current one
  * 
- * @param main The main struct containing envp
+ * @param main The main struct containing the environment list
  * @param key The key of the value that will be deleted
  */
 static void	find_and_delete(t_main *main, char *key)
@@ -50,7 +50,7 @@ static void	find_and_delete(t_main *main, char *key)
  * @brief Checks whether the arg is valid. If so then find and delete the
  * envp based on the key
  * 
- * @param main The main struct containing envp
+ * @param main The main struct containing the environment list
  * @param args The arguments
  * @return int 0 on success
  */

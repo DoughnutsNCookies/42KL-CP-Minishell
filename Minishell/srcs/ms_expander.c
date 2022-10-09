@@ -6,144 +6,82 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/01 17:25:13 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/09 08:31:24 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*expand_dollar(t_main *main, char *arg)
-{
-	char	*key;
-	char	*value;
-	int		i;
-
-	i = 1;
-	while (arg[i] != '\0' && arg[i] != '\''
-		&& arg[i] != '\"' && arg[i] != '$')
-		i++;
-	key = ft_calloc(i, sizeof(char));
-	key[--i] = '\0';
-	while (--i >= 0)
-		key[i] = arg[i + 1];
-	value = get_envp_value(main->envp, key);
-	free(key);
-	return (value);
-}
-
-t_list	*convert_quote(t_main *main, char *arg, t_list *current)
+/**
+ * @brief Appends a character to the back of a string and returns the memmory
+ * allocated resulting string, freeing the original one.
+ * 
+ * @param input The string input
+ * @param c The character to be appended to the back of a string
+ * @return char* The result string after appending
+ */
+char	*append_char(char *input, char c)
 {
 	char	*output;
-	char	*dollar_expanded;
-	char	**split;
-	t_list	*files;
-	t_list	*end;
+	int		size;
 	int		i;
-	int		j;
-	int		dollar;
 
+	size = 0;
 	i = 0;
-	output = NULL;
-	while (*(arg + i) != '\0')
+	if (input != NULL)
+		size = ft_strlen(input);
+	output = ft_calloc(size + 2, sizeof(char));
+	if (input != NULL)
 	{
-		dollar = 0;
-		if (*(arg + i) == '*')
+		while (input[i] != '\0')
 		{
-			if (check_star(arg))
-			{
-				files = get_files_from_dir(arg);
-				if (files == NULL)
-					output = append_char(output, *(arg + i));
-				else
-				{
-					end = current->next;
-					ft_lstlast(files)->next = current->next;
-					current->content = files->content;
-					current->next = files->next;
-					return (end);
-				}
-			}
-			else
-				output = append_char(output, *(arg + i));
+			output[i] = input[i];
+			i++;
 		}
-		else if (*(arg + i) == '\'')
-			while (*(arg + ++i) != '\'' && *(arg + i) != '\0')
-				output = append_char(output, *(arg + i));
-		else if (*(arg + i) == '\"')
-		{
-			output = append_char(output, '\0');
-			while (*(arg + ++i) != '\"' && *(arg + i) != '\0')
-			{
-				if (*(arg + i) == '$')
-				{
-					dollar_expanded = expand_dollar(main, arg + i);
-					j = -1;
-					if (dollar_expanded != NULL)
-					{
-						while (dollar_expanded[++j] != '\0')
-							output = append_char(output, dollar_expanded[j]);
-					}
-					while (arg[i + 1] != '\0' && arg[i + 1] != '\''
-						&& arg[i + 1] != '\"' && arg[i + 1] != '$')
-						i++;
-					free(dollar_expanded);
-				}
-				else
-					output = append_char(output, *(arg + i));
-			}
-		}
-		else if (*(arg + i) == '$')
-		{
-			dollar_expanded = expand_dollar(main, arg + i);
-			while (arg[i + 1] != '\0' && arg[i + 1] != '\''
-				&& arg[i + 1] != '\"' && arg[i + 1] != '$')
-				i++;
-			if (dollar_expanded != NULL)
-			{
-				j = -1;
-				while (dollar_expanded[++j] != '\0')
-					output = append_char(output, dollar_expanded[j]);
-				split = ft_split(output, ' ');
-				end = current->next;
-				j = -1;
-				while (split[++j] != 0)
-				{
-					if (check_star(split[j]))
-					{
-						files = get_files_from_dir(split[j]);
-						if (files == NULL)
-							ft_memcpy(current->content, split + j, sizeof(char *));
-						while (files != NULL)
-						{
-							ft_memcpy(current->content, files->content, sizeof(char *));
-							if (files->next != NULL)
-							{
-								current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-								current = current->next;
-							}
-							files = files->next;
-						}
-					}
-					else
-						ft_memcpy(current->content, split + j, sizeof(char *));
-					if (split[j + 1] != 0)
-					{
-						current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-						current = current->next;
-					}
-				}
-				current->next = end;
-				dollar = 1;
-				free(output);
-				output = *(char **)current->content;
-				free(split);
-			}
-			free(dollar_expanded);
-		}
-		else
-			output = append_char(output, *(arg + i));
-		i++;
 	}
+	output[i] = c;
+	output[i + 1] = '\0';
+	free(input);
+	return (output);
+}
+
+/**
+ * @brief Connects the head node of the files linked list to the current node of
+ * the argument and returns the next node of the argument linked list to be
+ * expanded
+ * 
+ * @param current The current node of the argument linked list
+ * @param files The list of files
+ * @param output The content that suppposingly will house the current node
+ * @return t_list* Next node of the argument to be expanded (Excluding the files)
+ */
+t_list	*connect_cur_with_cur(t_list *current, t_list *files, char *output)
+{
+	t_list	*end;
+
+	end = current->next;
+	ft_lstlast(files)->next = current->next;
+	free(current->content);
+	current->content = files->content;
+	current->next = files->next;
+	free(output);
+	free(files);
+	return (end);
+}
+
+/**
+ * @brief Checks the final output and whether there was a conversion for $. If
+ * final output is NULL, replaces the current node's content with '\0' instead.
+ * Else if the final output is not NULL and there is no dollar conversion,
+ * replace the current node's content with output
+ * 
+ * @param current The current node of the argument linked list
+ * @param output The content that will house the current node's content
+ * @param dollar Whether a dollar conversion had taken place
+ * @return t_list* The next node of the argument linked list to be expanded
+ */
+t_list	*check_output_dollar(t_list *current, char *output, int dollar)
+{
 	if (output == NULL)
 	{
 		free(current->content);
@@ -153,224 +91,37 @@ t_list	*convert_quote(t_main *main, char *arg, t_list *current)
 	else if (dollar == 0)
 		*(char **)current->content = output;
 	return (current->next);
-	(void)main;
 }
 
+/**
+ * @brief This is the main expander function that will loop through every
+ * argument provided from the user input and expands it. The expander will
+ * expand '', "", $, and * to their respective raw values. This is done
+ * through expanding the arguments twice. The first expansion will make things
+ * easier for the second expansion to read and expand
+ * 
+ * @param main The main struct containing the environment list
+ * @param args The arguments
+ */
 void	expander(t_main *main, t_list **args)
 {
-	t_list	*arg_lst;
+	t_list		*arg_lst;
+	t_expand	exp;
 
 	arg_lst = *args;
 	if (arg_lst == NULL)
 		return ;
 	while (arg_lst != NULL)
-		arg_lst = convert_quote(main, *(char **)arg_lst->content, arg_lst);
+	{
+		exp.arg = *(char **)arg_lst->content;
+		arg_lst = expand_first_phase(main, &exp, arg_lst);
+	}
+	arg_lst = *args;
+	while (arg_lst != NULL)
+	{
+		exp.arg = *(char **)arg_lst->content;
+		arg_lst = expand_second_phase(&exp, arg_lst);
+		free(exp.arg);
+	}
+	ft_lstadd_back(args, ft_lstnew(ft_calloc(1, sizeof(char *))));
 }
-
-// t_list	*ft_lstcopy(t_list *list);
-
-// char	*expand_dollar(t_main *main, char *arg)
-// {
-// 	char	*key;
-// 	char	*value;
-// 	int		i;
-
-// 	i = 1;
-// 	while (arg[i] != '\0' && arg[i] != '\''
-// 		&& arg[i] != '\"' && arg[i] != '$')
-// 		i++;
-// 	key = ft_calloc(i, sizeof(char));
-// 	key[--i] = '\0';
-// 	while (--i >= 0)
-// 		key[i] = arg[i + 1];
-// 	value = get_envp_value(main->envp, key);
-// 	free(key);
-// 	return (value);
-// }
-
-// t_list	*convert_quote(t_main *main, char *arg, t_list *current, t_list **temp)
-// {
-// 	char	*output;
-// 	char	*dollar_expanded;
-// 	char	**split;
-// 	t_list	*end;
-// 	t_list	*files;
-// 	int		i;
-// 	int		j;
-// 	int		dollar;
-// 	int		k;
-
-// 	i = 0;
-// 	output = NULL;
-// 	// (void)temp;
-// 	while (*(arg + i) != '\0')
-// 	{
-// 		dollar = 0;
-// 		if (*(arg + i) == '*')
-// 		{
-// 			output = append_char(output, '\0');
-// 			if (check_star(arg) == 1)
-// 			{
-// 				files = get_files_from_dir(arg);
-// 				// ft_printf("\nFILES: ");
-// 				// print_ll(files);
-// 				end = current->next;
-// 				// ft_printf("\nEND: ");
-// 				// print_ll(end);
-// 				current = *temp;
-// 				// ft_printf("\nCUR: ");
-// 				// print_ll(current);
-// 				*temp = files;
-// 				k = -1;
-// 				while (current != NULL && current->next != NULL)
-// 				{// Tem
-// 						break ;
-// 					}
-// 					current = current->next;
-// 				}
-// 				// current->next = end;
-// 				ft_lstadd_front(temp, current);
-// 				while (--k >= 0)
-// 					ft_lstadd_back(temp, ft_lstcopy(files));
-// 				ft_lstadd_back(temp, end);
-// 				// ft_printf("\nCUR: ");
-// 				// print_ll(current);
-// 				// ft_printf("\nALL: ");
-// 				// head = current;
-// 				// print_ll(*temp);
-// 				// exit(1);
-// 				// current = star_wildcard(arg, current);
-// 				// print_ll(current);
-// 				return ((current)->next);
-// 			}
-// 			else
-// 				output = append_char(output, *(arg + i));
-// 		}
-// 		else if (*(arg + i) == '\'')
-// 			while (*(arg + ++i) != '\'' && *(arg + i) != '\0')
-// 				output = append_char(output, *(arg + i));
-// 		else if (*(arg + i) == '\"')
-// 		{
-// 			output = append_char(output, '\0');
-// 			while (*(arg + ++i) != '\"' && *(arg + i) != '\0')
-// 			{
-// 				if (*(arg + i) == '$')
-// 				{
-// 					dollar_expanded = expand_dollar(main, arg + i);
-// 					j = -1;
-// 					if (dollar_expanded != NULL)
-// 					{
-// 						while (dollar_expanded[++j] != '\0')
-// 							output = append_char(output, dollar_expanded[j]);
-// 					}
-// 					while (arg[i + 1] != '\0' && arg[i + 1] != '\''
-// 						&& arg[i + 1] != '\"' && arg[i + 1] != '$')
-// 						i++;
-// 					free(dollar_expanded);
-// 				}
-// 				else
-// 					output = append_char(output, *(arg + i));
-// 			}
-// 		}
-// 		else if (*(arg + i) == '$')
-// 		{
-// 			dollar_expanded = expand_dollar(main, arg + i);
-// 			while (arg[i + 1] != '\0' && arg[i + 1] != '\''
-// 				&& arg[i + 1] != '\"' && arg[i + 1] != '$')
-// 				i++;
-// 			if (dollar_expanded != NULL)
-// 			{
-// 				j = -1;
-// 				while (dollar_expanded[++j] != '\0')
-// 					output = append_char(output, dollar_expanded[j]);
-// 				split = ft_split(output, ' ');
-// 				end = current->next;
-// 				j = -1;
-// 				/////
-// 				while (split[++j] != 0)
-// 				{
-// 					// star_wildcard(split[j], current);
-// 					// print_ll(head);
-// 					// exit(1);
-// 					ft_memcpy(current->content, split + j, sizeof(char *));
-// 					current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-// 					current = current->next;
-// 				}
-// 				/////
-// 				current->next = end;
-// 				dollar = 1;
-// 				free(output);
-// 				output = *(char **)current->content;
-// 				free(split);
-// 			}
-// 			free(dollar_expanded);
-// 		}
-// 		else
-// 			output = append_char(output, *(arg + i));
-// 		i++;
-// 	}
-// 	if (output == NULL)
-// 	{
-// 		free((current)->content);
-// 		ft_memcpy((current)->content, ft_calloc(1, sizeof(char *)),
-// 			sizeof(char *));
-// 	}
-// 	else if (dollar == 0)
-// 		*(char **)(current)->content = output;
-// 	return ((current)->next);
-// }
-
-// t_list	*ft_lstcopy(t_list *list)
-// {
-// 	t_list	*new_list;
-// 	t_list	*temp;
-// 	int		first;
-
-// 	if (list == NULL)
-// 		return (NULL);
-// 	new_list = NULL;
-// 	temp = new_list;
-// 	first = 1;
-// 	while (list != NULL)
-// 	{
-// 		if (first)
-// 		{
-// 			new_list = ft_lstnew(list->content);
-// 			list = list->next;
-// 			temp = new_list;
-// 			first = 0;
-// 		}
-// 		if (list != NULL)
-// 		{
-// 			temp->next = ft_lstnew(list->content);
-// 			temp = temp->next;
-// 			list = list->next;
-// 		}
-// 	}
-// 	return (new_list);
-// }
-
-// void	expander(t_main *main, t_list **args)
-// {
-// 	t_list	*head;
-// 	t_list	*arg_lst;
-
-// 	arg_lst = ft_lstcopy(*args);
-// 	print_ll(arg_lst);
-// 	head = arg_lst;
-// 	// ft_printf("%p\n", *arg_lst);
-// 	if (arg_lst == NULL)
-// 	{
-// 		*args = ft_lstnew(ft_calloc(1, sizeof(char *)));
-// 		return ;
-// 	}
-// 	while (arg_lst->next != NULL)
-// 	{
-// 		// ft_printf("%s\n", *(char **)(arg_lst)->content);
-// 		arg_lst = convert_quote(main, *(char **)(arg_lst)->content, arg_lst, args);
-// 	}
-// 	ft_lstadd_back(args, ft_lstnew(ft_calloc(1, sizeof(char *))));
-// 	// ft_printf("\nEND");
-// 	// ft_printf("%p\n", head);
-// 	// print_ll(*head);
-// }

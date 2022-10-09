@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 21:59:58 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/04 15:04:52 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,11 @@ char	**sort_doublearray(char **array)
 	return (output);
 }
 
+/**
+ * @brief Sorts the list in ascii order
+ * 
+ * @param lst The head of the list
+ */
 void	ft_lstsort(t_list **lst)
 {
 	t_list	*current;

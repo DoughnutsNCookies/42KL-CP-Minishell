@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 19:38:53 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/04 22:08:29 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * is KEY="". If value is 0, new envp is KEY. Else, new envp is KEY=VALUE. Copy
  * the rest and frees the old one, sets the new one as the current one
  * 
- * @param main The main struct containing envp
+ * @param main The main struct containing the environment list
  * @param key The key of the new variable
  * @param value The value of the new variable
  * @param i The position of the last variable in the existing envp + 1
@@ -75,7 +75,7 @@ static void	do_replace(char **envp, char *key, char *value, int option)
  * (opt 0). If there is already an existing key and arg is key only, return. If
  * no existing key is found, add new key and value to the envp
  * 
- * @param main The main struct containing envp
+ * @param main The main struct containing the environment list
  * @param args The arguments
  * @param key The key of the "new" variable
  * @param value The value of the "new" variable
@@ -110,7 +110,7 @@ static void	update_envp(t_main *main, char *args, char *key, char *value)
  * @brief Loops through every args. Check whether the arg is valid. Split the
  * arg into Key and Value, then feed into update_envp function
  * 
- * @param main The main struct containing envp
+ * @param main The main struct containing the environment list
  * @param args The arguments
  */
 static void	find_and_add(t_main *main, char **args)
@@ -136,7 +136,7 @@ static void	find_and_add(t_main *main, char **args)
  * @brief If export is called with no other args, print envp. Else, add new
  * args into envp
  * 
- * @param main The main struct containing envp
+ * @param main The main struct containing the environment list
  * @param args The arguments
  * @return int 0 on success
  */
