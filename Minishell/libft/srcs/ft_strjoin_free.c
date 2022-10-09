@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "printf.h"
 
 char	*ft_strjoin_free(char *s1, char const *s2)
 {
