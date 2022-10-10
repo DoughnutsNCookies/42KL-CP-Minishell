@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:49:48 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 16:03:30 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/10 10:27:04 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	check_valid_identifier(char *arg, char *str, char *type)
  * 
  * @param envp The enviroment variable list
  */
-void	print_envp(char **envp)
+void	print_export(char **envp)
 {
 	char	**split;
 	int		i;

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:05:01 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:30:14 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/10 10:18:40 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,5 @@ void	perror_and_exit(char *errormsg)
 int	export_unset_error(char *arg, char *type)
 {
 	ft_dprintf(STDERR_FILENO, "%s: `%s': not a valid identifier\n", type, arg);
-	g_global.error_no = 1;
 	return (1);
 }
