@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/09 08:32:23 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/09 13:40:23 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,11 +196,11 @@ void		sigint_handler(int signo);
 void		init_signal(void);
 
 /* Helper */
-char	*get_envp_value(char **envp, char *key);
-char	**sort_doublearray(char **envp);
-void	free_doublearray(char **split);
-char	**dup_doublearray(char **src);
-void	ft_lstsort(t_list **lst);
+char		*get_envp_value(char **envp, char *key);
+char		**sort_doublearray(char **envp);
+void		free_doublearray(char **split);
+char		**dup_doublearray(char **src);
+void		ft_lstsort(t_list **lst);
 
 /* Parse Input */
 char		**parse_input(t_main *main, char *input);
@@ -209,29 +209,29 @@ char		**parse_input(t_main *main, char *input);
 void		executor(t_main *main, char **command);
 
 /* Expander */
-t_list	*connect_cur_with_cur(t_list *current, t_list *files, char *output);
-t_list	*check_output_dollar(t_list *current, char *output, int dollar);
-void	expander(t_main *main, t_list **args);
-char	*append_char(char *input, char c);
+t_list		*connect_cur_with_cur(t_list *current, t_list *files, char *output);
+t_list		*check_output_dollar(t_list *current, char *output, int dollar);
+void		expander(t_main *main, t_list **args);
+char		*append_char(char *input, char c);
 
 /* Expand First */
-t_list	*expand_first_phase(t_main *main, t_expand *exp, t_list *current);
+t_list		*expand_first_phase(t_main *main, t_expand *exp, t_list *current);
 
 /* Expand Second */
-t_list	*expand_second_phase(t_expand *exp, t_list *current);
+t_list		*expand_second_phase(t_expand *exp, t_list *current);
 
 /* Expand Star */
-int		check_star(char *arg);
-int		is_valid(char *tocheck, char *arg);
+int			check_star(char *arg);
+int			is_valid(char *tocheck, char *arg);
 
 /* Expand Files */
-DIR		*get_dir(char *path);
-t_list	*get_files_from_dir(char *arg);
+DIR			*get_dir(char *path);
+t_list		*get_files_from_dir(char *arg);
 
 /* Expand Dollar */
-int		expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
-void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
-char	*dlr_val(t_main *main, char *arg);
+int			expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
+void		recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
+char		*dlr_val(t_main *main, char *arg);
 
 /* Echo */
 int			echo(t_main *main, char **args);
@@ -300,10 +300,13 @@ int			ms_parser_is_io_token(t_token *token);
 void		ms_io_list_free(t_io_list **io_list);
 
 /* Expander tree */
-void		ms_expander_cmd_list(t_main *main, t_cmd_list *cmd_list);
+void		ms_expander_delete_null(t_list **list);
 
 /* Executor struct */
 t_executor	*ms_executor_init(void);
+void		ms_executor_init_pipefd(t_executor *exec, t_pipe_list *p);
+void		ms_executor_free_pipefd(t_executor *exec);
+void		ms_executor_free(t_executor **exec);
 
 /* Executor tree */
 void		ms_executor_cmd_list(t_main *main, t_executor *e, t_cmd_list *cmd);
@@ -324,6 +327,6 @@ void		ms_heredoc_pipe_list_dequeue(t_executor *exec,
 void		ms_heredoc_cmd_list_dequeue(t_executor *exec, t_cmd_list *cmd_list);
 
 /* Temp */
-void	print_ll(t_list *head);
+void		print_ll(t_list *head);
 
 #endif

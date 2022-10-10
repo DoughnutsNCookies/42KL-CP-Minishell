@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:37:21 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/06 02:06:09 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/09 13:40:18 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,15 @@ int	ms_executor_check_ambiguous(t_executor *exec, t_list *value)
 	return (0);
 }
 
-void	ms_executor_io_list(t_executor *exec, t_io_list *io)
+void	ms_executor_io_list(t_main *main, t_executor *exec, t_io_list *io)
 {
 	while (io)
 	{
+		if (io->e_type != IO_AIN)
+		{
+			expander(main, &io->value);
+			ms_expander_delete_null(&io->value);
+		}
 		if (io->e_type == IO_AIN || io->e_type == IO_IN)
 		{
 			if (exec->infile != 0)
@@ -69,14 +74,26 @@ void	ms_executor_io_list(t_executor *exec, t_io_list *io)
 	}
 }
 
+void	ms_executor_wait_pipe(void)
+{
+	int	returnpid;
+	int	status;
+
+	while (returnpid > 0)
+		returnpid = waitpid(-1, &status, WUNTRACED);
+	if (WIFEXITED(status))
+		g_global.error_no = (WEXITSTATUS(status));
+}
+
 void	ms_executor_pipe_list(t_main *main, t_executor *exec, t_pipe_list *pipe)
 {
 	exec->pipe_count = 0;
+	ms_executor_init_pipefd(exec, pipe);
 	while (pipe)
 	{
 		exec->infile = 0;
 		exec->outfile = 1;
-		ms_executor_io_list(exec, pipe->io_list);
+		ms_executor_io_list(main, exec, pipe->io_list);
 		if (exec->runtime_error)
 			g_global.error_no = exec->runtime_error;
 		else
@@ -84,6 +101,8 @@ void	ms_executor_pipe_list(t_main *main, t_executor *exec, t_pipe_list *pipe)
 		pipe = pipe->next;
 		exec->pipe_count++;
 	}
+	ms_executor_free_pipefd(exec);
+	ms_executor_wait_pipe();
 }
 
 void	ms_executor_cmd_list(t_main *main, t_executor *e, t_cmd_list *cmd)
