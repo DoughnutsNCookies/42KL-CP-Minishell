@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ms_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 21:28:50 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-t_global	g_global;
-
-// TEMPORARY FOR DEBUGGING PURPOSES
-void	print_cmd_list(t_cmd_list *cmd_list);
 
 /**
  * @brief Initializes all of the functions pointers with their respective names
@@ -37,22 +32,31 @@ static void	init_main(t_main *main, char **envp)
 	main->envp = dup_doublearray(envp);
 }
 
-static t_cmd_list	*ms_get_cmd_list(char *input)
+static t_cmd_list	*ms_get_cmd_list(t_main *main, char *input)
 {
 	t_parser	*parser;
 	t_cmd_list	*cmd_list;
 
 	parser = ms_parser_init(ms_lexer_init(ft_strdup(input)));
 	cmd_list = ms_parser_parse_cmd_list(parser);
-	g_global.error_no = parser->syntax_error;
+	main->syntax_error = parser->syntax_error;
 	ms_parser_free(&parser);
 	return (cmd_list);
+}
+
+static void	ms_run_execution(t_main *main, t_cmd_list *cmd_list)
+{
+	t_executor	*exec;
+
+	exec = ms_executor_init();
+	ms_heredoc_cmd_list_enqueue(exec, cmd_list);
+	ms_executor_cmd_list(main, exec, cmd_list);
+	ms_executor_free(&exec);
 }
 
 void	ms_read_next_line(t_main *main)
 {
 	t_cmd_list	*cmd_list;
-	t_executor	*exec;
 	char		*input;
 
 	init_signal();
@@ -64,14 +68,11 @@ void	ms_read_next_line(t_main *main)
 		add_history(input);
 		if (!ms_check_dangling(input))
 		{
-			cmd_list = ms_get_cmd_list(input);
-			if (g_global.error_no == 0)
-			{
-				exec = ms_executor_init();
-				ms_heredoc_cmd_list_enqueue(exec, cmd_list);
-				ms_executor_cmd_list(main, exec, cmd_list);
-				ms_executor_free(&exec);
-			}
+			cmd_list = ms_get_cmd_list(main, input);
+			if (main->syntax_error == 0)
+				ms_run_execution(main, cmd_list);
+			else
+				g_errno = main->syntax_error;
 			ms_cmd_list_free(&cmd_list);
 		}
 	}

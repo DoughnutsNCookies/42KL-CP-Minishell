@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 22:02:06 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 22:40:13 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,9 @@ typedef struct s_main
 {
 	char	**envp;
 	char	**func_name;
+	int		syntax_error;
 	t_func	func[MS_MAX_BIFUNC];
 }	t_main;
-
-/* Global struct */
-typedef struct s_global
-{
-	int	error_no;
-}	t_global;
 
 /* Expander struct */
 typedef struct s_expand
@@ -65,8 +60,8 @@ typedef struct s_expand
 	int		i;
 }	t_expand;
 
-/* Global struct is defined here */
-extern t_global	g_global;
+/* Global errno is defined here */
+int			g_errno;
 
 typedef struct s_executor
 {

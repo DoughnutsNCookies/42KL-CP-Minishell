@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:47:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:33:54 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	sigint_handler(int signo)
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	g_global.error_no = 1;
+	g_errno = 1;
 }
 
 /**

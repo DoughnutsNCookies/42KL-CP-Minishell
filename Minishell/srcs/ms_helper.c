@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 21:59:19 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_envp_value(char **envp, char *key)
 	i = -1;
 	if (key != NULL)
 		if (key[0] == '?' && key[1] == '\0')
-			return (ft_itoa(g_global.error_no));
+			return (ft_itoa(g_errno));
 	while (envp[++i] != 0)
 	{
 		split = envp_split(envp[i]);

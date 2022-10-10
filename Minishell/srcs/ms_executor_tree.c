@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor_tree.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:37:21 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/10 08:02:49 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ms_executor_wait_pipe(void)
 	while (returnpid > 0)
 		returnpid = waitpid(-1, &status, WUNTRACED);
 	if (WIFEXITED(status))
-		g_global.error_no = (WEXITSTATUS(status));
+		g_errno = (WEXITSTATUS(status));
 }
 
 void	ms_executor_pipe_list(t_main *main, t_executor *exec, t_pipe_list *pipe)
@@ -34,7 +34,7 @@ void	ms_executor_pipe_list(t_main *main, t_executor *exec, t_pipe_list *pipe)
 		exec->outfile = 1;
 		ms_executor_io_list(main, exec, pipe->io_list);
 		if (exec->runtime_error)
-			g_global.error_no = exec->runtime_error;
+			g_errno = exec->runtime_error;
 		else
 			ms_executor(main, exec, pipe);
 		pipe = pipe->next;
@@ -49,8 +49,8 @@ void	ms_executor_cmd_list(t_main *main, t_executor *e, t_cmd_list *cmd)
 	while (cmd)
 	{
 		if (cmd->e_operator == OP_START
-			|| (cmd->e_operator == OP_AND && g_global.error_no == 0)
-			|| (cmd->e_operator == OP_OR && g_global.error_no != 0))
+			|| (cmd->e_operator == OP_AND && g_errno == 0)
+			|| (cmd->e_operator == OP_OR && g_errno != 0))
 		{
 			if (cmd->e_type == PIPE_LIST)
 				ms_executor_pipe_list(main, e, cmd->ptr);

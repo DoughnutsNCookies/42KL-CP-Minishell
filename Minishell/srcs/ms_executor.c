@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 11:01:27 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ void	executor(t_main *main, char **command)
 			return ;
 		if (ft_strcmp(command[0], main->func_name[i]) == 0)
 		{
-			g_global.error_no = main->func[i](main, command);
+			g_errno = main->func[i](main, command);
 			return ;
 		}
 	}
 	ft_dprintf(STDERR_FILENO, "%s: command not found\n", command[0]);
-	g_global.error_no = 127;
+	g_errno = 127;
 }
 
 static void	ms_child_close_fd(t_executor *exec, t_pipe_list *p)
