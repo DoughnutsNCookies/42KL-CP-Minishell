@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 08:34:44 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 09:30:27 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ms_read_next_line(t_main *main)
 	t_executor	*exec;
 	char		*input;
 
+	init_signal();
 	input = readline("$> ");
 	if (input == NULL)
 		main->func[MS_EXIT](main, NULL);
@@ -87,7 +88,6 @@ int	main(int ac, char **av, char **envp)
 {
 	t_main		main;
 
-	init_signal();
 	init_main(&main, envp);
 	while (1)
 		ms_read_next_line(&main);
@@ -95,19 +95,3 @@ int	main(int ac, char **av, char **envp)
 	(void)ac;
 	(void)av;
 }
-
-/*
-child_pid = fork();
-if (child_pid < 0)
-	perror_and_exit("Fork failed");
-if (child_pid == 0 && execve(command[0], command, envp) < 0)
-	perror_and_exit(command[0]);
-else
-	waitpid(child_pid, 0, WUNTRACED);
-
-char	cmd[] = "/bin/ls";
-char	*av[] = {"ls", "-l", NULL};
-char	*envp[] = {NULL};
-
-execve(cmd, av, envp);
-*/
