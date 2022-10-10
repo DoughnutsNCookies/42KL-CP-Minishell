@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:53:00 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/01 19:05:43 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 21:21:31 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ t_cmd_list	*ms_parser_parse_cmd_list(t_parser *p)
 			ms_parser_cmd_recurse(p, &buffer);
 		else if (ms_parser_is_pipe_token(p->curr_token))
 		{
+			if ((int)buffer->e_type != -1)
+			{
+				ms_parser_syntax_error(p);
+				return (cmd_list);
+			}
 			buffer->e_type = PIPE_LIST;
 			buffer->ptr = ms_parser_parse_pipe_list(p);
 		}

@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 11:12:14 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 21:27:21 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_main
 	char	**envp;
 	char	**func_name;
 	t_func	func[MS_MAX_BIFUNC];
-	int		syntax_error;
 }	t_main;
 
 /* Global struct */

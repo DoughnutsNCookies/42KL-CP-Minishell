@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 11:32:07 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 21:28:50 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ static void	init_main(t_main *main, char **envp)
 	main->envp = dup_doublearray(envp);
 }
 
-static t_cmd_list	*ms_get_cmd_list(t_main *main, char *input)
+static t_cmd_list	*ms_get_cmd_list(char *input)
 {
 	t_parser	*parser;
 	t_cmd_list	*cmd_list;
 
 	parser = ms_parser_init(ms_lexer_init(ft_strdup(input)));
 	cmd_list = ms_parser_parse_cmd_list(parser);
-	main->syntax_error = parser->syntax_error;
+	g_global.error_no = parser->syntax_error;
 	ms_parser_free(&parser);
 	return (cmd_list);
 }
@@ -59,23 +59,22 @@ void	ms_read_next_line(t_main *main)
 	input = readline("$> ");
 	if (input == NULL)
 		main->func[MS_EXIT](main, NULL);
-	if (ft_strlen(input) == 0)
+	if (ft_strlen(input) != 0)
 	{
-		free(input);
-		return ;
+		add_history(input);
+		if (!ms_check_dangling(input))
+		{
+			cmd_list = ms_get_cmd_list(input);
+			if (g_global.error_no == 0)
+			{
+				exec = ms_executor_init();
+				ms_heredoc_cmd_list_enqueue(exec, cmd_list);
+				ms_executor_cmd_list(main, exec, cmd_list);
+				ms_executor_free(&exec);
+			}
+			ms_cmd_list_free(&cmd_list);
+		}
 	}
-	add_history(input);
-	if (ms_check_dangling(input))
-	{
-		free(input);
-		return ;
-	}
-	cmd_list = ms_get_cmd_list(main, input);
-	exec = ms_executor_init();
-	ms_heredoc_cmd_list_enqueue(exec, cmd_list);
-	ms_executor_cmd_list(main, exec, cmd_list);
-	ms_cmd_list_free(&cmd_list);
-	ms_executor_free(&exec);
 	free(input);
 }
 
