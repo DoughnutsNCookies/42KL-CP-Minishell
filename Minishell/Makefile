@@ -6,7 +6,7 @@
 #    By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/10 08:19:58 by maliew           ###   ########.fr        #
+#    Updated: 2022/10/10 11:14:00 by maliew           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC			=	gcc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I/usr/local/opt/readline/include
-# CFLAGS		+=	-fsanitize=address -g3
+CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
 SRCS_FILES	=	ms_expand_dollar \
@@ -46,7 +46,7 @@ SRCS_FILES	=	ms_expand_dollar \
 				ms_lexer \
 				ms_parser \
 				ms_pipe_list \
-				ms_pipe_list_utils \
+				ms_free_args \
 				ms_token \
 				ms_expander_tree \
 				ms_executor_struct \

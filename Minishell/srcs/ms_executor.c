@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 09:38:14 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 11:01:27 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ void	executor_non_builtin(t_main *main, t_executor *exec, t_pipe_list *p,
 		signal(SIGINT, SIG_DFL);
 		ms_child_close_fd(exec, p);
 		if (ms_get_path_env(main->envp, argv))
+		{
+			free(argv);
 			exit(127);
+		}
 		execve(argv[0], argv, main->envp);
 		ft_dprintf(STDERR_FILENO, "%s: command not found\n", argv[0]);
 		exit(127);

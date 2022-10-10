@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:52:58 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/01 16:13:02 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 11:11:03 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ms_pipe_list_free(t_pipe_list **pipe_list)
 	{
 		temp = *pipe_list;
 		*pipe_list = (*pipe_list)->next;
-		ft_lstclear(&temp->argv, &ms_pipe_list_free_args);
+		ft_lstclear(&temp->argv, &ms_free_args);
 		ms_io_list_free(&temp->io_list);
 		free(temp);
 	}

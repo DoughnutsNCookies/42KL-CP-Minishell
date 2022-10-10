@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 07:44:48 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/10 08:13:58 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 11:30:37 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,15 @@ void	ms_executor_io_list(t_main *main, t_executor *exec, t_io_list *io)
 	{
 		if (io->e_type != IO_AIN)
 		{
-			env_val = *(char **)io->value->content;
+			env_val = ft_strdup(*(char **)io->value->content);
 			expander(main, &io->value);
 			ms_expander_delete_null(&io->value);
 			if (ms_executor_check_ambiguous(exec, io->value, env_val))
+			{
+				free(env_val);
 				return ;
+			}
+			free(env_val);
 		}
 		if (io->e_type == IO_AIN || io->e_type == IO_IN)
 			ms_executor_io_in(exec, io);

@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:43:45 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/10 09:38:22 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 11:03:41 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,6 @@ void	ms_executor(t_main *main, t_executor *exec, t_pipe_list *p)
 		executor(main, argv);
 	else
 		executor_non_builtin(main, exec, p, argv);
+	free(argv);
 	ms_exec_redir_reset(exec);
 }

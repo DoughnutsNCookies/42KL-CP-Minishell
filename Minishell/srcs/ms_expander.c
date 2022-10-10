@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/09 08:31:24 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 10:33:39 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void	expander(t_main *main, t_list **args)
 	{
 		exp.arg = *(char **)arg_lst->content;
 		arg_lst = expand_first_phase(main, &exp, arg_lst);
+		free(exp.arg);
 	}
 	arg_lst = *args;
 	while (arg_lst != NULL)

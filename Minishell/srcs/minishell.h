@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 08:34:22 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 11:12:14 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,8 @@ char		**parse_input(t_main *main, char *input);
 
 /* Executor */
 void		executor(t_main *main, char **command);
+void		executor_non_builtin(t_main *main, t_executor *exec, t_pipe_list *p,
+				char **argv);
 
 /* Expander */
 t_list		*connect_cur_with_cur(t_list *current, t_list *files, char *output);
@@ -293,8 +295,8 @@ t_pipe_list	*ms_parser_parse_pipe_list(t_parser *p);
 int			ms_parser_is_pipe_token(t_token *token);
 void		ms_pipe_list_free(t_pipe_list **pipe_list);
 
-/* Pipe list utils */
-void		ms_pipe_list_free_args(void *content);
+/* Free args */
+void		ms_free_args(void *content);
 
 /* Io list */
 t_io_list	*ms_io_list_init(int type);

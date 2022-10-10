@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:52:47 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/01 16:15:04 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 11:15:05 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	ms_io_list_free(t_io_list **io_list)
 	{
 		temp = *io_list;
 		*io_list = (*io_list)->next;
-		free(temp->value);
+		ft_lstclear(&temp->value, &ms_free_args);
 		free(temp);
 	}
 }

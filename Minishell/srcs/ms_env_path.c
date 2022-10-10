@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 06:55:29 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/10 07:19:45 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 11:02:13 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ int	ms_get_path_env(char **envp, char **cmd)
 		return (1);
 	}
 	split = ft_split(path, ':');
+	free(path);
 	converted = comb_cmd(split, abs);
+	free_doublearray(split);
 	if (converted != abs)
 	{
 		free(*cmd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:33:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:35:08 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/10 11:05:31 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 int	ms_exit(t_main *main, char **args)
 {
 	ft_printf("exit\n");
-	system("leaks -q minishell");
 	exit(EXIT_SUCCESS);
 	return (0);
 	(void)main;

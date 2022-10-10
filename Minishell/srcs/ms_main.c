@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 09:30:27 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 11:32:07 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,16 @@ void	ms_read_next_line(t_main *main)
 	if (input == NULL)
 		main->func[MS_EXIT](main, NULL);
 	if (ft_strlen(input) == 0)
+	{
+		free(input);
 		return ;
+	}
 	add_history(input);
 	if (ms_check_dangling(input))
+	{
+		free(input);
 		return ;
+	}
 	cmd_list = ms_get_cmd_list(main, input);
 	exec = ms_executor_init();
 	ms_heredoc_cmd_list_enqueue(exec, cmd_list);
