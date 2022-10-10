@@ -6,20 +6,20 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 07:44:48 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/10 07:54:37 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 08:02:10 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ms_executor_check_error(t_executor *exec, int error)
+static int	ms_executor_check_file_error(t_executor *exec, char *filename)
 {
-	if (error != 0)
+	if (exec->infile == -1 || exec->outfile == -1)
 	{
-		ft_dprintf(2, "some runtime error\n");
+		ft_dprintf(2, "minishell: %s: %s\n", filename, strerror(errno));
 		exec->runtime_error = 1;
 	}
-	return (error);
+	return (exec->runtime_error);
 }
 
 static int	ms_executor_check_ambiguous(t_executor *exec, t_list *value)
@@ -32,7 +32,6 @@ static int	ms_executor_check_ambiguous(t_executor *exec, t_list *value)
 	}
 	return (0);
 }
-
 
 static void	ms_executor_io_in(t_executor *exec, t_io_list *io)
 {

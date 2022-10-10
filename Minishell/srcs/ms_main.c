@@ -6,13 +6,13 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/09 13:34:26 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 08:03:05 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_global g_global;
+t_global	g_global;
 
 // TEMPORARY FOR DEBUGGING PURPOSES
 void	print_cmd_list(t_cmd_list *cmd_list);
