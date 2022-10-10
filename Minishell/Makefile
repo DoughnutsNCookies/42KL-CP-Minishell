@@ -6,7 +6,7 @@
 #    By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/10 07:58:40 by maliew           ###   ########.fr        #
+#    Updated: 2022/10/10 08:19:58 by maliew           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,9 +56,7 @@ SRCS_FILES	=	ms_expand_dollar \
 				ms_heredoc \
 				ms_heredoc_tree_enqueue \
 				ms_heredoc_tree_dequeue \
-				ms_env_path \
-				tmp_print_cmd_list \
-				temp_debugger
+				ms_env_path
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRCS_FILES)))
 OBJS		= 	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRCS_FILES)))
 SRCS_DIR	=	srcs/

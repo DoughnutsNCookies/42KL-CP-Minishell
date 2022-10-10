@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 08:03:05 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 08:18:17 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,29 @@ static t_cmd_list	*ms_get_cmd_list(t_main *main, char *input)
 	return (cmd_list);
 }
 
+void	ms_read_next_line(t_main *main)
+{
+	t_cmd_list	*cmd_list;
+	t_executor	*exec;
+	char		*input;
+
+	input = readline("$> ");
+	if (input == NULL)
+		main->func[MS_EXIT](main, NULL);
+	if (ft_strlen(input) == 0)
+		return ;
+	add_history(input);
+	if (ms_check_dangling(input))
+		return ;
+	cmd_list = ms_get_cmd_list(main, input);
+	exec = ms_executor_init();
+	ms_heredoc_cmd_list_enqueue(exec, cmd_list);
+	ms_executor_cmd_list(main, exec, cmd_list);
+	ms_cmd_list_free(&cmd_list);
+	ms_executor_free(&exec);
+	free(input);
+}
+
 /**
  * @brief Signal will be initialised: Ctrl-\ and Ctrl-C. Every while loop,
  * readline will be called while showing "$> " prompt, and returns user input
@@ -63,32 +86,11 @@ static t_cmd_list	*ms_get_cmd_list(t_main *main, char *input)
 int	main(int ac, char **av, char **envp)
 {
 	t_main		main;
-	t_cmd_list	*cmd_list;
-	t_executor	*exec;
-	char		*input;
-	// t_list		*args;
 
 	init_signal();
 	init_main(&main, envp);
 	while (1)
-	{
-		// i = 0;
-		input = readline("$> ");
-		if (input == NULL)
-			main.func[MS_EXIT](&main, NULL);
-		if (ft_strlen(input) == 0)
-			continue ;
-		add_history(input);
-		if (ms_check_dangling(input))
-			continue ;
-		cmd_list = ms_get_cmd_list(&main, input);
-		exec = ms_executor_init();
-		ms_heredoc_cmd_list_enqueue(exec, cmd_list);
-		ms_executor_cmd_list(&main, exec, cmd_list);
-		ms_cmd_list_free(&cmd_list);
-		ms_executor_free(&exec);
-		free(input);
-	}
+		ms_read_next_line(&main);
 	return (EXIT_SUCCESS);
 	(void)ac;
 	(void)av;
