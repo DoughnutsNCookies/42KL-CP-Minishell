@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 21:27:21 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 22:02:06 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,6 @@ char		*get_envp_value(char **envp, char *key);
 char		**sort_doublearray(char **envp);
 void		free_doublearray(char **split);
 char		**dup_doublearray(char **src);
-void		ft_lstsort(t_list **lst);
 
 /* Parse Input */
 char		**parse_input(t_main *main, char *input);
@@ -294,8 +293,10 @@ t_pipe_list	*ms_parser_parse_pipe_list(t_parser *p);
 int			ms_parser_is_pipe_token(t_token *token);
 void		ms_pipe_list_free(t_pipe_list **pipe_list);
 
-/* Free args */
+/* List utils */
 void		ms_free_args(void *content);
+void		ft_lstsort(t_list **lst);
+int			ms_cmd_list_parse_pipe_list(t_cmd_list *buffer, t_parser *p);
 
 /* Io list */
 t_io_list	*ms_io_list_init(int type);

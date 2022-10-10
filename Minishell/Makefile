@@ -6,7 +6,7 @@
 #    By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/10 11:14:00 by maliew           ###   ########.fr        #
+#    Updated: 2022/10/10 22:03:47 by maliew           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,7 @@ SRCS_FILES	=	ms_expand_dollar \
 				ms_lexer \
 				ms_parser \
 				ms_pipe_list \
-				ms_free_args \
+				ms_list_utils \
 				ms_token \
 				ms_expander_tree \
 				ms_executor_struct \
