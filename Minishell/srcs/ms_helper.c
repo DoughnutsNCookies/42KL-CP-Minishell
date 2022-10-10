@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_helper.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 15:04:52 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/10 21:59:19 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,38 +113,4 @@ char	**sort_doublearray(char **array)
 		}
 	}
 	return (output);
-}
-
-/**
- * @brief Sorts the list in ascii order
- * 
- * @param lst The head of the list
- */
-void	ft_lstsort(t_list **lst)
-{
-	t_list	*current;
-	t_list	*nextnode;
-	int		sorted;
-	void	*temp;
-
-	sorted = 0;
-	while (sorted == 0)
-	{
-		sorted = 1;
-		current = *lst;
-		nextnode = current;
-		while (nextnode->next != NULL)
-		{
-			if (ft_strcmp(*(char **)nextnode->content,
-					*(char **)nextnode->next->content) > 0)
-			{
-				temp = nextnode->content;
-				nextnode->content = nextnode->next->content;
-				nextnode->next->content = temp;
-				sorted = 0;
-			}
-			nextnode = nextnode->next;
-		}
-		current = current->next;
-	}
 }

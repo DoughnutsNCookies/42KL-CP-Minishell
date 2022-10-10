@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
+#    By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/07 17:16:22 by schuah           ###   ########.fr        #
+#    Updated: 2022/10/10 22:03:47 by maliew           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC			=	gcc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I/usr/local/opt/readline/include
-# CFLAGS		+=	-fsanitize=address -g3
+CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
 SRCS_FILES	=	ms_expand_dollar \
@@ -39,7 +39,24 @@ SRCS_FILES	=	ms_expand_dollar \
 				ms_env \
 				ms_pwd \
 				ms_cd \
-				temp_debugger
+				ms_check_dangling \
+				ms_cmd_list \
+				ms_io_list \
+				ms_lexer_utils \
+				ms_lexer \
+				ms_parser \
+				ms_pipe_list \
+				ms_list_utils \
+				ms_token \
+				ms_expander_tree \
+				ms_executor_struct \
+				ms_executor_tree \
+				ms_executor_io \
+				ms_executor_utils \
+				ms_heredoc \
+				ms_heredoc_tree_enqueue \
+				ms_heredoc_tree_dequeue \
+				ms_env_path
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRCS_FILES)))
 OBJS		= 	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRCS_FILES)))
 SRCS_DIR	=	srcs/

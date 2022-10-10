@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_exit.c                                          :+:      :+:    :+:   */
+/*   ms_lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 12:33:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 11:05:31 by maliew           ###   ########.fr       */
+/*   Created: 2022/09/25 18:21:31 by maliew            #+#    #+#             */
+/*   Updated: 2022/09/29 04:37:48 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief Writes out exit message and exits with status 0
+ * @brief 	Checks if string has a special token at the start.
+ * 			Special tokens are && || << >> < > | ( )
  * 
- * @param main The main struct (Can be NULL)
- * @param args The arguments (Can be NULL)
- * @return int 0 on success
+ * @param s 	String to check
+ * @return int 1 if there is a token at the start of the string, 0 if not.
  */
-int	ms_exit(t_main *main, char **args)
+int	ms_lexer_is_spec(char *s)
 {
-	ft_printf("exit\n");
-	exit(EXIT_SUCCESS);
+	if (ft_strchr("|<>()", *s))
+		return (1);
+	if (ft_strncmp(s, "&&", 2) == 0)
+		return (1);
 	return (0);
-	(void)main;
-	(void)args;
 }

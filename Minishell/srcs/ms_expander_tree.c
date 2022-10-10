@@ -1,29 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_exit.c                                          :+:      :+:    :+:   */
+/*   ms_expander_tree.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/14 12:33:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 11:05:31 by maliew           ###   ########.fr       */
+/*   Created: 2022/10/01 16:19:28 by maliew            #+#    #+#             */
+/*   Updated: 2022/10/09 13:39:22 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/**
- * @brief Writes out exit message and exits with status 0
- * 
- * @param main The main struct (Can be NULL)
- * @param args The arguments (Can be NULL)
- * @return int 0 on success
- */
-int	ms_exit(t_main *main, char **args)
+void	ms_expander_delete_null(t_list **list)
 {
-	ft_printf("exit\n");
-	exit(EXIT_SUCCESS);
-	return (0);
-	(void)main;
-	(void)args;
+	t_list	*curr;
+
+	if (list == NULL || *list == NULL)
+		return ;
+	curr = *list;
+	if (*(char **)curr->content == NULL)
+	{
+		*list = curr->next;
+		free(curr->content);
+		free(curr);
+		curr = NULL;
+		ms_expander_delete_null(list);
+	}
+	curr = *list;
+	if (curr)
+		ms_expander_delete_null(&curr->next);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expander.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/07 17:52:21 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/10 10:33:39 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,12 @@ void	expander(t_main *main, t_list **args)
 
 	arg_lst = *args;
 	if (arg_lst == NULL)
-	{
-		*args = ft_lstnew(ft_calloc(1, sizeof(char *)));
 		return ;
-	}
 	while (arg_lst != NULL)
 	{
 		exp.arg = *(char **)arg_lst->content;
 		arg_lst = expand_first_phase(main, &exp, arg_lst);
+		free(exp.arg);
 	}
 	arg_lst = *args;
 	while (arg_lst != NULL)
