@@ -6,7 +6,7 @@
 #    By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/09 08:27:13 by maliew           ###   ########.fr        #
+#    Updated: 2022/10/10 07:58:40 by maliew           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,10 +51,12 @@ SRCS_FILES	=	ms_expand_dollar \
 				ms_expander_tree \
 				ms_executor_struct \
 				ms_executor_tree \
+				ms_executor_io \
 				ms_executor_utils \
 				ms_heredoc \
 				ms_heredoc_tree_enqueue \
 				ms_heredoc_tree_dequeue \
+				ms_env_path \
 				tmp_print_cmd_list \
 				temp_debugger
 SRCS		= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRCS_FILES)))

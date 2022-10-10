@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/09 13:40:23 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 07:48:01 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -311,6 +311,9 @@ void		ms_executor_free(t_executor **exec);
 /* Executor tree */
 void		ms_executor_cmd_list(t_main *main, t_executor *e, t_cmd_list *cmd);
 
+/* Executor io */
+void	ms_executor_io_list(t_main *main, t_executor *exec, t_io_list *io);
+
 /* Executor utils */
 void		ms_executor(t_main *main, t_executor *exec, t_pipe_list *pipe);
 
@@ -325,6 +328,9 @@ void		ms_heredoc_cmd_list_enqueue(t_executor *exec, t_cmd_list *cmd_list);
 void		ms_heredoc_pipe_list_dequeue(t_executor *exec,
 				t_pipe_list *pipe_list);
 void		ms_heredoc_cmd_list_dequeue(t_executor *exec, t_cmd_list *cmd_list);
+
+/* Env path */
+int			ms_get_path_env(char **envp, char **cmd);
 
 /* Temp */
 void		print_ll(t_list *head);

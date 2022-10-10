@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:43:45 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/09 13:30:31 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 07:23:49 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,20 @@ void	ms_exec_redir_set(t_executor *exec, t_pipe_list *p)
 		dup2(exec->pipe_fd[exec->pipe_count][1], 1);
 }
 
+void	ms_child_close_fd(t_executor *exec, t_pipe_list *p)
+{
+	if (exec->pipe_count != 0)
+	{
+		close(exec->pipe_fd[exec->pipe_count - 1][0]);
+		close(exec->pipe_fd[exec->pipe_count - 1][1]);
+	}
+	if (p->next)
+	{
+		close(exec->pipe_fd[exec->pipe_count][0]);
+		close(exec->pipe_fd[exec->pipe_count][1]);
+	}
+}
+
 void	ms_executor(t_main *main, t_executor *exec, t_pipe_list *p)
 {
 	char	**argv;
@@ -76,16 +90,9 @@ void	ms_executor(t_main *main, t_executor *exec, t_pipe_list *p)
 		pid = fork();
 		if (pid == 0)
 		{
-			if (exec->pipe_count != 0)
-			{
-				close(exec->pipe_fd[exec->pipe_count - 1][0]);
-				close(exec->pipe_fd[exec->pipe_count - 1][1]);
-			}
-			if (p->next)
-			{
-				close(exec->pipe_fd[exec->pipe_count][0]);
-				close(exec->pipe_fd[exec->pipe_count][1]);
-			}
+			ms_child_close_fd(exec, p);
+			if (ms_get_path_env(main->envp, argv))
+				exit(127);
 			execve(argv[0], argv, main->envp);
 			ft_dprintf(STDERR_FILENO, "%s: command not found\n", argv[0]);
 			exit(127);
