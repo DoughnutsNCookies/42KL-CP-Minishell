@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:05:01 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/30 02:24:03 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/10 08:28:20 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	perror_and_exit(char *errormsg)
 int	export_unset_error(char *arg, char *type)
 {
 	ft_dprintf(STDERR_FILENO, "%s: `%s': not a valid identifier\n", type, arg);
-	g_global.error_no = 1;
 	return (1);
 }
 

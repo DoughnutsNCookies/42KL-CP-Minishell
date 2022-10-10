@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:31:05 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 22:08:40 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/10 10:21:19 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,11 @@ int	unset(t_main *main, char **args)
 
 	i = 0;
 	while (args[++i] != 0)
+	{
 		if (check_valid_identifier(args[i], args[i], "unset") == 0)
 			find_and_delete(main, args[i]);
+		else
+			return (1);
+	}
 	return (0);
 }

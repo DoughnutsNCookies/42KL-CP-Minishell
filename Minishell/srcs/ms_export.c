@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 22:08:29 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/10 10:35:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ static void	update_envp(t_main *main, char *args, char *key, char *value)
  * @param main The main struct containing the environment list
  * @param args The arguments
  */
-static void	find_and_add(t_main *main, char **args)
+static int	find_and_add(t_main *main, char **args)
 {
 	int		i;
 	char	**split;
@@ -128,8 +128,12 @@ static void	find_and_add(t_main *main, char **args)
 			free_doublearray(split);
 		}
 		else
+		{
 			free_doublearray(split);
+			return (1);
+		}
 	}
+	return (0);
 }
 
 /**
@@ -147,10 +151,10 @@ int	export(t_main *main, char **args)
 	if (args[1] == 0 || args[1][0] == '#')
 	{
 		dup = sort_doublearray(main->envp);
-		print_envp(dup);
+		print_export(dup);
 		free_doublearray(dup);
 	}
 	else
-		find_and_add(main, args);
+		return (find_and_add(main, args));
 	return (0);
 }

@@ -154,7 +154,7 @@ int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
  * @brief Expands $ to its value and strjoins them to the back of the current
  * output recursively, to handle cases like "$A$B$C". The depth of the recursion
  * is stored for debugging use and to also reduce exp->i by one at the start of
- * this recursion
+ * this recursion, as well as to append '' to the starting string
  * 
  * @param main The main struct containing the environment list
  * @param exp The expansion struct containing the argument, i position and
@@ -170,6 +170,8 @@ void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
 		exp->i--;
 	if (exp->arg[exp->i + 1] != '$')
 		return ;
+	if (depth == 0)
+		exp->output = append_char(exp->output, '\'');
 	exp->i++;
 	i = -1;
 	dollar_expanded = dlr_val(main, exp->arg + exp->i);
@@ -181,4 +183,5 @@ void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
 			exp->i++;
 	free(dollar_expanded);
 	recurs_expand_dollar(main, exp, depth + 1);
+	exp->output = append_char(exp->output, '\'');
 }

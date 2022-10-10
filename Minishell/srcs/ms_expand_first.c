@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:01:50 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/07 17:39:33 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/10 10:25:44 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void	convert_dquote(t_main *main, t_expand *exp)
  * @param quote Whether there was a single quote
  * @return int 1 if any conversion has been made, else 0
  */
-int	convert_quote_star(t_main *main, t_expand *exp, int *quote)
+static int	convert_quote_star(t_main *main, t_expand *exp, int *quote)
 {
 	if (exp->arg[exp->i] == '\'')
 	{
