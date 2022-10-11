@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:25:03 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:35:53 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 11:52:13 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * whether it is a valid flag and only 'n' flag exists in the user input. Loops
  * through again for cases where the input is (echo -nn -nn Hi)
  * 
- * @param args The arguments
+ * @param args Arguments that will be checked for flags
  * @return int flag count
  */
 static int	get_flag(char **args)
@@ -47,8 +47,8 @@ static int	get_flag(char **args)
  * iterate through the rest of args and print out all the variable. If flag_count
  * is 0 (no -n flag), prints out a "\n"
  * 
- * @param main The main struct (Can be NULL)
- * @param args The arguments
+ * @param main Main struct (Can be NULL)
+ * @param args Arguments that will be printed out
  * @return int 0 on success
  */
 int	echo(t_main *main, char **args)

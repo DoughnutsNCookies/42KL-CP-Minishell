@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:33:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 22:32:00 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 12:53:36 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /**
  * @brief Writes out exit message and exits with status 0
  * 
- * @param main The main struct (Can be NULL)
- * @param args The arguments (Can be NULL)
+ * @param main Main struct (Can be NULL)
+ * @param args Argument (Can be NULL)
  * @return int 0 on success
  */
 int	ms_exit(t_main *main, char **args)

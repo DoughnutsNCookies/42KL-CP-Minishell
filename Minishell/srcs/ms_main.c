@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 14:43:06 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
  * @brief Initializes all of the functions pointers with their respective names
  * and creates a copy of envp and saves it into the struct
  * 
- * @param main The main struct that will be initialized 
- * @param envp The envp from int main()
+ * @param main Main struct that will be initialized 
+ * @param envp Environment variable array from int main()
  */
 static void	init_main(t_main *main, char **envp)
 {
@@ -32,6 +32,13 @@ static void	init_main(t_main *main, char **envp)
 	main->envp = dup_doublearray(envp);
 }
 
+/**
+ * @brief Parses the user input into a linked list for execution
+ * 
+ * @param main Main struct containing the boolean syntax error
+ * @param input User input
+ * @return t_cmd_list* head of the command linked list
+ */
 static t_cmd_list	*ms_get_cmd_list(t_main *main, char *input)
 {
 	t_parser	*parser;
@@ -44,16 +51,33 @@ static t_cmd_list	*ms_get_cmd_list(t_main *main, char *input)
 	return (cmd_list);
 }
 
+/**
+ * @brief Executes the command linked list in order
+ * 
+ * @param main Main struct containing the environment array, boolean syntax error
+ * and builtin functions
+ * @param cmd_list head of the command linked list 
+ */
 static void	ms_run_execution(t_main *main, t_cmd_list *cmd_list)
 {
-	t_executor	*exec;
+	t_exe	*exec;
 
 	exec = ms_executor_init();
-	ms_heredoc_cmd_list_enqueue(exec, cmd_list);
+	ms_hd_cmd_list_enqueue(exec, cmd_list);
 	ms_executor_cmd_list(main, exec, cmd_list);
 	ms_executor_free(&exec);
 }
 
+/**
+ * @brief Signal will be initialised: Ctrl-\ and Ctrl-C every loop, readline will
+ * be called while showing the "$> " prompt, and returns user input in char *
+ * form, removing the '\n' behind. Then it parses the user input from readline
+ * into commands. Adds the input to the history and checks whether it is a valid
+ * input. Converts the input into linked list and executes them in order. The
+ * linked list is then free and the cycle repeats until exit
+ * 
+ * @param main Main struct that was initialized
+ */
 void	ms_read_next_line(t_main *main)
 {
 	t_cmd_list	*cmd_list;
@@ -62,7 +86,7 @@ void	ms_read_next_line(t_main *main)
 	init_signal();
 	input = readline("$> ");
 	if (input == NULL)
-		main->func[MS_EXIT](main, NULL);
+		main->func[MS_EXIT](NULL, NULL);
 	if (ft_strlen(input) != 0)
 	{
 		add_history(input);
@@ -80,14 +104,12 @@ void	ms_read_next_line(t_main *main)
 }
 
 /**
- * @brief Signal will be initialised: Ctrl-\ and Ctrl-C. Every while loop,
- * readline will be called while showing "$> " prompt, and returns user input
- * in char * form, removing the '\n' behind. Then it parses the user input
- * from readline into commands.
+ * @brief Initializes the main struct and enters a while(1) loop to start
+ * minishell
  * 
  * @param ac The argument count (Can be NULL)
  * @param av The argument variables (Can be NULL)
- * @param envp The enviroment variable list
+ * @param envp The enviroment variable array
  * @return int 0 on success
  */
 int	main(int ac, char **av, char **envp)

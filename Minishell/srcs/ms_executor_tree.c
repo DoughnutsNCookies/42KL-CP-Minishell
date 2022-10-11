@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:37:21 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 12:11:53 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ms_executor_wait_pipe(void)
 		g_errno = (WEXITSTATUS(status));
 }
 
-void	ms_executor_pipe_list(t_main *main, t_executor *exec, t_pipe_list *pipe)
+void	ms_executor_pipe_list(t_main *main, t_exe *exec, t_pipe_list *pipe)
 {
 	exec->pipe_count = 0;
 	ms_executor_init_pipefd(exec, pipe);
@@ -44,7 +44,7 @@ void	ms_executor_pipe_list(t_main *main, t_executor *exec, t_pipe_list *pipe)
 	ms_executor_wait_pipe();
 }
 
-void	ms_executor_cmd_list(t_main *main, t_executor *e, t_cmd_list *cmd)
+void	ms_executor_cmd_list(t_main *main, t_exe *e, t_cmd_list *cmd)
 {
 	while (cmd)
 	{
@@ -60,9 +60,9 @@ void	ms_executor_cmd_list(t_main *main, t_executor *e, t_cmd_list *cmd)
 		else
 		{
 			if (cmd->e_type == PIPE_LIST)
-				ms_heredoc_pipe_list_dequeue(e, cmd->ptr);
+				ms_hd_pipe_list_dequeue(e, cmd->ptr);
 			else
-				ms_heredoc_cmd_list_dequeue(e, cmd->ptr);
+				ms_hd_cmd_list_dequeue(e, cmd->ptr);
 		}
 		cmd = cmd->next;
 	}

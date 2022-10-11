@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_cmd_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:53:00 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/10 22:06:10 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/11 11:44:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
  * @brief Inits cmd list with operator.
  * 
  * @param operator Operator to set in cmd list struct.
- * @return t_cmd_list* Returns a malloced cmd list node.
+ * @return t_cmd_list* malloced cmd list node.
  */
 t_cmd_list	*ms_cmd_list_init(int operator)
 {
@@ -31,9 +31,8 @@ t_cmd_list	*ms_cmd_list_init(int operator)
 }
 
 /**
- * @brief Appends node to cmd list and moves the buffer to new node.\
- * @brief If e_type is not set, i.e. current cmd list is empty, prints error
- * 			and return.
+ * @brief Appends node to cmd list and moves the buffer to new node. If e_type is
+ * not set (i.e. current cmd list is empty), prints error and return.
  * 
  * @param p Parser struct.
  * @param buffer Pointer to cmd list buffer.
@@ -51,9 +50,8 @@ static void	ms_parser_cmd_next(t_parser *p, t_cmd_list **buffer)
 }
 
 /**
- * @brief Sets current node to cmd list and parse the new cmd list.\
- * @brief If e_type is already set, i.e. current cmd list is not empty,
- * 			prints error and return.
+ * @brief Sets current node to cmd list and parse the new cmd list. If e_type is
+ * already set (i.e. current cmd list is not empty), prints error and return.
  * 
  * @param p Parser struct.
  * @param buffer Pointer to buffer.
@@ -72,7 +70,8 @@ static void	ms_parser_cmd_recurse(t_parser *p, t_cmd_list **buffer)
 }
 
 /**
- * @brief Parses a cmd list.
+ * @brief Parses a cmd list. Different functions will be called based on the
+ * token
  * 
  * @param p Parser struct.
  * @return t_cmd_list* Pointer to cmd list head.

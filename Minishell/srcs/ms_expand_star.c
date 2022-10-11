@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:58:57 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 10:26:36 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 13:01:07 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
  * Check if arg has reached '\0' and file name has not reached '\0', means the
  * arg do not match and return (0). Else return -1 to start this loop again 
  * 
- * @param tocheck The file name that will be checked
- * @param arg The argument that will be checked with
- * @param i The current position of the file name
- * @param j The current position of the argument
+ * @param tocheck File name that will be checked
+ * @param arg Argument that will be checked with
+ * @param i Current position of the file name
+ * @param j Current position of the argument
  * @return int 1 if the file name is valid with the *, else 0
  */
 static int	check_valid_star(char **tocheck_in, char **arg_in, int *i, int *j)
@@ -58,10 +58,10 @@ static int	check_valid_star(char **tocheck_in, char **arg_in, int *i, int *j)
  * whether the current arg character and the current file name character is the
  * same
  * 
- * @param tocheck The file name that will be checked
- * @param arg The argument that will be checked with
- * @param i The current position of the file name
- * @param j The current position of the argument
+ * @param tocheck File name that will be checked
+ * @param arg Argument that will be checked with
+ * @param i Current position of the file name
+ * @param j Current position of the argument
  * @return int 1 if it is the same, else 0
  */
 static int	check_end_string(char *tocheck, char *arg, int *i, int *j)
@@ -79,8 +79,8 @@ static int	check_end_string(char *tocheck, char *arg, int *i, int *j)
 /**
  * @brief Checks whether the file name is valid based on the argument given.
  * 
- * @param tocheck The file name that will be checked
- * @param arg The argument that will be checked with
+ * @param tocheck File name that will be checked
+ * @param arg Argument that will be checked with
  * @return int 1 if it is valid and is not a hidden file, else 0
  */
 int	is_valid(char *tocheck, char *arg)
@@ -116,7 +116,7 @@ int	is_valid(char *tocheck, char *arg)
  * @brief Checks whether there is a * character in the argument, and whether the
  * current directory can be opened
  * 
- * @param arg The argument that will be checked
+ * @param arg Argument that will be checked
  * @return int 1 if there is a * character in the argument and the current
  * directory can be opened, else 0
  */

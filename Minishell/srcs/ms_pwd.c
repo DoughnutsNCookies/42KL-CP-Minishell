@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:28:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/09/29 11:34:10 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 14:30:32 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 /**
  * @brief Gets and prints out the current directory of the program
  * 
- * @param main The main struct (Can be NULL)
- * @param args The arguments (Can be NULL)
+ * @param main Main struct (Can be NULL)
+ * @param args Arguments (Can be NULL)
  * @return int 0 on success
  */
 int	pwd(t_main *main, char **args)

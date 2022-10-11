@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 22:40:13 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 12:31:47 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 struct		s_main;
 typedef int	(*t_func)(struct s_main *main, char **args);
 
+/* Global errno is defined here */
+int			g_errno;
+
 /* Builtin function name in enums */
 typedef enum bifname
 {
@@ -43,7 +46,14 @@ typedef enum bifname
 	MS_MAX_BIFUNC = 7,
 }	t_bifname;
 
-/* Builtin functions struct */
+/**
+ * @brief Builtin functions struct
+ * 
+ * @param envp - Environment variable list
+ * @param func_name - List of builtin-function names
+ * @param syntax_error - Boolean variable for syntax error
+ * @param func[] - List of builtin-function pointers
+ */
 typedef struct s_main
 {
 	char	**envp;
@@ -52,7 +62,14 @@ typedef struct s_main
 	t_func	func[MS_MAX_BIFUNC];
 }	t_main;
 
-/* Expander struct */
+/**
+ * @brief Expander struct
+ * 
+ * @param output - Current output for the current argument
+ * @param arg - Current argument string in the current node of the argument
+ * linked-list
+ * @param i - Current i position of the argument string
+ */
 typedef struct s_expand
 {
 	char	*output;
@@ -60,10 +77,19 @@ typedef struct s_expand
 	int		i;
 }	t_expand;
 
-/* Global errno is defined here */
-int			g_errno;
-
-typedef struct s_executor
+/**
+ * @brief Executor struct
+ * 
+ * @param heredoc List of heredocs
+ * @param pipe_hd Pipes to filde descriptors
+ * @param pipe_count Number of pipes
+ * @param infile Fd to infile
+ * @param outfile Fd to outfile
+ * @param tmpstdin Temporary Fd to stdin
+ * @param tempstdout Temporary Fd to stdout
+ * @param runtime_error Boolean variable for when there is a runtime error
+ */
+typedef struct s_exe
 {
 	t_list	*heredoc;
 	int		**pipe_fd;
@@ -73,13 +99,14 @@ typedef struct s_executor
 	int		tmpstdin;
 	int		tmpstdout;
 	int		runtime_error;
-}	t_executor;
+}	t_exe;
 
 /**
- * @brief 	Lexer struct.\
- * @brief	input - Input string to lex.\
- * @brief	len - Length of string.\
- * @brief	c - Pointer to current position of input.
+ * @brief 	Lexer struct
+ * 
+ * @param	input Input string to lex
+ * @param	len Length of string
+ * @param	c Pointer to current position of input
  */
 typedef struct s_lexer
 {
@@ -89,9 +116,10 @@ typedef struct s_lexer
 }	t_lexer;
 
 /**
- * @brief 	Token struct.\
- * @brief	e_type - Enum of token type.\
- * @brief	value - String value of token.
+ * @brief 	Token struct
+ * 
+ * @param	e_type Enum of token type
+ * @param	value String value of token
  */
 typedef struct s_token
 {
@@ -113,10 +141,11 @@ typedef struct s_token
 }	t_token;
 
 /**
- * @brief 	Parser struct.\
- * @brief	lexer - Lexer struct that the parser is using.\
- * @brief	curr_token - Current token.\
- * @brief	syntax_error - 1 if syntax error is found.
+ * @brief 	Parser struct
+ * 
+ * @param	lexer Lexer struct that the parser is using
+ * @param	curr_token Current token
+ * @param	syntax_error - Boolean variable for syntax error
  */
 typedef struct s_parser
 {
@@ -126,10 +155,11 @@ typedef struct s_parser
 }	t_parser;
 
 /**
- * @brief 	Io modifier list struct. e.g. ">file <<eof"\
- * @brief	e_type - Type of io modifier. i.e. '<<','>>','<','>'\
- * @brief	value - String value of io modifier. i.e. filename / delimiter\
- * @brief	next - Pointer to next node in list.
+ * @brief 	Io modifier list struct (e.g. ">file <<eof")
+ * 
+ * @param	e_type Type of io modifier (i.e. '<<','>>','<','>')
+ * @param	value String value of io modifier (i.e. filename / delimiter)
+ * @param	next Pointer to next node in list
  */
 typedef struct s_io_list
 {
@@ -145,10 +175,11 @@ typedef struct s_io_list
 }	t_io_list;
 
 /**
- * @brief 	Pipe list struct. e.g. "cat <file|grep a|cat -e"\
- * @brief	argv - List of arguments for one pipe. e.g. "cat <file"\
- * @brief	io_list - Io list of pipe. e.g. "<file"\
- * @brief	next - Pointer to next node in list.
+ * @brief 	Pipe list struct (e.g. "cat <file | grep a | cat -e")
+ * 
+ * @param	argv List of arguments for one pipe (e.g. "cat <file")
+ * @param	io_list Io list of pipe (e.g. "<file")
+ * @param	next Pointer to next node in list
  */
 typedef struct s_pipe_list
 {
@@ -158,11 +189,12 @@ typedef struct s_pipe_list
 }	t_pipe_list;
 
 /**
- * @brief 	Cmd list struct. e.g. "pipe_list && (pipe_list || pipe_list)"\
- * @brief	e_operator - Operator of cmd list node. i.e. START / AND / OR\
- * @brief	e_type - Type of struct it is holding. i.e. PIPE_LIST / CMD_LIST\
- * @brief	ptr - Pointer to struct it is holding.
- * @brief	next - Pointer to next node in list.
+ * @brief 	Cmd list struct (e.g. "pipe_list && (pipe_list || pipe_list)")
+ * 
+ * @param	e_operator Operator of cmd list node (i.e. START / AND / OR)
+ * @param	e_type Type of struct it is holding (i.e. PIPE_LIST / CMD_LIST)
+ * @param	ptr Pointer to struct it is holding
+ * @param	next Pointer to next node in list
  */
 typedef struct s_cmd_list
 {
@@ -181,155 +213,102 @@ typedef struct s_cmd_list
 	struct s_cmd_list	*next;
 }	t_cmd_list;
 
-/* Error */
-void		perror_and_exit(char *errormsg);
 int			export_unset_error(char *arg, char *type);
 void		ms_parser_syntax_error(t_parser *p);
+void		perror_and_exit(char *errormsg);
 
-/* Signal */
 void		sigint_handler(int signo);
 void		init_signal(void);
 
-/* Helper */
 char		*get_envp_value(char **envp, char *key);
 char		**sort_doublearray(char **envp);
-void		free_doublearray(char **split);
 char		**dup_doublearray(char **src);
+void		free_doublearray(char **split);
 
-/* Parse Input */
 char		**parse_input(t_main *main, char *input);
 
-/* Executor */
+void		exe_non_bi(t_main *main, t_exe *exec, t_pipe_list *p, char **argv);
 void		executor(t_main *main, char **command);
-void		executor_non_builtin(t_main *main, t_executor *exec, t_pipe_list *p,
-				char **argv);
 
-/* Expander */
 t_list		*connect_cur_with_cur(t_list *current, t_list *files, char *output);
-t_list		*check_output_dollar(t_list *current, char *output, int dollar);
-void		expander(t_main *main, t_list **args);
-char		*append_char(char *input, char c);
-
-/* Expand First */
 t_list		*expand_first_phase(t_main *main, t_expand *exp, t_list *current);
-
-/* Expand Second */
+t_list		*check_output_dollar(t_list *current, char *output, int dollar);
 t_list		*expand_second_phase(t_expand *exp, t_list *current);
-
-/* Expand Star */
-int			check_star(char *arg);
-int			is_valid(char *tocheck, char *arg);
-
-/* Expand Files */
-DIR			*get_dir(char *path);
 t_list		*get_files_from_dir(char *arg);
-
-/* Expand Dollar */
+DIR			*get_dir(char *path);
 int			expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
-void		recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
+int			is_valid(char *tocheck, char *arg);
+int			check_star(char *arg);
 char		*dlr_val(t_main *main, char *arg);
+char		*append_char(char *input, char c);
+void		recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
+void		ms_expander_delete_null(t_list **list);
+void		expander(t_main *main, t_list **args);
 
-/* Echo */
 int			echo(t_main *main, char **args);
 
-/* CD */
 int			cd(t_main *main, char **args);
 
-/* Pwd */
 int			pwd(t_main *main, char **args);
 
-/* Export */
-int			export(t_main *main, char **args);
-
-/* Export Utils */
 int			check_valid_identifier(char *arg, char *str, char *type);
-void		print_export(char **envp);
+int			export(t_main *main, char **args);
 char		**envp_split(char *str);
+void		print_export(char **envp);
 
-/* Unset */
 int			unset(t_main *main, char **args);
 
-/* Env */
 int			env(t_main *main, char **args);
 
-/* Exit */
 int			ms_exit(t_main *main, char **args);
 
-/* Lexer */
-t_lexer		*ms_lexer_init(char *input);
 t_token		*ms_lexer_get_word_token(t_lexer *lexer);
 t_token		*ms_lexer_get_spec_token(t_lexer *lexer);
 t_token		*ms_lexer_next(t_lexer *lexer);
+t_lexer		*ms_lexer_init(char *input);
+int			ms_lexer_is_spec(char *s);
 void		ms_lexer_free(t_lexer **lexer);
 
-/* Lexer Utils */
-int			ms_lexer_is_spec(char *s);
-
-/* Token */
 t_token		*ms_token_init(int type, char *value);
 void		ms_token_free(t_token **token);
 
-/* Parser */
 t_parser	*ms_parser_init(t_lexer *lexer);
-void		ms_parser_eat(t_parser *parser);
 void		ms_parser_free(t_parser **parser);
+void		ms_parser_eat(t_parser *parser);
 
-/* Check dangling */
 int			ms_check_dangling(char *str);
 
-/* Cmd list */
-t_cmd_list	*ms_cmd_list_init(int operator);
 t_cmd_list	*ms_parser_parse_cmd_list(t_parser *p);
+t_cmd_list	*ms_cmd_list_init(int operator);
 void		ms_cmd_list_free(t_cmd_list **cmd_list);
 
-/* Pipe list */
-t_pipe_list	*ms_pipe_list_init(void);
 t_pipe_list	*ms_parser_parse_pipe_list(t_parser *p);
+t_pipe_list	*ms_pipe_list_init(void);
 int			ms_parser_is_pipe_token(t_token *token);
 void		ms_pipe_list_free(t_pipe_list **pipe_list);
 
-/* List utils */
 void		ms_free_args(void *content);
 void		ft_lstsort(t_list **lst);
 int			ms_cmd_list_parse_pipe_list(t_cmd_list *buffer, t_parser *p);
 
-/* Io list */
 t_io_list	*ms_io_list_init(int type);
 void		ms_parser_parse_io_list(t_io_list **io_list, t_parser *p);
-int			ms_parser_is_io_token(t_token *token);
 void		ms_io_list_free(t_io_list **io_list);
+int			ms_parser_is_io_token(t_token *token);
 
-/* Expander tree */
-void		ms_expander_delete_null(t_list **list);
+t_exe		*ms_executor_init(void);
+void		ms_executor_cmd_list(t_main *main, t_exe *e, t_cmd_list *cmd);
+void		ms_executor_io_list(t_main *main, t_exe *exec, t_io_list *io);
+void		ms_executor(t_main *main, t_exe *exec, t_pipe_list *pipe);
+void		ms_executor_init_pipefd(t_exe *exec, t_pipe_list *p);
+void		ms_executor_free_pipefd(t_exe *exec);
+void		ms_executor_free(t_exe **exec);
+int			ms_get_abspath(char **envp, char **cmd);
 
-/* Executor struct */
-t_executor	*ms_executor_init(void);
-void		ms_executor_init_pipefd(t_executor *exec, t_pipe_list *p);
-void		ms_executor_free_pipefd(t_executor *exec);
-void		ms_executor_free(t_executor **exec);
-
-/* Executor tree */
-void		ms_executor_cmd_list(t_main *main, t_executor *e, t_cmd_list *cmd);
-
-/* Executor io */
-void		ms_executor_io_list(t_main *main, t_executor *exec, t_io_list *io);
-
-/* Executor utils */
-void		ms_executor(t_main *main, t_executor *exec, t_pipe_list *pipe);
-
-/* Heredoc */
+void		ms_hd_pipe_list_dequeue(t_exe *exec, t_pipe_list *pipe_list);
+void		ms_hd_cmd_list_dequeue(t_exe *exec, t_cmd_list *cmd_list);
+void		ms_hd_cmd_list_enqueue(t_exe *exec, t_cmd_list *cmd_list);
 void		ms_heredoc_enqueue(t_list **heredoc, char *delimiter);
 int			ms_heredoc_dequeue(t_list **heredoc);
-
-/* Heredoc tree enqueue */
-void		ms_heredoc_cmd_list_enqueue(t_executor *exec, t_cmd_list *cmd_list);
-
-/* Heredoc tree dequeue */
-void		ms_heredoc_pipe_list_dequeue(t_executor *exec,
-				t_pipe_list *pipe_list);
-void		ms_heredoc_cmd_list_dequeue(t_executor *exec, t_cmd_list *cmd_list);
-
-/* Env path */
-int			ms_get_path_env(char **envp, char **cmd);
 
 #endif

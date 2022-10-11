@@ -16,20 +16,21 @@
 	- $? 														| Done
 		- Exit status of last executed foreground pipeline		| Done
 		- Correct exit status for all system programs			| Done
-	- Wildcard * (should work for the current working directory)| Done, Need more testing
-- Pipex															| In-progress
-	- > Will overwrite the file (eg. echo "hi" > test) 			| In-progress
-	- >> Will append to the file (eg. echo "line2" >> test)		| In-progress
-- Executor														| Working Prototype
+	- Wildcard * (should work for the current working directory)| Done
+- Pipex															| Done
+	- > Will overwrite the file (eg. echo "hi" > test) 			| Done
+	- >> Will append to the file (eg. echo "line2" >> test)		| Done
+- Executor														| Done
 	- Executes builtin functions								| Done
-	- Executes by absolute path	(eg. bin/ls)					|
-	- Executes by relative path	(eg. ls)						|
-- Signals														|
-	- ctrl-C (Print a new prompt on a newline)					| Done ?
-	- ctrl-D (exit the shell)									| Done ?
-	- ctrl-\ (do nothing)										| Done ?
-- Binary Tree													| In-progress
-	- &&														| In-progress
-	- ||														| In-progress
-	- ()														| In-progress
-- Lexer															| Done, need to integrate from ms_temp into the code
+	- Executes by absolute path	(eg. bin/ls)					| Done
+	- Executes by relative path	(eg. ls)						| Done
+- Signals														| Done
+	- ctrl-C (Print a new prompt on a newline)					| Done
+	- ctrl-D (exit the shell)									| Done
+	- ctrl-\ (do nothing)										| Done
+- Binary Tree													| Done
+	- &&														| Done
+	- ||														| Done
+	- ()														| Done
+- Lexer															| Done
+- Parser														| Done

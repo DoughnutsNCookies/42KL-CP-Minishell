@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:49:48 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 10:27:04 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 14:25:13 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@
  * or '_', print error message. If second letter and beyond is not alphanumeric
  * or '_', print error message
  * 
- * @param arg The argument
- * @param str The string that will be exported
- * @param type The type of builtin function that is called from (unset or export)
+ * @param arg Argument to be checked
+ * @param str String that will be exported
+ * @param type Type of builtin function that is called from (unset or export)
  * @return int 0 on success, else 1 if there is an error
  */
 int	check_valid_identifier(char *arg, char *str, char *type)
@@ -40,7 +40,7 @@ int	check_valid_identifier(char *arg, char *str, char *type)
  * the variable covered with "" (eg. "value"). If key has no value, just print
  * "declare -x" with the key only
  * 
- * @param envp The enviroment variable list
+ * @param envp Enviroment variable array
  */
 void	print_export(char **envp)
 {
@@ -62,7 +62,7 @@ void	print_export(char **envp)
 /**
  * @brief Splits the str into key and value at first '=' contact.
  * 
- * @param str The string containing the key and value (eg. key=value)
+ * @param str String containing the key and value (eg. key=value)
  * @return char** str if str don't have =, else output[0] is key, output[1] is
  * value, output[2] is NULL terminator
  */

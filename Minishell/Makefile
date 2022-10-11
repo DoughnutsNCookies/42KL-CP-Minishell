@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/10 22:38:30 by schuah           ###   ########.fr        #
+#    Updated: 2022/10/11 13:08:37 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC			=	gcc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I/usr/local/opt/readline/include
-# CFLAGS		+=	-fsanitize=address -g3
+CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
 SRCS_FILES	=	ms_heredoc_tree_enqueue \
@@ -35,12 +35,12 @@ SRCS_FILES	=	ms_heredoc_tree_enqueue \
 				ms_expand_star \
 				ms_lexer_utils \
 				ms_executor_io \
+				ms_get_abspath \
 				ms_list_utils \
 				ms_pipe_list \
 				ms_executor \
 				ms_expander \
 				ms_cmd_list \
-				ms_env_path \
 				ms_io_list \
 				ms_heredoc \
 				ms_helper \

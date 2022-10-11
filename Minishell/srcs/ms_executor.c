@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 12:11:53 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	executor(t_main *main, char **command)
 	g_errno = 127;
 }
 
-static void	ms_child_close_fd(t_executor *exec, t_pipe_list *p)
+static void	ms_child_close_fd(t_exe *exec, t_pipe_list *p)
 {
 	if (exec->pipe_count != 0)
 	{
@@ -54,10 +54,10 @@ static void	ms_child_close_fd(t_executor *exec, t_pipe_list *p)
 	}
 }
 
-void	executor_non_builtin(t_main *main, t_executor *exec, t_pipe_list *p,
-	char **argv)
+void	exe_non_bi(t_main *main, t_exe *exec, t_pipe_list *p, char **argv)
 {
-	int	pid;
+	int		pid;
+	char	*value;
 
 	signal(SIGINT, SIG_IGN);
 	pid = fork();
@@ -65,13 +65,15 @@ void	executor_non_builtin(t_main *main, t_executor *exec, t_pipe_list *p,
 	{
 		signal(SIGINT, SIG_DFL);
 		ms_child_close_fd(exec, p);
-		if (ms_get_path_env(main->envp, argv))
-		{
-			free(argv);
-			exit(127);
-		}
+		ms_get_abspath(main->envp, argv);
 		execve(argv[0], argv, main->envp);
-		ft_dprintf(STDERR_FILENO, "%s: command not found\n", argv[0]);
+		value = get_envp_value(main->envp, "PATH");
+		if (value == NULL)
+			ft_dprintf(STDERR_FILENO, "%s: No such file or directory\n",
+				argv[0]);
+		else
+			ft_dprintf(STDERR_FILENO, "%s: command not found\n", argv[0]);
+		free(value);
 		exit(127);
 	}
 }

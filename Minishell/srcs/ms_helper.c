@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 14:29:02 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Frees double array (ie. output from ft_split)
  * 
- * @param split The double array that will be freed
+ * @param split Double array that will be freed
  */
 void	free_doublearray(char **split)
 {
@@ -30,8 +30,8 @@ void	free_doublearray(char **split)
 /**
  * @brief Creates a duplicate of a double array
  * 
- * @param src The double array source that will be duplicated
- * @return char** double array that is duplicated from src
+ * @param src Double array source that will be duplicated
+ * @return char** double array that was duplicated from src
  */
 char	**dup_doublearray(char **src)
 {
@@ -51,9 +51,9 @@ char	**dup_doublearray(char **src)
 /**
  * @brief Gets the value from envp based on key
  * 
- * @param envp The enviroment variables to get the values from
- * @param key The key of the value
- * @return char* value if the key is found, NULL if its not found
+ * @param envp Enviroment variables array to get the values from
+ * @param key Key of the value
+ * @return char* value of the key if the key is found, else NULL if its not found
  */
 char	*get_envp_value(char **envp, char *key)
 {
@@ -83,7 +83,7 @@ char	*get_envp_value(char **envp, char *key)
  * @brief Duplicates and returns a copy of envp and sorts it in alphabatical
  * order
  * 
- * @param envp The enviroment variable list
+ * @param envp The enviroment variable array
  * @return char** envp that is malloc'ed and sorted
  */
 char	**sort_doublearray(char **array)

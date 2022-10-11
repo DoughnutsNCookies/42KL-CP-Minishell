@@ -6,16 +6,16 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:58:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 22:08:01 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 14:41:51 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief Prints out everyline in environment list
+ * @brief Prints out the environment list
  * 
- * @param main The main struct containing the environment list
+ * @param main Main struct containing the environment array
  * @param args The arguments (Can be NULL)
  * @return int 0 on success
  */

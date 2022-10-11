@@ -17,8 +17,8 @@
  * and use the key to loop through every environment variable from main to find a
  * matching key
  * 
- * @param main The main struct containing the environment list
- * @param arg The argument containing the key
+ * @param main Main struct containing the environement array
+ * @param arg Argument containing the key
  * @return char* value if a matching key is found, else returns NULL 
  */
 char	*dlr_val(t_main *main, char *arg)
@@ -47,10 +47,10 @@ char	*dlr_val(t_main *main, char *arg)
  * output is "echo hello $B" and $B is "hi bye world", this function will
  * transform them to "echo hello hi", "bye", "world"
  * 
- * @param cur_in The current node of the argument linked list
- * @param exp The expansion struct containing the argument, i position and
+ * @param cur_in Current node of the argument linked list
+ * @param exp Expansion struct containing the argument, i position and
  * output string
- * @param split The splitted $ value
+ * @param split Splitted $ value
  */
 static void	merge_first_split(t_list **cur_in, t_expand *exp, char **split)
 {
@@ -79,11 +79,11 @@ static void	merge_first_split(t_list **cur_in, t_expand *exp, char **split)
  * @brief Splits the $ value and assign them each a new node, linked to the
  * current node of the argument list
  * 
- * @param cur_in The current node of the argument linked list
- * @param exp The expansion struct containing the argument, i position and
- * output string
- * @param d_value The value of $ expanded
- * @return t_list* The next node of the argument linked list
+ * @param cur_in Current node of the argument linked list
+ * @param exp Expansion struct containing the argument, i position and output
+ * string
+ * @param d_value Value of $ expanded
+ * @return t_list* Next node of the argument linked list
  */
 static t_list	*split_value(t_list **cur_in, t_expand *exp, char *d_value)
 {
@@ -117,10 +117,10 @@ static t_list	*split_value(t_list **cur_in, t_expand *exp, char *d_value)
  * list if there are spaces (eg. B="echo hi") and link them to the current node
  * of the linked list argument
  * 
- * @param cur_in The current node of the argument linked list
- * @param exp The expansion struct containing the argument, i position and
+ * @param cur_in Current node of the argument linked list
+ * @param exp Expansion struct containing the argument, i position and
  * output string
- * @param d_value The value of $ expanded
+ * @param d_value Value of $ expanded
  * @return int 1 if a conversion of $ had taken place, else 0
  */
 int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
@@ -156,10 +156,10 @@ int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
  * is stored for debugging use and to also reduce exp->i by one at the start of
  * this recursion, as well as to append '' to the starting string
  * 
- * @param main The main struct containing the environment list
- * @param exp The expansion struct containing the argument, i position and
- * @param depth The depth of the recursion
+ * @param main Main struct containing the environement array
+ * @param exp Expansion struct containing the argument, i position and
  * output string
+ * @param depth Depth of the recursion
  */
 void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
 {

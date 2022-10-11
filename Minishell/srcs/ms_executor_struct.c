@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor_struct.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 03:10:50 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/09 13:42:40 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/11 12:11:53 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_executor	*ms_executor_init(void)
+t_exe	*ms_executor_init(void)
 {
-	t_executor	*exec;
+	t_exe	*exec;
 
-	exec = ft_calloc(1, sizeof(t_executor));
+	exec = ft_calloc(1, sizeof(t_exe));
 	exec->heredoc = NULL;
 	exec->pipe_fd = NULL;
 	exec->infile = 0;
@@ -27,7 +27,7 @@ t_executor	*ms_executor_init(void)
 	return (exec);
 }
 
-void	ms_executor_init_pipefd(t_executor *exec, t_pipe_list *p)
+void	ms_executor_init_pipefd(t_exe *exec, t_pipe_list *p)
 {
 	int	i;
 
@@ -43,7 +43,7 @@ void	ms_executor_init_pipefd(t_executor *exec, t_pipe_list *p)
 		exec->pipe_fd[i] = ft_calloc(2, sizeof(int));
 }
 
-void	ms_executor_free_pipefd(t_executor *exec)
+void	ms_executor_free_pipefd(t_exe *exec)
 {
 	int	i;
 
@@ -57,7 +57,7 @@ void	ms_executor_free_pipefd(t_executor *exec)
 	exec->pipe_fd = NULL;
 }
 
-void	ms_executor_free(t_executor **exec)
+void	ms_executor_free(t_exe **exec)
 {
 	close((*exec)->tmpstdin);
 	close((*exec)->tmpstdout);

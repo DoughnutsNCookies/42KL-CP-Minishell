@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:09:14 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/07 17:52:09 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/11 13:00:38 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
  * and append the argument to the output instead until a upcoming character is
  * found, which are '\0', '\'' and '\"'
  * 
- * @param files The list of files
- * @param exp The expansion struct containing the argument, i position and
+ * @param files List of files
+ * @param exp Expansion struct containing the argument, i position and
  * output string
  * @return int 1 if the files is not NULL, else 0
  */
@@ -41,8 +41,8 @@ static int	files_is_null(t_list *files, t_expand *exp)
  * from \"Test\" to 'Test'. This function will also filter out anything that is
  * not ''. For example, from 'Test' to Test
  * 
- * @param exp The expansion struct containing the argument, i position and
- * output string
+ * @param exp Expansion struct containing the argument, i position and output
+ * string
  */
 static void	filter_quote(t_expand *exp)
 {
@@ -62,9 +62,9 @@ static void	filter_quote(t_expand *exp)
  * the argument is checked against all files in the current working directory to
  * find a match, using any valid files to extend the argument linked list.
  * 
- * @param exp The expansion struct containing the argument, i position and
- * output string
- * @param current The current node of the argument linked list
+ * @param exp Expansion struct containing the argument, i position and output
+ * string
+ * @param current Current node of the argument linked list
  * @return t_list* Next node of the argument to be expanded (Excluding the files)
  */
 t_list	*expand_second_phase(t_expand *exp, t_list *current)

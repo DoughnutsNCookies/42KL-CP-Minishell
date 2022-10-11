@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ms_heredoc_tree_enqueue.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 09:56:21 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/03 10:16:09 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/11 12:11:53 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ms_heredoc_io_list_enqueue(t_executor *exec, t_io_list *io_list)
+void	ms_heredoc_io_list_enqueue(t_exe *exec, t_io_list *io_list)
 {
 	while (io_list)
 	{
@@ -23,7 +23,7 @@ void	ms_heredoc_io_list_enqueue(t_executor *exec, t_io_list *io_list)
 	}
 }
 
-void	ms_heredoc_pipe_list_enqueue(t_executor *exec, t_pipe_list *pipe_list)
+void	ms_heredoc_pipe_list_enqueue(t_exe *exec, t_pipe_list *pipe_list)
 {
 	while (pipe_list)
 	{
@@ -32,7 +32,7 @@ void	ms_heredoc_pipe_list_enqueue(t_executor *exec, t_pipe_list *pipe_list)
 	}
 }
 
-void	ms_heredoc_cmd_list_enqueue(t_executor *exec, t_cmd_list *cmd_list)
+void	ms_hd_cmd_list_enqueue(t_exe *exec, t_cmd_list *cmd_list)
 {
 	while (cmd_list)
 	{
