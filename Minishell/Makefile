@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
+#    By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/11 13:08:37 by schuah           ###   ########.fr        #
+#    Updated: 2022/10/11 21:50:41 by maliew           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
 SRCS_FILES	=	ms_heredoc_tree_enqueue \
 				ms_heredoc_tree_dequeue \
+				ms_expand_dollar_utils \
 				ms_executor_struct \
 				ms_check_dangling \
 				ms_executor_utils \

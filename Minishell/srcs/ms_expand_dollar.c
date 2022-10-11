@@ -13,34 +13,6 @@
 #include "minishell.h"
 
 /**
- * @brief Expands the $ symbol by finding its value. Gets the key from the arg
- * and use the key to loop through every environment variable from main to find a
- * matching key
- * 
- * @param main Main struct containing the environement array
- * @param arg Argument containing the key
- * @return char* value if a matching key is found, else returns NULL 
- */
-char	*dlr_val(t_main *main, char *arg)
-{
-	char	*key;
-	char	*value;
-	int		i;
-
-	i = 1;
-	while (arg[i] != '\0' && arg[i] != '\''
-		&& arg[i] != '\"' && arg[i] != '$' && arg[i] != '*')
-		i++;
-	key = ft_calloc(i, sizeof(char));
-	key[--i] = '\0';
-	while (--i >= 0)
-		key[i] = arg[i + 1];
-	value = get_envp_value(main->envp, key);
-	free(key);
-	return (value);
-}
-
-/**
  * @brief Merges the current output with split[0] of the $ value, this is to
  * prevent splitting the existing output that have existing spacees and making
  * it into individual arguments instead of a whole. For example if existing
@@ -76,6 +48,39 @@ static void	merge_first_split(t_list **cur_in, t_expand *exp, char **split)
 }
 
 /**
+ * @brief Checks if the first split is NULL, if it is not, return 0. Else the
+ * d_value is appended to the current output and is put into the current node's
+ * content
+ * 
+ * @param cur_in Current node of the argument linked list
+ * @param exp Expansion struct containing the argument, i position and output
+ * string
+ * @param d_value Value of $ expanded
+ * @return int 0 if split[0] is not NULL, else 1
+ */
+int	split_is_null(t_list **cur_in, t_expand *exp, char *str, char *d_value)
+{
+	t_list	*current;
+	int		i;
+	char	*temp;
+	char	*temp2;
+
+	if (str != 0)
+		return (0);
+	current = *cur_in;
+	i = 0;
+	while (d_value[i] != '\0')
+		exp->output = append_char(exp->output, d_value[i++]);
+	temp = ft_strdup(exp->output);
+	temp2 = temp;
+	temp = ft_strtrim(exp->output, " ");
+	free(temp2);
+	ft_memcpy(current->content, &temp, sizeof(char *));
+	*cur_in = current;
+	return (1);
+}
+
+/**
  * @brief Splits the $ value and assign them each a new node, linked to the
  * current node of the argument list
  * 
@@ -97,13 +102,16 @@ static t_list	*split_value(t_list **cur_in, t_expand *exp, char *d_value)
 	split = ft_split(d_value, ' ');
 	j = 0;
 	merge_first_split(&current, exp, split);
-	while (split[++j] != 0)
+	if (split_is_null(&current, exp, split[0], d_value) == 0)
 	{
-		ft_memcpy(current->content, split + j, sizeof(char *));
-		if (split[j + 1] != 0)
+		while (split[++j] != 0)
 		{
-			current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
-			current = current->next;
+			ft_memcpy(current->content, split + j, sizeof(char *));
+			if (split[j + 1] != 0)
+			{
+				current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
+				current = current->next;
+			}
 		}
 	}
 	free(split);
