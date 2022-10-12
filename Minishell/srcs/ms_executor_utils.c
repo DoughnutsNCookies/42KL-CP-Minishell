@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:43:45 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/11 12:11:53 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/12 11:57:06 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ms_exec_is_builtin(char *command)
 	cmds = ft_split("echo cd pwd export unset env exit", ' ');
 	i = -1;
 	res = 0;
-	while (++i < 7)
+	while (++i < MS_MAX_BIFUNC)
 	{
 		if (ft_strcmp(command, cmds[i]) == 0)
 			res = 1;
