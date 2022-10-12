@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 12:31:47 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/12 11:33:51 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,6 +238,7 @@ t_list		*get_files_from_dir(char *arg);
 DIR			*get_dir(char *path);
 int			expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
 int			is_valid(char *tocheck, char *arg);
+int			val_in_quote(t_expand *exp);
 int			check_star(char *arg);
 char		*dlr_val(t_main *main, char *arg);
 char		*append_char(char *input, char c);

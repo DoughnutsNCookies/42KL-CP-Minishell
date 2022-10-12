@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expand_dollar_utils.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 21:50:30 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/11 21:57:39 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/12 11:49:28 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,26 @@ char	*dlr_val(t_main *main, char *arg)
 	value = get_envp_value(main->envp, key);
 	free(key);
 	return (value);
+}
+
+/**
+ * @brief Checks whether there is anything inside the ""
+ * 
+ * @param exp Expansion struct containing the argument, i position and
+ * output string
+ * @return int 1 if there is, else 0
+ */
+int	val_in_quote(t_expand *exp)
+{
+	int	wc;
+	int	i;
+
+	i = exp->i;
+	wc = 0;
+	while (exp->arg[i + 1] != '\0' && exp->arg[i + 1] != '\"')
+	{
+		wc++;
+		i++;
+	}
+	return (wc > 0);
 }

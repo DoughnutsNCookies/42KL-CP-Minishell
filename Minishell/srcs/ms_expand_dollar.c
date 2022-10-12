@@ -138,7 +138,7 @@ int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
 
 	current = *cur_in;
 	if (d_value == NULL && exp->arg[exp->i] == '$'
-		&& exp->arg[exp->i + 1] == '\0')
+		&& (exp->arg[exp->i + 1] == '\0' && val_in_quote(exp) == 0))
 		exp->output = append_char(exp->output, '$');
 	else if (d_value != NULL)
 	{
