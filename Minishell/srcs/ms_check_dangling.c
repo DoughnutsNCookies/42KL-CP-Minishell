@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:53:05 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/15 05:30:20 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/15 05:44:14 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	ms_has_dangling_bracket(char *str, char open, char close,
 	{
 		if (ft_strchr(ignore, *str) != 0)
 		{
-			if (ignore_char)
+			if (ignore_char == *str)
 				ignore_char = '\0';
 			else
 				ignore_char = *str;
