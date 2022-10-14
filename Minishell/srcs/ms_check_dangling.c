@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_check_dangling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:53:05 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/11 14:41:16 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/15 05:23:33 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,18 @@ static int	ms_has_dangling_bracket(char *str, char open, char close)
  * @param c Character to check
  * @return int 0 if no dangling quotes, 1 if there is a dangling quote
  */
-static int	ms_has_dangling_quote(char *str, char c)
+static int	ms_has_dangling_quote(char *str, char c, char *ignore)
 {
 	int	i;
+	int	ignore_flag;
 
 	i = 0;
+	ignore_flag = 0;
 	while (*str)
 	{
-		if (*str == c)
+		if (ft_strchr(ignore, *str) != 0 && !i)
+			ignore_flag = !ignore_flag;
+		if (*str == c && !ignore_flag)
 			i = !i;
 		str++;
 	}
@@ -69,12 +73,12 @@ int	ms_check_dangling(char *str)
 	int	res;
 
 	res = 0;
-	if (ms_has_dangling_quote(str, '\''))
+	if (ms_has_dangling_quote(str, '\'', "\""))
 	{
 		res = 1;
 		ft_dprintf(2, "minishell: syntax error dangling single quote\n");
 	}
-	else if (ms_has_dangling_quote(str, '"'))
+	else if (ms_has_dangling_quote(str, '"', "'"))
 	{
 		res = 1;
 		ft_dprintf(2, "minishell: syntax error dangling double quote\n");
