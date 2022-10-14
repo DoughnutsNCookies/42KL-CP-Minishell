@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:52:58 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/10 11:11:03 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/15 05:09:47 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,22 +57,20 @@ t_pipe_list	*ms_parser_parse_pipe_list(t_parser *p)
 {
 	t_pipe_list	*pipe_list;
 	t_pipe_list	*buffer;
-	t_list		*new;
 
 	pipe_list = ms_pipe_list_init();
 	buffer = pipe_list;
 	while (p->curr_token && p->syntax_error == 0)
 	{
 		if (p->curr_token->e_type == TOKEN_WORD)
-		{
-			new = ft_lstnew(ft_calloc(1, sizeof(char *)));
-			ft_memcpy(new->content, &p->curr_token->value, sizeof(char *));
-			ft_lstadd_back(&buffer->argv, new);
-		}
+			ms_pipe_new_arg(p, buffer);
 		else if (p->curr_token->e_type == TOKEN_PIPE)
 			ms_parser_pipe_next(p, &buffer);
 		else if (ms_parser_is_io_token(p->curr_token))
-			ms_parser_parse_io_list(&buffer->io_list, p);
+		{
+			if (ms_parser_parse_io_list(&buffer->io_list, p))
+				return (pipe_list);
+		}
 		else
 			break ;
 		ms_parser_eat(p);
