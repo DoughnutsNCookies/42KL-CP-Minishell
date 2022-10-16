@@ -31,3 +31,13 @@ void	ms_expander_delete_null(t_list **list)
 	if (curr)
 		ms_expander_delete_null(&curr->next);
 }
+
+int	is_space_only(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] != '\0' && str[i] == ' ')
+		i++;
+	return (str[i] == '\0');
+}
