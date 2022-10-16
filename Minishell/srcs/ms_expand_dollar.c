@@ -142,7 +142,7 @@ int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
 		exp->output = append_char(exp->output, '$');
 	else if (d_value != NULL)
 	{
-		if (d_value[0] != '\0')
+		if (d_value[0] != '\0' && is_space_only(d_value) == 0)
 		{
 			end = split_value(&current, exp, d_value);
 			current->next = end;
