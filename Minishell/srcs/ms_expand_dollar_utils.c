@@ -28,7 +28,7 @@ char	*dlr_val(t_main *main, char *arg)
 	int		i;
 
 	i = 1;
-	while (arg[i] != '\0' && arg[i] != '\''
+	while (arg[i] != '\0' && arg[i] != '\'' && arg[i] != ' '
 		&& arg[i] != '\"' && arg[i] != '$' && arg[i] != '*')
 		i++;
 	key = ft_calloc(i, sizeof(char));

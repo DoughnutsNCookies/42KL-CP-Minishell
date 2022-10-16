@@ -142,6 +142,12 @@ int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
 		exp->output = append_char(exp->output, '$');
 	else if (d_value != NULL)
 	{
+		if (exp->arg[exp->i - 1] == '=')
+		{
+			exp->output = ft_strjoin_free(exp->output, d_value);
+			free(d_value);
+			return (0);
+		}
 		if (d_value[0] != '\0' && is_space_only(d_value) == 0)
 		{
 			end = split_value(&current, exp, d_value);
@@ -187,7 +193,8 @@ void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
 		while (dollar_expanded[++i] != '\0' && dollar_expanded[0] != '\0')
 			exp->output = append_char(exp->output, dollar_expanded[i]);
 	while (exp->arg[exp->i + 1] != '\0' && exp->arg[exp->i + 1] != '\''
-		&& exp->arg[exp->i + 1] != '\"' && exp->arg[exp->i + 1] != '$')
+		&& exp->arg[exp->i + 1] != '\"' && exp->arg[exp->i + 1] != '$'
+		&& exp->arg[exp->i + 1] != ' ')
 			exp->i++;
 	free(dollar_expanded);
 	recurs_expand_dollar(main, exp, depth + 1);
