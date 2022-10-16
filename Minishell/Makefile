@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
+#    By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/12 11:06:36 by schuah           ###   ########.fr        #
+#    Updated: 2022/10/16 16:03:24 by maliew           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC			=	gcc
 RM			=	rm -f
 CFLAGS		=	-Wall -Wextra -Werror
 CFLAGS		+=	-I/usr/local/opt/readline/include
-# CFLAGS		+=	-fsanitize=address -g3
+CFLAGS		+=	-fsanitize=address -g3
 READLINE	=	-lreadline
 READLINE	+=	-L/usr/local/opt/readline/lib
 SRCS_FILES	=	ms_heredoc_tree_enqueue \
@@ -27,7 +27,7 @@ SRCS_FILES	=	ms_heredoc_tree_enqueue \
 				ms_executor_utils \
 				ms_expand_dollar \
 				ms_expand_second \
-				ms_expander_tree \
+				ms_expander_util \
 				ms_executor_tree \
 				ms_expand_first \
 				ms_export_utils \
