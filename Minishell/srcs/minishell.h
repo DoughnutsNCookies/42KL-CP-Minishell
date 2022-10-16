@@ -239,6 +239,7 @@ DIR			*get_dir(char *path);
 int			expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
 int			is_valid(char *tocheck, char *arg);
 int			val_in_quote(t_expand *exp);
+int			is_space_only(char *str);
 int			check_star(char *arg);
 char		*dlr_val(t_main *main, char *arg);
 char		*append_char(char *input, char c);
