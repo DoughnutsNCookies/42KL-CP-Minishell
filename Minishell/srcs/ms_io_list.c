@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_io_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:52:47 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/15 05:04:10 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 13:57:08 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,8 @@ int	ms_parser_parse_io_list(t_io_list **io_list, t_parser *p)
  */
 int	ms_parser_is_io_token(t_token *token)
 {
-	return (token->e_type == TOKEN_AIN
-		|| token->e_type == TOKEN_AOUT
-		|| token->e_type == TOKEN_IN
-		|| token->e_type == TOKEN_OUT);
+	return (token->e_type == TOKEN_AIN || token->e_type == TOKEN_AOUT
+		|| token->e_type == TOKEN_IN || token->e_type == TOKEN_OUT);
 }
 
 /**

@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 18:21:31 by maliew            #+#    #+#             */
-/*   Updated: 2022/09/29 04:37:48 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 13:55:34 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief 	Checks if string has a special token at the start.
- * 			Special tokens are && || << >> < > | ( )
+ * @brief 	Checks if string has a special token at the start. Special tokens
+ * are: && || << >> < > | ( )
  * 
  * @param s 	String to check
  * @return int 1 if there is a token at the start of the string, 0 if not.

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 12:31:32 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 14:15:31 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,8 +225,6 @@ char		**sort_doublearray(char **envp);
 char		**dup_doublearray(char **src);
 void		free_doublearray(char **split);
 
-char		**parse_input(t_main *main, char *input);
-
 void		exe_non_bi(t_main *main, t_exe *exec, t_pipe_list *p, char **argv);
 void		executor(t_main *main, char **command);
 
@@ -293,7 +291,7 @@ void		ms_pipe_list_free(t_pipe_list **pipe_list);
 void		ms_free_args(void *content);
 void		ft_lstsort(t_list **lst);
 int			ms_cmd_list_parse_pipe_list(t_cmd_list *buffer, t_parser *p);
-void		ms_pipe_new_arg(t_parser *p, t_pipe_list *buffer);
+void		ms_pipe_new_arg(t_pipe_list *buffer, t_parser *p);
 
 t_io_list	*ms_io_list_init(int type);
 int			ms_parser_parse_io_list(t_io_list **io_list, t_parser *p);

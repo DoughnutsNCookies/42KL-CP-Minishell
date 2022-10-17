@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/07 10:52:13 by schuah            #+#    #+#              #
-#    Updated: 2022/10/17 12:57:27 by schuah           ###   ########.fr        #
+#    Updated: 2022/10/17 15:15:03 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,6 @@ SRCS_FILES	=	ms_heredoc_tree_enqueue \
 				ms_expand_first \
 				ms_export_utils \
 				ms_expand_files \
-				ms_parse_input \
 				ms_expand_star \
 				ms_lexer_utils \
 				ms_executor_io \

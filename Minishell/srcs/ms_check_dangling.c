@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:53:05 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 12:48:10 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 13:50:32 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
  * @param str String to check
  * @param open Open character
  * @param close Close character
+ * @param ignore String to ignore
  * @return int 0 if no dangling brackets, >0 if more open than close, <0 if more
  * close than open
  */
@@ -51,6 +52,7 @@ static int	ms_has_dangling_bracket(char *str, char open, char close,
  * 
  * @param str String to check
  * @param c Character to check
+ * @param ignore String to ignore
  * @return int 0 if no dangling quotes, 1 if there is a dangling quote
  */
 static int	ms_has_dangling_quote(char *str, char c, char *ignore)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_pipe_list.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:52:58 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/15 05:37:09 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 14:15:48 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ t_pipe_list	*ms_pipe_list_init(void)
 }
 
 /**
- * @brief Appends node to pipe list and moves the buffer to new node.\
- * @brief If both argv and io list is empty, i.e. current pipe list is empty,
- * 			prints error and return.
+ * @brief Appends node to pipe list and moves the buffer to new node. If both
+ * argv and io list is empty (i.e. current pipe list is empty), prints error and
+ * return.
  * 
  * @param p Parser struct.
  * @param buffer Pointer to pipe list buffer.
@@ -64,7 +64,7 @@ t_pipe_list	*ms_parser_parse_pipe_list(t_parser *p)
 	while (p->curr_token && p->syntax_error == 0)
 	{
 		if (p->curr_token->e_type == TOKEN_WORD)
-			ms_pipe_new_arg(p, buffer);
+			ms_pipe_new_arg(buffer, p);
 		else if (p->curr_token->e_type == TOKEN_PIPE
 			&& ms_parser_pipe_next(p, &buffer))
 			return (pipe_list);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 00:36:37 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/03 01:51:17 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 14:48:09 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@ void	ms_heredoc_enqueue(t_list **heredoc, char *delimiter)
 	ft_lstadd_back(heredoc, ft_lstnew(fd));
 }
 
+/**
+ * @brief Dequeues and frees the current node of the heredoc linked list
+ * 
+ * @param heredoc Heredoc linked list containing the current node to be deleted
+ * @return int fd of the heredoc
+ */
 int	ms_heredoc_dequeue(t_list **heredoc)
 {
 	int		res;

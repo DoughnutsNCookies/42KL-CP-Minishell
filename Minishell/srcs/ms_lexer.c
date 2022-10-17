@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_lexer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:53:46 by maliew            #+#    #+#             */
-/*   Updated: 2022/09/30 02:17:33 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 13:55:00 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ t_lexer	*ms_lexer_init(char *input)
 }
 
 /**
- * @brief Returns the word token from current position.
-	If lexer hits a single quote (') or a double quote ("), the entire string in
-	the quotes will be included, including whitespace.\
-	@brief i.e. ec"ho hi" will be one token
+ * @brief Returns the word token from current position. If lexer hits a single
+ * quote ' or a double quote ", the entire string in the quotes will be included,
+ * including whitespace. (i.e. ec"ho hi" will be one token)
  * 
  * @param lexer Lexer struct
  * @return t_token* Token containing a string

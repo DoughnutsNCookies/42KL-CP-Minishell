@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_parser.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 20:07:12 by maliew            #+#    #+#             */
-/*   Updated: 2022/09/30 02:05:27 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 13:51:52 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,8 @@ t_parser	*ms_parser_init(t_lexer *lexer)
 }
 
 /**
- * @brief Frees current token and gets next token from lexer.\
- * @brief If current token is special, i.e. not a word token, free the value.\
- * @brief \
- * @brief nom nom yummy tokens~
+ * @brief Frees current token and gets next token from lexer. If current token
+ * is special (i.e. not a word token), free the value. Nom nom yummy tokens~
  * 
  * @param parser Parser struct.
  */

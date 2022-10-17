@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:43:45 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/12 11:57:06 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 15:36:40 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,17 @@ void	ms_exec_redir_set(t_exe *exec, t_pipe_list *p)
 		dup2(exec->pipe_fd[exec->pipe_count][1], 1);
 }
 
+// void    print_ll(t_list **lst)
+// {
+//     t_list    *cur = *lst;
+
+//     while (cur)
+//     {
+//         ft_printf("|%s|\n", *(char **)cur->content);
+//         cur = cur->next;
+//     }
+// }
+
 void	ms_executor(t_main *main, t_exe *exec, t_pipe_list *p)
 {
 	char	**argv;
@@ -68,9 +79,9 @@ void	ms_executor(t_main *main, t_exe *exec, t_pipe_list *p)
 	ms_expander_delete_null(&p->argv);
 	ft_lstadd_back(&p->argv, ft_lstnew(ft_calloc(1, sizeof(char *))));
 	argv = ft_list_to_array(p->argv, sizeof(char *));
-	if (ms_exec_is_builtin(argv[0]))
+	if (argv[0] != NULL && ms_exec_is_builtin(argv[0]))
 		executor(main, argv);
-	else
+	else if (argv[0] != NULL)
 		exe_non_bi(main, exec, p, argv);
 	free(argv);
 	ms_exec_redir_reset(exec);

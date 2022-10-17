@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expander_util.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 16:19:28 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/16 16:07:50 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 14:03:56 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Deletes the node of the argument list if the content is NULL
+ * 
+ * @param list List of arguments to delete null from
+ */
 void	ms_expander_delete_null(t_list **list)
 {
 	t_list	*curr;
@@ -32,6 +37,12 @@ void	ms_expander_delete_null(t_list **list)
 		ms_expander_delete_null(&curr->next);
 }
 
+/**
+ * @brief Checks if the string has spaces only
+ * 
+ * @param str The string to check
+ * @return int 1 if the string only has spaces, else 0
+ */
 int	is_space_only(char *str)
 {
 	int	i;
