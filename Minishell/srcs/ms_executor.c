@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 15:38:12 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 15:48:32 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	exe_non_bi(t_main *main, t_exe *exec, t_pipe_list *p, char **argv)
 	{
 		signal(SIGINT, SIG_DFL);
 		ms_child_close_fd(exec, p);
-		ms_get_abspath(main->envp, argv);
+		if (argv[0] != NULL && argv[0][0] != '\0')
+			ms_get_abspath(main->envp, argv);
 		execve(argv[0], argv, main->envp);
 		value = get_envp_value(main->envp, "PATH");
 		if (value == NULL)
