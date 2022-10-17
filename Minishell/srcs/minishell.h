@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/15 05:11:36 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 12:31:32 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,7 @@ char		*append_char(char *input, char c);
 void		recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
 void		ms_expander_delete_null(t_list **list);
 void		expander(t_main *main, t_list **args);
+int			strjoin_n_return(t_expand *exp, char *d_value);
 
 int			echo(t_main *main, char **args);
 

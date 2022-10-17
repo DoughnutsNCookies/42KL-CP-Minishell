@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ms_expand_dlr.c                                 :+:      :+:    :+:   */
+/*   ms_expand_dollar.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/04 19:18:02 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/04 19:34:49 by schuah           ###   ########.fr       */
+/*   Created: 2022/10/17 12:15:36 by schuah            #+#    #+#             */
+/*   Updated: 2022/10/17 12:43:08 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	merge_first_split(t_list **cur_in, t_expand *exp, char **split)
  * @param d_value Value of $ expanded
  * @return int 0 if split[0] is not NULL, else 1
  */
-int	split_is_null(t_list **cur_in, t_expand *exp, char *str, char *d_value)
+static int	split_null(t_list **cur_in, t_expand *exp, char *str, char *d_value)
 {
 	t_list	*current;
 	int		i;
@@ -102,7 +102,7 @@ static t_list	*split_value(t_list **cur_in, t_expand *exp, char *d_value)
 	split = ft_split(d_value, ' ');
 	j = 0;
 	merge_first_split(&current, exp, split);
-	if (split_is_null(&current, exp, split[0], d_value) == 0)
+	if (split_null(&current, exp, split[0], d_value) == 0)
 	{
 		while (split[++j] != 0)
 		{
@@ -121,9 +121,10 @@ static t_list	*split_value(t_list **cur_in, t_expand *exp, char *d_value)
 
 /**
  * @brief Expands $ to its value. If it is a single $, append '$' to the current
- * output instead. Else get the value of $ and split them into individual linked
- * list if there are spaces (eg. B="echo hi") and link them to the current node
- * of the linked list argument
+ * output instead. Else, if the character before $ is =, get the value of $ and
+ * append them to the current output, else if it is not NULL and the content are
+ * not spaces only, split them into individual linked list (eg. B="echo hi") and
+ * link them to the current node of the linked list argument
  * 
  * @param cur_in Current node of the argument linked list
  * @param exp Expansion struct containing the argument, i position and
@@ -142,12 +143,8 @@ int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
 		exp->output = append_char(exp->output, '$');
 	else if (d_value != NULL)
 	{
-		if (exp->arg[exp->i - 1] == '=')
-		{
-			exp->output = ft_strjoin_free(exp->output, d_value);
-			free(d_value);
-			return (0);
-		}
+		if (exp->i != 0 && exp->arg[exp->i - 1] == '=')
+			return (strjoin_n_return(exp, d_value));
 		if (d_value[0] != '\0' && is_space_only(d_value) == 0)
 		{
 			end = split_value(&current, exp, d_value);

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 21:50:30 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/12 11:49:28 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 12:44:03 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,19 @@ int	val_in_quote(t_expand *exp)
 		i++;
 	}
 	return (wc > 0);
+}
+
+/**
+ * @brief Strjoins the value of $ to the current output
+ * 
+ * @param exp Expansion struct containing the argument, i position and
+ * output string
+ * @param d_value Value of $ expanded
+ * @return int 0
+ */
+int	strjoin_n_return(t_expand *exp, char *d_value)
+{
+	exp->output = ft_strjoin_free(exp->output, d_value);
+	free(d_value);
+	return (0);
 }

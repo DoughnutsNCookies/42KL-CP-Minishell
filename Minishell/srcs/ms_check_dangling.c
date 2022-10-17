@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_check_dangling.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 00:53:05 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/15 05:44:14 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 12:48:10 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ static int	ms_has_dangling_quote(char *str, char c, char *ignore)
 }
 
 /**
- * @brief 	Checks string for dangling single quotes ', dangling double quotes ",
+ * @brief Checks string for dangling single quotes ', dangling double quotes ",
  * and dangling parentheses (). Prints error if there are dangling chars.
  * 
  * @param str String to check
