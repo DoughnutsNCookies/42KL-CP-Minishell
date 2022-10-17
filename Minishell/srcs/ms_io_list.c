@@ -6,7 +6,7 @@
 /*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:52:47 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/15 05:04:10 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/17 15:34:57 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,18 @@ int	ms_parser_parse_io_list(t_io_list **io_list, t_parser *p)
 {
 	t_io_list	*new;
 	t_io_list	*buffer;
+	int			type;
 
+	type = p->curr_token->e_type - 3;
 	ms_parser_eat(p);
 	if (p->curr_token->e_type != TOKEN_WORD)
 	{
 		ms_parser_syntax_error(p);
 		return (1);
 	}
-	else
-	{
-		new = ms_io_list_init(p->curr_token->e_type - 3);
-		new->value = ft_lstnew(ft_calloc(1, sizeof(char *)));
-		ft_memcpy(new->value->content, &p->curr_token->value, sizeof(char *));
-	}
+	new = ms_io_list_init(type);
+	new->value = ft_lstnew(ft_calloc(1, sizeof(char *)));
+	ft_memcpy(new->value->content, &p->curr_token->value, sizeof(char *));
 	if (*io_list != NULL)
 	{
 		buffer = *io_list;
