@@ -36,7 +36,7 @@ static int	ms_has_dangling_bracket(char *str, char open, char close,
 		{
 			if (ignore_char == *str)
 				ignore_char = '\0';
-			else
+			else if (ignore_char == '\0')
 				ignore_char = *str;
 		}
 		if (!ignore_char)
