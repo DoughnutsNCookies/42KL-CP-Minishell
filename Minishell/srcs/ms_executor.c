@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 17:46:55 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/18 00:31:48 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	exe_non_bi(t_main *main, t_exe *exec, t_pipe *p, char **argv)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		ms_child_close_fd(exec, p);
 		if (argv[0] != NULL && argv[0][0] != '\0')
 			ms_get_abspath(main->envp, argv);
