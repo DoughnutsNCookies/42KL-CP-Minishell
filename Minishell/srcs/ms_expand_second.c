@@ -6,14 +6,14 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 13:09:14 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 13:00:38 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 18:15:14 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief When the files linked-list is NULL, it will clear the files linked list
+ * @brief When the files linked list is NULL, it will clear the files linked list
  * and append the argument to the output instead until a upcoming character is
  * found, which are '\0', '\'' and '\"'
  * 

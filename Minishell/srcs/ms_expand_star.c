@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:58:57 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 13:01:07 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 21:44:50 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	check_valid_star(char **tocheck_in, char **arg_in, int *i, int *j)
 }
 
 /**
- * @brief Checks the file name after any * (eg. the s after *s) and checks
+ * @brief Checks the file name after any * (e.g. the s after *s) and checks
  * whether the current arg character and the current file name character is the
  * same
  * 

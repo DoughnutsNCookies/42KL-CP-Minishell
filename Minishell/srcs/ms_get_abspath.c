@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 06:55:29 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/11 12:21:23 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 21:52:48 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /**
  * @brief Combines the command with all the directories in $PATH by looping
  * through and joining them with the command to test for accessibility. If
- * access is granted (ie. the command is found in one of the path), return the
+ * access is granted (i.e. the command is found in one of the path), return the
  * newly joined string, else return the original command
  * 
  * @param paths Paths of $PATH to check with
@@ -47,8 +47,8 @@ static char	*comb_cmd(char **paths, char *rawcmd)
 }
 
 /**
- * @brief Gets the absolute path of a command (eg. cat -> /bin/cat). If a command
- * is not found in one of the paths in $PATH, the command is not changed
+ * @brief Gets the absolute path of a command (e.g. cat -> /bin/cat). If a
+ * command is not found in one of the paths in $PATH, the command is not changed
  * 
  * @param envp Environment variables
  * @param cmd Command that will be checked

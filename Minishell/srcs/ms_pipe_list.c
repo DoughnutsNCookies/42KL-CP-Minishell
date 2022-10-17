@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:52:58 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 14:15:48 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 17:46:55 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 /**
  * @brief Inits pipe list.
  * 
- * @return t_pipe_list* Returns a malloced pipe list node.
+ * @return t_pipe* Returns a malloced pipe list node.
  */
-t_pipe_list	*ms_pipe_list_init(void)
+t_pipe	*ms_pipe_list_init(void)
 {
-	t_pipe_list	*pipe_list;
+	t_pipe	*pipe_list;
 
-	pipe_list = ft_calloc(1, sizeof(t_pipe_list));
+	pipe_list = ft_calloc(1, sizeof(t_pipe));
 	pipe_list->argv = NULL;
 	pipe_list->io_list = NULL;
 	pipe_list->next = NULL;
@@ -36,7 +36,7 @@ t_pipe_list	*ms_pipe_list_init(void)
  * @param p Parser struct.
  * @param buffer Pointer to pipe list buffer.
  */
-static int	ms_parser_pipe_next(t_parser *p, t_pipe_list **buffer)
+static int	ms_parser_pipe_next(t_parser *p, t_pipe **buffer)
 {
 	if ((*buffer)->argv == NULL && (*buffer)->io_list == NULL)
 	{
@@ -52,12 +52,12 @@ static int	ms_parser_pipe_next(t_parser *p, t_pipe_list **buffer)
  * @brief Parses a pipe list.
  * 
  * @param p Parser struct.
- * @return t_pipe_list* Pointer to pipe list head.
+ * @return t_pipe* Pointer to pipe list head.
  */
-t_pipe_list	*ms_parser_parse_pipe_list(t_parser *p)
+t_pipe	*ms_parser_parse_pipe_list(t_parser *p)
 {
-	t_pipe_list	*pipe_list;
-	t_pipe_list	*buffer;
+	t_pipe	*pipe_list;
+	t_pipe	*buffer;
 
 	pipe_list = ms_pipe_list_init();
 	buffer = pipe_list;
@@ -98,9 +98,9 @@ int	ms_parser_is_pipe_token(t_token *token)
  * 
  * @param pipe_list Pointer to pointer of pipe list struct.
  */
-void	ms_pipe_list_free(t_pipe_list **pipe_list)
+void	ms_pipe_list_free(t_pipe **pipe_list)
 {
-	t_pipe_list	*temp;
+	t_pipe	*temp;
 
 	while (*pipe_list)
 	{

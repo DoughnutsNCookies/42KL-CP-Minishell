@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 16:10:09 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 14:57:10 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 17:48:00 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_lstsort(t_list **lst)
  * @param p Parser struct
  * @return int 1 if there is syntax error in parser linked list, else 0
  */
-int	ms_cmd_list_parse_pipe_list(t_cmd_list *buffer, t_parser *p)
+int	ms_cmd_list_parse_pipe_list(t_cmd *buffer, t_parser *p)
 {
 	if ((int)buffer->e_type != -1)
 	{
@@ -85,7 +85,7 @@ int	ms_cmd_list_parse_pipe_list(t_cmd_list *buffer, t_parser *p)
  * @param buffer Buffer linked list that will be added to the back
  * @param p Parser struct that will be used as content for the new node
  */
-void	ms_pipe_new_arg(t_pipe_list *buffer, t_parser *p)
+void	ms_pipe_new_arg(t_pipe *buffer, t_parser *p)
 {
 	t_list		*new;
 

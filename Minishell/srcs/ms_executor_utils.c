@@ -6,12 +6,18 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:43:45 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 15:36:40 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 17:46:55 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/**
+ * @brief Checks whether the command is a builtin
+ * 
+ * @param command The command that will be checked
+ * @return int 1 if it is a builtin, else 0
+ */
 int	ms_exec_is_builtin(char *command)
 {
 	char	**cmds;
@@ -30,6 +36,11 @@ int	ms_exec_is_builtin(char *command)
 	return (res);
 }
 
+/**
+ * @brief Resets and closes any fd redirections
+ * 
+ * @param exec Executor linked list containing the file fds
+ */
 void	ms_exec_redir_reset(t_exe *exec)
 {
 	if (exec->pipe_count != 0)
@@ -45,7 +56,13 @@ void	ms_exec_redir_reset(t_exe *exec)
 	dup2(exec->tmpstdout, 1);
 }
 
-void	ms_exec_redir_set(t_exe *exec, t_pipe_list *p)
+/**
+ * @brief Redirects the file fds
+ * 
+ * @param exec Executor linked list containing the file fds
+ * @param p Pipe linked list to check if there is next
+ */
+void	ms_exec_redir_set(t_exe *exec, t_pipe *p)
 {
 	if (p->next)
 		pipe(exec->pipe_fd[exec->pipe_count]);
@@ -59,18 +76,17 @@ void	ms_exec_redir_set(t_exe *exec, t_pipe_list *p)
 		dup2(exec->pipe_fd[exec->pipe_count][1], 1);
 }
 
-// void    print_ll(t_list **lst)
-// {
-//     t_list    *cur = *lst;
-
-//     while (cur)
-//     {
-//         ft_printf("|%s|\n", *(char **)cur->content);
-//         cur = cur->next;
-//     }
-// }
-
-void	ms_executor(t_main *main, t_exe *exec, t_pipe_list *p)
+/**
+ * @brief Executes the commands. Sets redirection first and then expands the
+ * arguments. Executes the command if it is a builtin function. Else executes
+ * it directly through another function. Resets and closes any fd redirections
+ * in the end.
+ * 
+ * @param main Main struct containing the environment array
+ * @param exec Executor linked list containing the file fds
+ * @param p Pipe linked list to check if there is next
+ */
+void	ms_executor(t_main *main, t_exe *exec, t_pipe *p)
 {
 	char	**argv;
 

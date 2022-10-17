@@ -6,23 +6,23 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 23:52:47 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 15:42:58 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 17:49:44 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief Inits io list with type.
+ * @brief Inits IO list with type.
  * 
- * @param type Type to set in io list struct.
- * @return t_io_list* Returns a malloced io list node.
+ * @param type Type to set in IO list struct.
+ * @return t_io* Returns a malloced IO list node.
  */
-t_io_list	*ms_io_list_init(int type)
+t_io	*ms_io_list_init(int type)
 {
-	t_io_list	*io_list;
+	t_io	*io_list;
 
-	io_list = ft_calloc(1, sizeof(t_io_list));
+	io_list = ft_calloc(1, sizeof(t_io));
 	io_list->e_type = type;
 	io_list->value = NULL;
 	io_list->next = NULL;
@@ -30,16 +30,16 @@ t_io_list	*ms_io_list_init(int type)
 }
 
 /**
- * @brief Parses an io list node and appends it to the io list.
+ * @brief Parses an IO list node and appends it to the IO list.
  * 
- * @param io_list Io list.
+ * @param io_list IO list.
  * @param p Parser struct.
  */
-int	ms_parser_parse_io_list(t_io_list **io_list, t_parser *p)
+int	ms_parser_parse_io_list(t_io **io_list, t_parser *p)
 {
-	t_io_list	*new;
-	t_io_list	*buffer;
-	int			type;
+	t_io	*new;
+	t_io	*buffer;
+	int		type;
 
 	type = p->curr_token->e_type - 3;
 	ms_parser_eat(p);
@@ -67,7 +67,7 @@ int	ms_parser_parse_io_list(t_io_list **io_list, t_parser *p)
  * @brief Checks if token is one of '<<', '>>', '<', '>'
  * 
  * @param token Token to check
- * @return int 1 if token is io token, 0 if not
+ * @return int 1 if token is IO token, 0 if not
  */
 int	ms_parser_is_io_token(t_token *token)
 {
@@ -76,13 +76,13 @@ int	ms_parser_is_io_token(t_token *token)
 }
 
 /**
- * @brief Frees io list and its contents.
+ * @brief Frees IO list and its contents.
  * 
- * @param io_list Pointer to pointer of io list struct.
+ * @param io_list Pointer to pointer of IO list struct.
  */
-void	ms_io_list_free(t_io_list **io_list)
+void	ms_io_list_free(t_io **io_list)
 {
-	t_io_list	*temp;
+	t_io	*temp;
 
 	while (*io_list)
 	{

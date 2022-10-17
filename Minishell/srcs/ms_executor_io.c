@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 07:44:48 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/11 12:48:47 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 21:41:13 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,16 @@ static int	ms_executor_ambiguous(t_exe *exec, t_list *value, char *env_val)
 	return (0);
 }
 
-static void	ms_executor_io_in(t_exe *exec, t_io_list *io)
+/**
+ * @brief If infile fd is not STDIN, close the fd. If e_type is IO_AIN, dequeue
+ * the heredoc. Else open the file and save its fd saved.
+ * 
+ * @param exec Executor struct containing infile fd and heredoc linked list
+ * @param io IO struct containing the name of the file to be opened
+ */
+static void	ms_executor_io_in(t_exe *exec, t_io *io)
 {
-	if (exec->infile != 0)
+	if (exec->infile != STDIN_FILENO)
 		close(exec->infile);
 	if (io->e_type == IO_AIN)
 		exec->infile = ms_heredoc_dequeue(&exec->heredoc);
@@ -63,9 +70,17 @@ static void	ms_executor_io_in(t_exe *exec, t_io_list *io)
 		exec->infile = open(*(char **)io->value->content, O_RDONLY);
 }
 
-static void	ms_executor_io_out(t_exe *exec, t_io_list *io)
+/**
+ * @brief If infile fd is not STDOUT, close the fd. If e_type is IO_AOUT, open
+ * the pile with append mode, if the file do not exist, then create the file.
+ * Else truncate the file if it exists, rewriting its contents
+ * 
+ * @param exec Executor struct containing outfile fd
+ * @param io IO struct containing the name of the file to be opened
+ */
+static void	ms_executor_io_out(t_exe *exec, t_io *io)
 {
-	if (exec->outfile != 1)
+	if (exec->outfile != STDOUT_FILENO)
 		close(exec->outfile);
 	if (io->e_type == IO_AOUT)
 		exec->outfile = open(*(char **)io->value->content,
@@ -75,7 +90,20 @@ static void	ms_executor_io_out(t_exe *exec, t_io_list *io)
 				O_WRONLY | O_CREAT | O_TRUNC, 0644);
 }
 
-void	ms_executor_io_list(t_main *main, t_exe *exec, t_io_list *io)
+/**
+ * @brief Executes the command in IO linked list. If e_type is not IO_AIN, expand
+ * the arguments and check if the redirection is ambiguous. If the e_type is
+ * IO_AIN or IO_IN, calls a function that opens and reads the file. Else if the
+ * e_type is IO_AOUT or IO_OUT, calls a function that opens and save its fd for
+ * writing in. If any error occurred (i.e. any fd are < 0), set runtime error to
+ * 1 and return
+ * 
+ * @param main Main struct containing the environment array
+ * @param exec Executor struct containing infile fd, outfile fd and heredoc
+ * linked list
+ * @param io IO struct containing the name of the files to be opened
+ */
+void	ms_executor_io_list(t_main *main, t_exe *exec, t_io *io)
 {
 	char	*env_val;
 

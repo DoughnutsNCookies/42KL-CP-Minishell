@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 14:15:31 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 18:21:21 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int			g_errno;
 /* Builtin function name in enums */
 typedef enum bifname
 {
-	MS_ECHO = 0,
-	MS_CD = 1,
-	MS_PWD = 2,
-	MS_EXPORT = 3,
-	MS_UNSET = 4,
-	MS_ENV = 5,
-	MS_EXIT = 6,
-	MS_MAX_BIFUNC = 7,
+	MS_ECHO,
+	MS_CD,
+	MS_PWD,
+	MS_EXPORT,
+	MS_UNSET,
+	MS_ENV,
+	MS_EXIT,
+	MS_MAX_BIFUNC,
 }	t_bifname;
 
 /**
@@ -67,7 +67,7 @@ typedef struct s_main
  * 
  * @param output - Current output for the current argument
  * @param arg - Current argument string in the current node of the argument
- * linked-list
+ * linked list
  * @param i - Current i position of the argument string
  */
 typedef struct s_expand
@@ -154,14 +154,21 @@ typedef struct s_parser
 	int		syntax_error;
 }	t_parser;
 
+/* Queue types in enum */
+typedef enum s_qtype
+{
+	DQ,
+	EQ
+}	t_qtype;
+
 /**
- * @brief 	Io modifier list struct (e.g. ">file <<eof")
+ * @brief 	IO modifier struct linked list (e.g. ">file <<eof")
  * 
- * @param	e_type Type of io modifier (i.e. '<<','>>','<','>')
- * @param	value String value of io modifier (i.e. filename / delimiter)
+ * @param	e_type Type of IO modifier (i.e. '<<','>>','<','>')
+ * @param	value String value of IO modifier (i.e. filename / delimiter)
  * @param	next Pointer to next node in list
  */
-typedef struct s_io_list
+typedef struct s_io
 {
 	enum
 	{
@@ -170,33 +177,33 @@ typedef struct s_io_list
 		IO_IN,
 		IO_OUT
 	}	e_type;
-	t_list				*value;
-	struct s_io_list	*next;
-}	t_io_list;
+	t_list		*value;
+	struct s_io	*next;
+}	t_io;
 
 /**
- * @brief 	Pipe list struct (e.g. "cat <file | grep a | cat -e")
+ * @brief 	Pipe struct linked list (e.g. "cat <file | grep a | cat -e")
  * 
  * @param	argv List of arguments for one pipe (e.g. "cat <file")
- * @param	io_list Io list of pipe (e.g. "<file")
+ * @param	io_list IO list of pipe (e.g. "<file")
  * @param	next Pointer to next node in list
  */
-typedef struct s_pipe_list
+typedef struct s_pipe
 {
-	t_list				*argv;
-	t_io_list			*io_list;
-	struct s_pipe_list	*next;
-}	t_pipe_list;
+	t_list			*argv;
+	t_io			*io_list;
+	struct s_pipe	*next;
+}	t_pipe;
 
 /**
- * @brief 	Cmd list struct (e.g. "pipe_list && (pipe_list || pipe_list)")
+ * @brief 	Cmd struct linked list (e.g. "pipe_list && (pipe_list || pipe_list)")
  * 
  * @param	e_operator Operator of cmd list node (i.e. START / AND / OR)
  * @param	e_type Type of struct it is holding (i.e. PIPE_LIST / CMD_LIST)
  * @param	ptr Pointer to struct it is holding
  * @param	next Pointer to next node in list
  */
-typedef struct s_cmd_list
+typedef struct s_cmd
 {
 	enum
 	{
@@ -209,9 +216,9 @@ typedef struct s_cmd_list
 		PIPE_LIST,
 		CMD_LIST
 	}	e_type;
-	void				*ptr;
-	struct s_cmd_list	*next;
-}	t_cmd_list;
+	void			*ptr;
+	struct s_cmd	*next;
+}	t_cmd;
 
 int			export_unset_error(char *arg, char *type);
 void		ms_parser_syntax_error(t_parser *p);
@@ -225,7 +232,7 @@ char		**sort_doublearray(char **envp);
 char		**dup_doublearray(char **src);
 void		free_doublearray(char **split);
 
-void		exe_non_bi(t_main *main, t_exe *exec, t_pipe_list *p, char **argv);
+void		exe_non_bi(t_main *main, t_exe *exec, t_pipe *p, char **argv);
 void		executor(t_main *main, char **command);
 
 t_list		*connect_cur_with_cur(t_list *current, t_list *files, char *output);
@@ -279,37 +286,36 @@ void		ms_parser_eat(t_parser *parser);
 
 int			ms_check_dangling(char *str);
 
-t_cmd_list	*ms_parser_parse_cmd_list(t_parser *p);
-t_cmd_list	*ms_cmd_list_init(int operator);
-void		ms_cmd_list_free(t_cmd_list **cmd_list);
+t_cmd		*ms_parser_parse_cmd_list(t_parser *p);
+t_cmd		*ms_cmd_list_init(int operator);
+void		ms_cmd_list_free(t_cmd **cmd_list);
 
-t_pipe_list	*ms_parser_parse_pipe_list(t_parser *p);
-t_pipe_list	*ms_pipe_list_init(void);
+t_pipe		*ms_parser_parse_pipe_list(t_parser *p);
+t_pipe		*ms_pipe_list_init(void);
 int			ms_parser_is_pipe_token(t_token *token);
-void		ms_pipe_list_free(t_pipe_list **pipe_list);
+void		ms_pipe_list_free(t_pipe **pipe_list);
 
 void		ms_free_args(void *content);
 void		ft_lstsort(t_list **lst);
-int			ms_cmd_list_parse_pipe_list(t_cmd_list *buffer, t_parser *p);
-void		ms_pipe_new_arg(t_pipe_list *buffer, t_parser *p);
+int			ms_cmd_list_parse_pipe_list(t_cmd *buffer, t_parser *p);
+void		ms_pipe_new_arg(t_pipe *buffer, t_parser *p);
 
-t_io_list	*ms_io_list_init(int type);
-int			ms_parser_parse_io_list(t_io_list **io_list, t_parser *p);
-void		ms_io_list_free(t_io_list **io_list);
+t_io		*ms_io_list_init(int type);
+int			ms_parser_parse_io_list(t_io **io_list, t_parser *p);
+void		ms_io_list_free(t_io **io_list);
 int			ms_parser_is_io_token(t_token *token);
 
 t_exe		*ms_executor_init(void);
-void		ms_executor_cmd_list(t_main *main, t_exe *e, t_cmd_list *cmd);
-void		ms_executor_io_list(t_main *main, t_exe *exec, t_io_list *io);
-void		ms_executor(t_main *main, t_exe *exec, t_pipe_list *pipe);
-void		ms_executor_init_pipefd(t_exe *exec, t_pipe_list *p);
+void		ms_executor_cmd_list(t_main *main, t_exe *e, t_cmd *cmd);
+void		ms_executor_io_list(t_main *main, t_exe *exec, t_io *io);
+void		ms_executor(t_main *main, t_exe *exec, t_pipe *pipe);
+void		ms_executor_init_pipefd(t_exe *exec, t_pipe *p);
 void		ms_executor_free_pipefd(t_exe *exec);
 void		ms_executor_free(t_exe **exec);
 int			ms_get_abspath(char **envp, char **cmd);
 
-void		ms_hd_pipe_list_dequeue(t_exe *exec, t_pipe_list *pipe_list);
-void		ms_hd_cmd_list_dequeue(t_exe *exec, t_cmd_list *cmd_list);
-void		ms_hd_cmd_list_enqueue(t_exe *exec, t_cmd_list *cmd_list);
+void		ms_hd_pipe_queue(t_exe *exec, t_pipe *pipe_list, t_qtype qtype);
+void		ms_hd_cmd_queue(t_exe *exec, t_cmd *cmd_list, t_qtype qtype);
 void		ms_heredoc_enqueue(t_list **heredoc, char *delimiter);
 int			ms_heredoc_dequeue(t_list **heredoc);
 

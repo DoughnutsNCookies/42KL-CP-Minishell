@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:15:36 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 14:31:48 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 21:44:41 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static t_list	*split_value(t_list **cur_in, t_expand *exp, char *d_value)
  * @brief Expands $ to its value. If it is a single $, append '$' to the current
  * output instead. Else if the character before $ is =, get the value of $ and
  * append them to the current output, else if it is not NULL and the content are
- * not spaces only, split them into individual linked list (eg. B="echo hi") and
+ * not spaces only, split them into individual linked list (e.g. B="echo hi") and
  * link them to the current node of the linked list argument
  * 
  * @param cur_in Current node of the argument linked list

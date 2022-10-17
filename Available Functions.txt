@@ -13,7 +13,7 @@ If you cannot compile with readline, you probably need to install/update it:
 	- echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 	- brew install readline (Or reinstall)
 	- When compiling, must compile with -lreadline (NOT TO COMPILE FOR OBJECT FILES)
-	- If you see: FILE not defined or something alike, you may need to locate the headerfile (eg. readline.h) and add in #include <stdio.h>
+	- If you see: FILE not defined or something alike, you may need to locate the headerfile (e.g. readline.h) and add in #include <stdio.h>
 
 readline (Similar to get_next_line) - https://man7.org/linux/man-pages/man3/readline.3.html
 	- Synopsis
@@ -172,7 +172,7 @@ sigaddset - https://man7.org/linux/man-pages/man3/sigaddset.3p.html
 	- Description
 		- Adds the individual signal specified by the signo to the signal set pointed to by set
 		- Applications shall call either sigemptyset() or sigfillset() at least once for each object of type sigset_t prior to any other use of that object.
-			- If such an object is not initialized in this way and passed to some functions (eg. sigaction), the results are undefined
+			- If such an object is not initialized in this way and passed to some functions (e.g. sigaction), the results are undefined
 	- Return Value
 		- Success-> Returns 0
 		- Fail -> Returns -1, errno is set to indicate error

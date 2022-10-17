@@ -6,14 +6,14 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 11:31:25 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 14:29:02 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 21:02:35 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /**
- * @brief Frees double array (ie. output from ft_split)
+ * @brief Frees double array (i.e. output from ft_split)
  * 
  * @param split Double array that will be freed
  */

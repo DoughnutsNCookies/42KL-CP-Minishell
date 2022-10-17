@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:49:48 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 14:25:13 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/17 21:44:58 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	check_valid_identifier(char *arg, char *str, char *type)
 
 /**
  * @brief Prints the sorted envp with the "declare -x" suffix and the value of
- * the variable covered with "" (eg. "value"). If key has no value, just print
+ * the variable covered with "" (e.g. "value"). If key has no value, just print
  * "declare -x" with the key only
  * 
  * @param envp Enviroment variable array
@@ -62,7 +62,7 @@ void	print_export(char **envp)
 /**
  * @brief Splits the str into key and value at first '=' contact.
  * 
- * @param str String containing the key and value (eg. key=value)
+ * @param str String containing the key and value (e.g. key=value)
  * @return char** str if str don't have =, else output[0] is key, output[1] is
  * value, output[2] is NULL terminator
  */
