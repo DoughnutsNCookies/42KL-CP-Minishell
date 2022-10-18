@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 15:01:50 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 14:25:56 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/18 11:37:15 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,14 +115,13 @@ t_list	*expand_first_phase(t_main *main, t_expand *exp, t_list *current)
 		dollar = 0;
 		if (convert_quote_star(main, exp, &quote))
 			continue ;
-		else if (exp->arg[exp->i] == '$' && quote == 0)
+		else if (exp->arg[exp->i] == '$' && exp->arg[exp->i + 1] != ':'
+			&& quote == 0)
 		{
 			dollar = expand_dlr(&current, exp,
 					dlr_val(main, &exp->arg[exp->i]));
-			while (exp->arg[exp->i + 1] != '\0' && exp->arg[exp->i + 1] != '\''
-				&& exp->arg[exp->i + 1] != '\"' && exp->arg[exp->i + 1] != '$'
-				&& exp->arg[exp->i + 1] != '*')
-					exp->i++;
+			while (is_charset(exp->arg[exp->i + 1], "\' \" $ * :", 1, 0) == 0)
+				exp->i++;
 		}
 		else
 			exp->output = append_char(exp->output, exp->arg[exp->i]);

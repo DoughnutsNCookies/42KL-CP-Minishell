@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:15:36 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 21:44:41 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/18 11:42:44 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,11 +189,10 @@ void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
 	if (dollar_expanded != NULL)
 		while (dollar_expanded[++i] != '\0' && dollar_expanded[0] != '\0')
 			exp->output = append_char(exp->output, dollar_expanded[i]);
-	while (exp->arg[exp->i + 1] != '\0' && exp->arg[exp->i + 1] != '\''
-		&& exp->arg[exp->i + 1] != '\"' && exp->arg[exp->i + 1] != '$'
-		&& exp->arg[exp->i + 1] != ' ')
-			exp->i++;
+	while (is_charset(exp->arg[exp->i + 1], "\' \" $ :", 1, 1) == 0)
+		exp->i++;
 	free(dollar_expanded);
 	recurs_expand_dollar(main, exp, depth + 1);
-	exp->output = append_char(exp->output, '\'');
+	if (depth == 0)
+		exp->output = append_char(exp->output, '\'');
 }

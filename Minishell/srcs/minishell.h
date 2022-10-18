@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 18:21:21 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/18 11:44:29 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,16 +242,17 @@ t_list		*expand_second_phase(t_expand *exp, t_list *current);
 t_list		*get_files_from_dir(char *arg);
 DIR			*get_dir(char *path);
 int			expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
+int			is_charset(char c, char *charset, int null, int space);
+int			strjoin_n_return(t_expand *exp, char *d_value);
 int			is_valid(char *tocheck, char *arg);
 int			val_in_quote(t_expand *exp);
 int			is_space_only(char *str);
 int			check_star(char *arg);
-char		*dlr_val(t_main *main, char *arg);
 char		*append_char(char *input, char c);
+char		*dlr_val(t_main *main, char *arg);
 void		recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
-void		ms_expander_delete_null(t_list **list);
 void		expander(t_main *main, t_list **args);
-int			strjoin_n_return(t_expand *exp, char *d_value);
+void		ms_expander_delete_null(t_list **list);
 
 int			echo(t_main *main, char **args);
 

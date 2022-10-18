@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:29:20 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 14:27:43 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/18 10:56:26 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,23 +117,20 @@ static int	find_and_add(t_main *main, char **args)
 {
 	int		i;
 	char	**split;
+	int		error;
 
 	i = 0;
+	error = 0;
 	while (args[++i] != 0)
 	{
 		split = envp_split(args[i]);
 		if (check_valid_identifier(args[i], split[0], "export") == 0)
-		{
 			update_envp(main, args[i], split[0], split[1]);
-			free_doublearray(split);
-		}
 		else
-		{
-			free_doublearray(split);
-			return (1);
-		}
+			error = 1;
+		free_doublearray(split);
 	}
-	return (0);
+	return (error);
 }
 
 /**

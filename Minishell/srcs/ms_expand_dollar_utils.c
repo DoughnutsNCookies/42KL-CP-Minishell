@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 21:50:30 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 12:44:03 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/18 11:43:23 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ char	*dlr_val(t_main *main, char *arg)
 	int		i;
 
 	i = 1;
-	while (arg[i] != '\0' && arg[i] != '\'' && arg[i] != ' '
-		&& arg[i] != '\"' && arg[i] != '$' && arg[i] != '*')
+	while (is_charset(arg[i], "\' \" $ * :", 1, 1) == 0)
 		i++;
 	key = ft_calloc(i, sizeof(char));
 	key[--i] = '\0';
