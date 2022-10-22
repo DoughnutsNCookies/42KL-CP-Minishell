@@ -27,10 +27,10 @@ int	check_valid_identifier(char *arg, char *str, char *type)
 	int	i;
 
 	i = 0;
-	if (ft_isalpha(str[i]) == 0 && str[i] != '_')
+	if (ft_isalpha(str[i]) == 0)
 		return (export_unset_error(arg, type));
 	while (str[++i] != '\0')
-		if (ft_isalnum(str[i]) == 0 && str[i] != '_' && str[i] != ' ')
+		if (ft_isalnum(str[i]) == 0)
 			return (export_unset_error(arg, type));
 	return (0);
 }

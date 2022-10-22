@@ -189,7 +189,7 @@ void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
 	if (dollar_expanded != NULL)
 		while (dollar_expanded[++i] != '\0' && dollar_expanded[0] != '\0')
 			exp->output = append_char(exp->output, dollar_expanded[i]);
-	while (is_charset(exp->arg[exp->i + 1], "\' \" $ :", 1, 1) == 0)
+	while (ft_isalnum(exp->arg[exp->i + 1]) || exp->arg[exp->i + 1] == '?')
 		exp->i++;
 	free(dollar_expanded);
 	recurs_expand_dollar(main, exp, depth + 1);

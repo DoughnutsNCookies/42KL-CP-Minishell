@@ -120,7 +120,8 @@ t_list	*expand_first_phase(t_main *main, t_expand *exp, t_list *current)
 		{
 			dollar = expand_dlr(&current, exp,
 					dlr_val(main, &exp->arg[exp->i]));
-			while (is_charset(exp->arg[exp->i + 1], "\' \" $ * :", 1, 0) == 0)
+			while (ft_isalnum(exp->arg[exp->i + 1])
+				|| exp->arg[exp->i + 1] == '?')
 				exp->i++;
 		}
 		else

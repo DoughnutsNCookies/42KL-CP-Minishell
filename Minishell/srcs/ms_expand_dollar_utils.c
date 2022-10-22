@@ -28,7 +28,7 @@ char	*dlr_val(t_main *main, char *arg)
 	int		i;
 
 	i = 1;
-	while (is_charset(arg[i], "\' \" $ * :", 1, 1) == 0)
+	while (ft_isalnum(arg[i]) || arg[i] == '?')
 		i++;
 	key = ft_calloc(i, sizeof(char));
 	key[--i] = '\0';

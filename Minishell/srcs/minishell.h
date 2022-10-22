@@ -242,7 +242,6 @@ t_list		*expand_second_phase(t_expand *exp, t_list *current);
 t_list		*get_files_from_dir(char *arg);
 DIR			*get_dir(char *path);
 int			expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
-int			is_charset(char c, char *charset, int null, int space);
 int			strjoin_n_return(t_expand *exp, char *d_value);
 int			is_valid(char *tocheck, char *arg);
 int			val_in_quote(t_expand *exp);
