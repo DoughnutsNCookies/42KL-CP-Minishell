@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 00:43:45 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 17:46:55 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/22 16:15:00 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,10 @@ void	ms_executor(t_main *main, t_exe *exec, t_pipe *p)
 	if (argv[0] != NULL && ms_exec_is_builtin(argv[0]))
 		executor(main, argv);
 	else if (argv[0] != NULL)
+	{
 		exe_non_bi(main, exec, p, argv);
+		exec->has_child = 1;
+	}
 	free(argv);
 	ms_exec_redir_reset(exec);
 }

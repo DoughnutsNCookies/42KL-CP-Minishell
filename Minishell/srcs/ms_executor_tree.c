@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor_tree.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 18:37:21 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 21:47:49 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/22 16:14:41 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	ms_executor_wait_pipe(void)
 void	ms_executor_pipe_list(t_main *main, t_exe *exec, t_pipe *pipe)
 {
 	exec->pipe_count = 0;
+	exec->has_child = 0;
 	ms_executor_init_pipefd(exec, pipe);
 	while (pipe)
 	{
@@ -59,7 +60,8 @@ void	ms_executor_pipe_list(t_main *main, t_exe *exec, t_pipe *pipe)
 		exec->pipe_count++;
 	}
 	ms_executor_free_pipefd(exec);
-	ms_executor_wait_pipe();
+	if (exec->has_child == 1)
+		ms_executor_wait_pipe();
 }
 
 /**
