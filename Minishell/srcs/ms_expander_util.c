@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expander_util.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 16:19:28 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/18 14:11:39 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/22 15:36:04 by maliew           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,3 @@ int	is_space_only(char *str)
 		i++;
 	return (str[i] == '\0');
 }
-
