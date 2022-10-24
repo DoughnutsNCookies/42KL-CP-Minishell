@@ -28,11 +28,10 @@ int	cd(t_main *main, char **args)
 	if (args[1] == 0)
 	{
 		path = get_envp_value(main->envp, "HOME");
-		if (chdir(path) < 0)
-		{
-			free(path);
-			ft_dprintf(STDERR_FILENO, "cd: HOME not set\n");
-		}
+		if (path == NULL)
+			ft_dprintf(STDERR_FILENO, "HOME not set\n");
+		else if (chdir(path) < 0)
+			perror(path);
 		free(path);
 	}
 	else if (chdir(args[1]) < 0)
