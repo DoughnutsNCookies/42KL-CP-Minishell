@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 12:47:30 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/10 22:40:34 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:57:11 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * 
  * @param signo The signal (Should be SIGINT)
  */
-void	sigint_handler(int signo)
+void	ms_sigint_handler(int signo)
 {
 	if (signo != SIGINT)
 		return ;
@@ -33,7 +33,7 @@ void	sigint_handler(int signo)
  * not print ^C or ^D. This is done by turning the ECHO flag off. When CTRL-\
  * (SIGQUIT) signal is received, it is ignored
  */
-void	init_signal(void)
+void	ms_init_signal(void)
 {
 	struct termios	termios_current;
 
@@ -48,6 +48,6 @@ void	init_signal(void)
 		perror("Tcsetattr failed\n");
 		exit(errno);
 	}
-	signal(SIGINT, sigint_handler);
+	signal(SIGINT, ms_sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 }

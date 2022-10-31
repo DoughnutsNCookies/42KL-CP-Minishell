@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:34:27 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/18 11:47:01 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:09:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * @param c Character to be appended to the back of a string
  * @return char* The result string after appending
  */
-char	*append_char(char *input, char c)
+char	*ms_append_char(char *input, char c)
 {
 	char	*output;
 	int		size;
@@ -55,7 +55,7 @@ char	*append_char(char *input, char c)
  * @param output Content that suppposingly will house the current node
  * @return t_list* Next node of the argument to be expanded (Excluding the files)
  */
-t_list	*connect_cur_with_cur(t_list *current, t_list *files, char *output)
+t_list	*ms_cnct_lst_to_cur(t_list *current, t_list *files, char *output)
 {
 	t_list	*end;
 
@@ -80,7 +80,7 @@ t_list	*connect_cur_with_cur(t_list *current, t_list *files, char *output)
  * @param dollar Whether a dollar conversion had taken place
  * @return t_list* Next node of the argument linked list to be expanded
  */
-t_list	*check_output_dollar(t_list *current, char *output, int dollar)
+t_list	*ms_check_output_dollar(t_list *current, char *output, int dollar)
 {
 	if (output == NULL)
 	{
@@ -103,7 +103,7 @@ t_list	*check_output_dollar(t_list *current, char *output, int dollar)
  * @param main Main struct containing the environement array
  * @param args Arguments linked list to be expanded
  */
-void	expander(t_main *main, t_list **args)
+void	ms_expander(t_main *main, t_list **args)
 {
 	t_list		*arg_lst;
 	t_expand	exp;
@@ -114,7 +114,7 @@ void	expander(t_main *main, t_list **args)
 	while (arg_lst != NULL)
 	{
 		exp.arg = *(char **)arg_lst->content;
-		arg_lst = expand_first_phase(main, &exp, arg_lst);
+		arg_lst = ms_expand_first(main, &exp, arg_lst);
 		free(exp.arg);
 	}
 	ms_expander_delete_null(args);
@@ -122,7 +122,7 @@ void	expander(t_main *main, t_list **args)
 	while (arg_lst != NULL)
 	{
 		exp.arg = *(char **)arg_lst->content;
-		arg_lst = expand_second_phase(&exp, arg_lst);
+		arg_lst = ms_expand_second(&exp, arg_lst);
 		free(exp.arg);
 	}
 	ft_lstadd_back(args, ft_lstnew(ft_calloc(1, sizeof(char *))));

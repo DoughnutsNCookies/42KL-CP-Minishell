@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 11:58:16 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 14:41:51 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:02:40 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param args The arguments (Can be NULL)
  * @return int 0 on success
  */
-int	env(t_main *main, char **args)
+int	ms_env(t_main *main, char **args)
 {
 	int		i;
 	char	**split;
@@ -27,10 +27,10 @@ int	env(t_main *main, char **args)
 	i = -1;
 	while (main->envp[++i] != 0)
 	{
-		split = envp_split(main->envp[i]);
+		split = ms_envp_split(main->envp[i]);
 		if (split[1] != 0)
 			ft_printf("%s\n", main->envp[i]);
-		free_doublearray(split);
+		ms_free_doublearray(split);
 	}
 	return (0);
 	(void)args;

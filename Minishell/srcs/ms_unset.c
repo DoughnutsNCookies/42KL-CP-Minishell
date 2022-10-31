@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:31:05 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 14:31:23 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:04:57 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ static void	find_and_delete(t_main *main, char *key)
 	j = 0;
 	while (main->envp[++i] != 0)
 	{
-		split = envp_split(main->envp[i]);
+		split = ms_envp_split(main->envp[i]);
 		if (ft_strcmp(split[0], key) != 0)
 			new_envp[j++] = ft_strdup(main->envp[i]);
-		free_doublearray(split);
+		ms_free_doublearray(split);
 	}
-	free_doublearray(main->envp);
+	ms_free_doublearray(main->envp);
 	main->envp = new_envp;
 }
 
@@ -54,14 +54,14 @@ static void	find_and_delete(t_main *main, char *key)
  * @param args Arguments that will be unset
  * @return int 0 on success, else 1
  */
-int	unset(t_main *main, char **args)
+int	ms_unset(t_main *main, char **args)
 {
 	int		i;
 
 	i = 0;
 	while (args[++i] != 0)
 	{
-		if (check_valid_identifier(args[i], args[i], "unset") == 0)
+		if (ms_check_valid_identifier(args[i], args[i], "unset") == 0)
 			find_and_delete(main, args[i]);
 		else
 			return (1);

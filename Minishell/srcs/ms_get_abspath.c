@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 06:55:29 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 21:52:48 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:57:38 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ int	ms_get_abspath(char **envp, char **cmd)
 	char	*path;
 
 	temp = *cmd;
-	path = get_envp_value(envp, "PATH");
+	path = ms_get_envp_value(envp, "PATH");
 	if (path == NULL)
 		return (1);
 	split = ft_split(path, ':');
 	free(path);
 	converted = comb_cmd(split, temp);
-	free_doublearray(split);
+	ms_free_doublearray(split);
 	if (converted != temp)
 	{
 		free(*cmd);

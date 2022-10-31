@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:33 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 18:21:21 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:02:44 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@
 static void	init_main(t_main *main, char **envp)
 {
 	main->func_name = ft_split("echo cd pwd export unset env exit", ' ');
-	main->func[MS_ECHO] = echo;
-	main->func[MS_CD] = cd;
-	main->func[MS_PWD] = pwd;
-	main->func[MS_EXPORT] = export;
-	main->func[MS_UNSET] = unset;
-	main->func[MS_ENV] = env;
+	main->func[MS_ECHO] = ms_echo;
+	main->func[MS_CD] = ms_cd;
+	main->func[MS_PWD] = ms_pwd;
+	main->func[MS_EXPORT] = ms_export;
+	main->func[MS_UNSET] = ms_unset;
+	main->func[MS_ENV] = ms_env;
 	main->func[MS_EXIT] = ms_exit;
-	main->envp = dup_doublearray(envp);
+	main->envp = ms_dup_doublearray(envp);
 }
 
 /**
@@ -83,7 +83,7 @@ void	ms_read_next_line(t_main *main)
 	t_cmd	*cmd_list;
 	char	*input;
 
-	init_signal();
+	ms_init_signal();
 	input = readline("$> ");
 	if (input == NULL)
 		main->func[MS_EXIT](NULL, NULL);

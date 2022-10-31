@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_expander_util.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 16:19:28 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/22 15:36:04 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:00:18 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ms_expander_delete_null(t_list **list)
  * @param str The string to check
  * @return int 1 if the string only has spaces, else 0
  */
-int	is_space_only(char *str)
+int	ms_is_space_only(char *str)
 {
 	int	i;
 

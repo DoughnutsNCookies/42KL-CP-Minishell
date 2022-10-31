@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ms_executor.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 16:33:40 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/18 00:31:48 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:05:46 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
  * their respective names
  * @param command The command that will be executed
  */
-void	executor(t_main *main, char **command)
+void	ms_executor_bi(t_main *main, char **command)
 {
 	int	i;
 
@@ -67,7 +67,7 @@ static void	ms_child_close_fd(t_exe *exec, t_pipe *p)
  * @param p Pipe list struct that could be containing the next node to close fd
  * @param argv Argument linked list that will be executed
  */
-void	exe_non_bi(t_main *main, t_exe *exec, t_pipe *p, char **argv)
+void	ms_exe_non_bi(t_main *main, t_exe *exec, t_pipe *p, char **argv)
 {
 	int		pid;
 	char	*value;
@@ -82,7 +82,7 @@ void	exe_non_bi(t_main *main, t_exe *exec, t_pipe *p, char **argv)
 		if (argv[0] != NULL && argv[0][0] != '\0')
 			ms_get_abspath(main->envp, argv);
 		execve(argv[0], argv, main->envp);
-		value = get_envp_value(main->envp, "PATH");
+		value = ms_get_envp_value(main->envp, "PATH");
 		if (value == NULL)
 			ft_dprintf(STDERR_FILENO, "%s: No such file or directory\n",
 				argv[0]);

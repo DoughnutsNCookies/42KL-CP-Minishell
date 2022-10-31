@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:25:03 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 11:52:13 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:55:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	get_flag(char **args)
  * @param args Arguments that will be printed out
  * @return int 0 on success
  */
-int	echo(t_main *main, char **args)
+int	ms_echo(t_main *main, char **args)
 {
 	int	i;
 	int	flag_count;

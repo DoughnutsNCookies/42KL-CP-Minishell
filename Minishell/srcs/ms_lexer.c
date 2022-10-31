@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 16:53:46 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 13:55:00 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:57:38 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_token	*ms_lexer_get_spec_token(t_lexer *lexer)
 		i++;
 	token = ms_token_init(i + 1, ft_strdup(token_list[i]));
 	lexer->c += ft_strlen(token_list[i]);
-	free_doublearray(token_list);
+	ms_free_doublearray(token_list);
 	return (token);
 }
 

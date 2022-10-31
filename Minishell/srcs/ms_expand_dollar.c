@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 12:15:36 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/18 11:42:44 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:08:06 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	split_null(t_list **cur_in, t_expand *exp, char *str, char *d_value)
 	current = *cur_in;
 	i = 0;
 	while (d_value[i] != '\0')
-		exp->output = append_char(exp->output, d_value[i++]);
+		exp->output = ms_append_char(exp->output, d_value[i++]);
 	temp = ft_strdup(exp->output);
 	temp2 = temp;
 	temp = ft_strtrim(exp->output, " ");
@@ -132,20 +132,20 @@ static t_list	*split_value(t_list **cur_in, t_expand *exp, char *d_value)
  * @param d_value Value of $ expanded
  * @return int 1 if a conversion of $ had taken place, else 0
  */
-int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
+int	ms_expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
 {
 	t_list	*end;
 	t_list	*current;
 
 	current = *cur_in;
 	if (d_value == NULL && exp->arg[exp->i] == '$'
-		&& (exp->arg[exp->i + 1] == '\0' && val_in_quote(exp) == 0))
-		exp->output = append_char(exp->output, '$');
+		&& (exp->arg[exp->i + 1] == '\0' && ms_val_in_quote(exp) == 0))
+		exp->output = ms_append_char(exp->output, '$');
 	else if (d_value != NULL)
 	{
 		if (exp->i != 0 && exp->arg[exp->i - 1] == '=')
-			return (strjoin_n_return(exp, d_value));
-		if (d_value[0] != '\0' && is_space_only(d_value) == 0)
+			return (ms_strjoin_n_return(exp, d_value));
+		if (d_value[0] != '\0' && ms_is_space_only(d_value) == 0)
 		{
 			end = split_value(&current, exp, d_value);
 			current->next = end;
@@ -172,9 +172,9 @@ int	expand_dlr(t_list **cur_in, t_expand *exp, char *d_value)
  * output string
  * @param depth Depth of the recursion
  */
-void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
+void	ms_recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
 {
-	char	*dollar_expanded;
+	char	*dlr_expanded;
 	int		i;
 
 	if (depth == 0)
@@ -182,17 +182,17 @@ void	recurs_expand_dollar(t_main *main, t_expand *exp, int depth)
 	if (exp->arg[exp->i + 1] != '$')
 		return ;
 	if (depth == 0)
-		exp->output = append_char(exp->output, '\'');
+		exp->output = ms_append_char(exp->output, '\'');
 	exp->i++;
 	i = -1;
-	dollar_expanded = dlr_val(main, exp->arg + exp->i);
-	if (dollar_expanded != NULL)
-		while (dollar_expanded[++i] != '\0' && dollar_expanded[0] != '\0')
-			exp->output = append_char(exp->output, dollar_expanded[i]);
+	dlr_expanded = ms_dlr_val(main, exp->arg + exp->i);
+	if (dlr_expanded != NULL)
+		while (dlr_expanded[++i] != '\0' && dlr_expanded[0] != '\0')
+			exp->output = ms_append_char(exp->output, dlr_expanded[i]);
 	while (ft_isalnum(exp->arg[exp->i + 1]) || exp->arg[exp->i + 1] == '?')
 		exp->i++;
-	free(dollar_expanded);
-	recurs_expand_dollar(main, exp, depth + 1);
+	free(dlr_expanded);
+	ms_recurs_expand_dollar(main, exp, depth + 1);
 	if (depth == 0)
-		exp->output = append_char(exp->output, '\'');
+		exp->output = ms_append_char(exp->output, '\'');
 }

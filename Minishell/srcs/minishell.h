@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maliew <maliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/24 11:01:49 by maliew           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:09:49 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,53 +221,53 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-int			export_unset_error(char *arg, char *type);
+int			ms_export_unset_error(char *arg, char *type);
 void		ms_parser_syntax_error(t_parser *p);
-void		perror_and_exit(char *errormsg);
+void		ms_perror_and_exit(char *errormsg);
 
-void		sigint_handler(int signo);
-void		init_signal(void);
+void		ms_sigint_handler(int signo);
+void		ms_init_signal(void);
 
-char		*get_envp_value(char **envp, char *key);
-char		**sort_doublearray(char **envp);
-char		**dup_doublearray(char **src);
-void		free_doublearray(char **split);
+char		*ms_get_envp_value(char **envp, char *key);
+char		**ms_sort_doublearray(char **envp);
+char		**ms_dup_doublearray(char **src);
+void		ms_free_doublearray(char **split);
 
-void		exe_non_bi(t_main *main, t_exe *exec, t_pipe *p, char **argv);
-void		executor(t_main *main, char **command);
+void		ms_exe_non_bi(t_main *main, t_exe *exec, t_pipe *p, char **argv);
+void		ms_executor_bi(t_main *main, char **command);
 
-t_list		*connect_cur_with_cur(t_list *current, t_list *files, char *output);
-t_list		*expand_first_phase(t_main *main, t_expand *exp, t_list *current);
-t_list		*check_output_dollar(t_list *current, char *output, int dollar);
-t_list		*expand_second_phase(t_expand *exp, t_list *current);
-t_list		*get_files_from_dir(char *arg);
-DIR			*get_dir(char *path);
-int			expand_dlr(t_list **cur_in, t_expand *exp, char *dollar_expanded);
-int			strjoin_n_return(t_expand *exp, char *d_value);
-int			is_valid(char *tocheck, char *arg);
-int			val_in_quote(t_expand *exp);
-int			is_space_only(char *str);
-int			check_star(char *arg);
-char		*append_char(char *input, char c);
-char		*dlr_val(t_main *main, char *arg);
-void		recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
-void		expander(t_main *main, t_list **args);
+t_list		*ms_cnct_lst_to_cur(t_list *current, t_list *files, char *output);
+t_list		*ms_expand_first(t_main *main, t_expand *exp, t_list *current);
+t_list		*ms_check_output_dollar(t_list *current, char *output, int dollar);
+t_list		*ms_expand_second(t_expand *exp, t_list *current);
+t_list		*ms_get_files_from_dir(char *arg);
+DIR			*ms_get_dir(char *path);
+int			ms_expand_dlr(t_list **cur_in, t_expand *exp, char *dlr_expanded);
+int			ms_strjoin_n_return(t_expand *exp, char *d_value);
+int			ms_is_valid(char *tocheck, char *arg);
+int			ms_val_in_quote(t_expand *exp);
+int			ms_is_space_only(char *str);
+int			ms_check_star(char *arg);
+char		*ms_append_char(char *input, char c);
+char		*ms_dlr_val(t_main *main, char *arg);
+void		ms_recurs_expand_dollar(t_main *main, t_expand *exp, int depth);
+void		ms_expander(t_main *main, t_list **args);
 void		ms_expander_delete_null(t_list **list);
 
-int			echo(t_main *main, char **args);
+int			ms_echo(t_main *main, char **args);
 
-int			cd(t_main *main, char **args);
+int			ms_cd(t_main *main, char **args);
 
-int			pwd(t_main *main, char **args);
+int			ms_pwd(t_main *main, char **args);
 
-int			check_valid_identifier(char *arg, char *str, char *type);
-int			export(t_main *main, char **args);
-char		**envp_split(char *str);
-void		print_export(char **envp);
+int			ms_check_valid_identifier(char *arg, char *str, char *type);
+int			ms_export(t_main *main, char **args);
+char		**ms_envp_split(char *str);
+void		ms_print_export(char **envp);
 
-int			unset(t_main *main, char **args);
+int			ms_unset(t_main *main, char **args);
 
-int			env(t_main *main, char **args);
+int			ms_env(t_main *main, char **args);
 
 int			ms_exit(t_main *main, char **args);
 
@@ -297,7 +297,7 @@ int			ms_parser_is_pipe_token(t_token *token);
 void		ms_pipe_list_free(t_pipe **pipe_list);
 
 void		ms_free_args(void *content);
-void		ft_lstsort(t_list **lst);
+void		ms_lstsort(t_list **lst);
 int			ms_cmd_list_parse_pipe_list(t_cmd *buffer, t_parser *p);
 void		ms_pipe_new_arg(t_pipe *buffer, t_parser *p);
 

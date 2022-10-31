@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 18:49:48 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 21:44:58 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:01:55 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@
  * @param type Type of builtin function that is called from (unset or export)
  * @return int 0 on success, else 1 if there is an error
  */
-int	check_valid_identifier(char *arg, char *str, char *type)
+int	ms_check_valid_identifier(char *arg, char *str, char *type)
 {
 	int	i;
 
 	i = 0;
 	if (ft_isalpha(str[i]) == 0)
-		return (export_unset_error(arg, type));
+		return (ms_export_unset_error(arg, type));
 	while (str[++i] != '\0')
 		if (ft_isalnum(str[i]) == 0)
-			return (export_unset_error(arg, type));
+			return (ms_export_unset_error(arg, type));
 	return (0);
 }
 
@@ -42,7 +42,7 @@ int	check_valid_identifier(char *arg, char *str, char *type)
  * 
  * @param envp Enviroment variable array
  */
-void	print_export(char **envp)
+void	ms_print_export(char **envp)
 {
 	char	**split;
 	int		i;
@@ -50,12 +50,12 @@ void	print_export(char **envp)
 	i = -1;
 	while (envp[++i] != 0)
 	{
-		split = envp_split(envp[i]);
+		split = ms_envp_split(envp[i]);
 		if (split[1] == 0)
 			ft_printf("declare -x %s\n", split[0]);
 		else
 			ft_printf("declare -x %s=\"%s\"\n", split[0], split[1]);
-		free_doublearray(split);
+		ms_free_doublearray(split);
 	}
 }
 
@@ -66,7 +66,7 @@ void	print_export(char **envp)
  * @return char** str if str don't have =, else output[0] is key, output[1] is
  * value, output[2] is NULL terminator
  */
-char	**envp_split(char *str)
+char	**ms_envp_split(char *str)
 {
 	char	**output;
 	int		i;

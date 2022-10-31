@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/11 21:50:30 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/18 11:43:23 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:00:46 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param arg Argument containing the key
  * @return char* value if a matching key is found, else returns NULL 
  */
-char	*dlr_val(t_main *main, char *arg)
+char	*ms_dlr_val(t_main *main, char *arg)
 {
 	char	*key;
 	char	*value;
@@ -34,7 +34,7 @@ char	*dlr_val(t_main *main, char *arg)
 	key[--i] = '\0';
 	while (--i >= 0)
 		key[i] = arg[i + 1];
-	value = get_envp_value(main->envp, key);
+	value = ms_get_envp_value(main->envp, key);
 	free(key);
 	return (value);
 }
@@ -46,7 +46,7 @@ char	*dlr_val(t_main *main, char *arg)
  * output string
  * @return int 1 if there is, else 0
  */
-int	val_in_quote(t_expand *exp)
+int	ms_val_in_quote(t_expand *exp)
 {
 	int	wc;
 	int	i;
@@ -69,7 +69,7 @@ int	val_in_quote(t_expand *exp)
  * @param d_value Value of $ expanded
  * @return int 0
  */
-int	strjoin_n_return(t_expand *exp, char *d_value)
+int	ms_strjoin_n_return(t_expand *exp, char *d_value)
 {
 	exp->output = ft_strjoin_free(exp->output, d_value);
 	free(d_value);

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/01 16:10:09 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 17:48:00 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:03:05 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ms_free_args(void *content)
  * 
  * @param lst The head of the list
  */
-void	ft_lstsort(t_list **lst)
+void	ms_lstsort(t_list **lst)
 {
 	t_list	*current;
 	t_list	*nextnode;

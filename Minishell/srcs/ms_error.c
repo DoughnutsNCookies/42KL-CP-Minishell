@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 21:05:01 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 12:28:00 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:56:56 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * 
  * @param errormsg Error message to be printed
  */
-void	perror_and_exit(char *errormsg)
+void	ms_perror_and_exit(char *errormsg)
 {
 	perror(errormsg);
 	exit(EXIT_FAILURE);
@@ -31,7 +31,7 @@ void	perror_and_exit(char *errormsg)
  * @param type The type of builtin function it is called from (unset or export)
  * @return int 1 to be set as errno
  */
-int	export_unset_error(char *arg, char *type)
+int	ms_export_unset_error(char *arg, char *type)
 {
 	ft_dprintf(STDERR_FILENO, "%s: `%s': not a valid identifier\n", type, arg);
 	return (1);

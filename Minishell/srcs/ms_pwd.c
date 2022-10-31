@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 12:28:28 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 14:30:32 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:56:21 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * @param args Arguments (Can be NULL)
  * @return int 0 on success
  */
-int	pwd(t_main *main, char **args)
+int	ms_pwd(t_main *main, char **args)
 {
 	char	*path;
 

@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 20:58:57 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/17 21:44:50 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:00:30 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	check_valid_star(char **tocheck_in, char **arg_in, int *i, int *j)
 		return (0);
 	while (tocheck[*i] == arg[*j])
 		(*i)++;
-	if (is_valid(tocheck + *i, arg + *j - 1))
+	if (ms_is_valid(tocheck + *i, arg + *j - 1))
 		return (1);
 	(*j)++;
 	if (arg[*j] == '\0' && tocheck[*i] != '\0')
@@ -83,7 +83,7 @@ static int	check_end_string(char *tocheck, char *arg, int *i, int *j)
  * @param arg Argument that will be checked with
  * @return int 1 if it is valid and is not a hidden file, else 0
  */
-int	is_valid(char *tocheck, char *arg)
+int	ms_is_valid(char *tocheck, char *arg)
 {
 	int	i;
 	int	j;
@@ -120,13 +120,13 @@ int	is_valid(char *tocheck, char *arg)
  * @return int 1 if there is a * character in the argument and the current
  * directory can be opened, else 0
  */
-int	check_star(char *arg)
+int	ms_check_star(char *arg)
 {
 	DIR		*dir;
 
 	if (ft_strchr(arg, '*') == NULL)
 		return (0);
-	dir = get_dir(getcwd(NULL, 0));
+	dir = ms_get_dir(getcwd(NULL, 0));
 	if (dir == NULL)
 		return (0);
 	closedir(dir);

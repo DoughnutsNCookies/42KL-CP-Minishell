@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 15:55:56 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/11 12:55:49 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:03:05 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  * @param path Path of the dir
  * @return DIR* object
  */
-DIR	*get_dir(char *path)
+DIR	*ms_get_dir(char *path)
 {
 	DIR	*dir;
 
@@ -51,7 +51,7 @@ static t_list	*get_files_lst(struct dirent *entity, DIR *dir,
 	while (entity != NULL)
 	{
 		file_name = ft_strdup(entity->d_name);
-		if (is_valid(file_name, arg))
+		if (ms_is_valid(file_name, arg))
 		{
 			current->next = ft_lstnew(ft_calloc(1, sizeof(char *)));
 			current = current->next;
@@ -62,7 +62,7 @@ static t_list	*get_files_lst(struct dirent *entity, DIR *dir,
 		entity = readdir(dir);
 	}
 	closedir(dir);
-	ft_lstsort(&head);
+	ms_lstsort(&head);
 	return (head);
 }
 
@@ -75,18 +75,18 @@ static t_list	*get_files_lst(struct dirent *entity, DIR *dir,
  * @return t_list * Head of the filename's linked list, NULL if there are no
  * valid files
  */
-t_list	*get_files_from_dir(char *arg)
+t_list	*ms_get_files_from_dir(char *arg)
 {
 	DIR					*dir;
 	struct dirent		*entity;
 	char				*file_name;
 
-	dir = get_dir(getcwd(NULL, 0));
+	dir = ms_get_dir(getcwd(NULL, 0));
 	entity = readdir(dir);
 	while (entity != NULL)
 	{
 		file_name = ft_strdup(entity->d_name);
-		if (is_valid(file_name, arg) == 0)
+		if (ms_is_valid(file_name, arg) == 0)
 			entity = readdir(dir);
 		else
 			break ;

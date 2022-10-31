@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/10 07:44:48 by maliew            #+#    #+#             */
-/*   Updated: 2022/10/17 21:41:13 by schuah           ###   ########.fr       */
+/*   Updated: 2022/10/31 16:00:59 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ms_executor_io_list(t_main *main, t_exe *exec, t_io *io)
 		if (io->e_type != IO_AIN)
 		{
 			env_val = ft_strdup(*(char **)io->value->content);
-			expander(main, &io->value);
+			ms_expander(main, &io->value);
 			ms_expander_delete_null(&io->value);
 			if (ms_executor_ambiguous(exec, io->value, env_val))
 			{
