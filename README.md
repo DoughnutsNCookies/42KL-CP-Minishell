@@ -1,2 +1,3 @@
 # 42KL-CP-Minishell
-My Minishell project. Teammates with @MTLKS
+My Minishell project - All files are subjected to "The Norm"
+Teammates with @MTLKS
