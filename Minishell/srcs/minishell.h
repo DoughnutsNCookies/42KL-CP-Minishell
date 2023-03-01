@@ -6,7 +6,7 @@
 /*   By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 16:42:44 by schuah            #+#    #+#             */
-/*   Updated: 2022/10/31 16:09:49 by schuah           ###   ########.fr       */
+/*   Updated: 2023/03/01 15:16:41 by schuah           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # include "../libft/srcs/libft.h"
+# include <stdio.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/ioctl.h>
@@ -25,6 +26,7 @@
 # include <dirent.h>
 # include <string.h>
 # include <term.h>
+
 
 /* Used to rename builtin functions into function pointers */
 struct		s_main;
