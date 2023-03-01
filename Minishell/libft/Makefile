@@ -6,7 +6,7 @@
 #    By: schuah <schuah@student.42kl.edu.my>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/03 13:10:50 by schuah            #+#    #+#              #
-#    Updated: 2022/10/07 12:28:33 by schuah           ###   ########.fr        #
+#    Updated: 2023/03/01 14:19:50 by schuah           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME			=	libft.a
 CC				=	gcc
 AR				=	ar rcs
 HEADER			=	-I libft.h
-CFLAGS			=	-Wall -Werror -Wextra $(HEADER)
+CFLAGS			=	-Wall -Werror -Wextra
+RM				=	rm -rf
+MKDIR			=	mkdir -p
 SRCS_DIR		=	srcs/
 OBJS_DIR		=	objs/
 PRINTF_DIR		=	printf/
@@ -89,7 +91,7 @@ SRCS 			= 	$(addprefix $(SRCS_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJS 			= 	$(addprefix $(OBJS_DIR), $(addsuffix .o, $(SRC_FILES)))
 
 all:				
-					mkdir -p $(OBJS_DIR)
+					$(MKDIR) $(OBJS_DIR)
 					make $(NAME)
 
 $(OBJS_DIR)%.o:		$(SRCS_DIR)%.c | $(OBJSF)
@@ -99,10 +101,10 @@ $(NAME):			$(OBJS)
 					$(AR) $(NAME) $(OBJS)
 
 clean:
-					rm -rf $(OBJS_DIR)
+					$(RM) $(OBJS_DIR)
 
 fclean:				clean
-					rm -rf $(NAME)
+					$(RM) $(NAME)
 
 re:					fclean all
 
