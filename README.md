@@ -5,7 +5,7 @@ The existence of shells is linked to the very existence of IT.
 
 At the time, all developers agreed that communicating with a computer using aligned 1/0 switches was seriously irritating.
 
-It was only logical that they came up with the idea of creating a software to com- municate with a computer using interactive lines of commands in a language somewhat close to the human language.
+It was only logical that they came up with the idea of creating software to communicate with a computer using interactive lines of commands in a language somewhat close to the human language.
 
 Thanks to Minishell, I've been able to travel through time and come back to problems people faced when Windows didn’t exist.
 
@@ -19,7 +19,7 @@ Thanks to Minishell, I've been able to travel through time and come back to prob
 - Display a prompt when waiting for a new command.
 - Have a working history.
 - Search and launch the right executable based on the `PATH` variable or using a relative or an absolute path.
-- Not interpret unclosed quotes or special characters which are not required by the subject such as `\` or `;`.
+- Do not interpret unclosed quotes or special characters which are not required by the subject such as `\` or `;`.
 - Handle `’` which should prevent the shell from interpreting the meta-characters in the quoted sequence.
 - Handle `"` which should prevent the shell from interpreting the meta-characters in the quoted sequence except for `$`.
 
@@ -30,7 +30,7 @@ Thanks to Minishell, I've been able to travel through time and come back to prob
 - `>>` should redirect output in append mode.
 
 **Signals**
-- Handle `ctrl-C`, `ctrl-D` and `ctrl-\` which should behave like in bash.
+- Handle `ctrl-C`, `ctrl-D`, and `ctrl-\` which should behave like in bash.
 - In interactive mode
     - `ctrl-C` displays a new prompt on a new line.
     - `ctrl-D` exits the shell.
@@ -55,7 +55,7 @@ Thanks to Minishell, I've been able to travel through time and come back to prob
 ## Bonus
 `&&` (AND operator):
 - The `&&` operator is used to execute the command on its right only `if the command on its left succeeds` or returns an exit status of 0.
-- If the command on the left fail or returns a non-zero exit status, the command on the right will not be executed.
+- If the command on the left fails or returns a non-zero exit status, the command on the right will not be executed.
 
 `||` (OR operator):
 - The `||` operator is used to execute the command on its right only `if the command on its left fails` or returns an exit status of 0.
@@ -76,7 +76,7 @@ hi
 
 
 ```
-Notice that the second line is `empty`. This is due to the `export` command being ran in the subshell, so the main shell did not have the variable `A` exported.
+Notice that the `second line is empty`. This is due to the `export` command being run in the subshell, so the main shell did not have the variable `A` exported.
 
 `*` (Wildcard)
 - `*` is a wildcard that matches any sequence of characters (including none) in a filename or directory path.
